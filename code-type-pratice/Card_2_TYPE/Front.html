@@ -11,9 +11,7 @@
 		</div>
 	</header>
 
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.32.3/ace.js"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.32.3/keybinding-vim.min.js"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.32.3/keybinding-emacs.min.js"></script>
+	<!-- Ace Editor scripts will be loaded lazily when needed -->
 	<script src="_diff_match_patch.js"></script>
 
 	<main>
@@ -117,6 +115,8 @@
 	var aceEditor = null;
 	var aceShell = document.getElementById("field1-editor");
 	var editorShell = field ? field.closest(".editor-shell") : null;
+	var aceLoaded = false;
+	var aceLoading = false;
 
 	/* Map language name to Ace Editor mode */
 	function getAceMode(language) {
@@ -158,7 +158,102 @@
 	var language = "{{Language}}";
 	var aceMode = getAceMode(language);
 
-	if (window.ace && aceShell && field && editorShell) {
+	/* ============================================
+	   LAZY LOADING - Ace Editor
+	   ============================================
+	   Ace Editor and related scripts are loaded only when needed:
+	   - When user focuses on the textarea for the first time
+	   - When user starts typing
+	   - When user interacts with the editor
+
+	   This improves initial page load performance.
+	   ============================================ */
+
+	/**
+	 * Load Ace Editor scripts dynamically
+	 * @returns {Promise} Resolves when all scripts are loaded
+	 */
+	function loadAceEditor() {
+		if (aceLoaded || aceLoading) {
+			return Promise.resolve();
+		}
+
+		aceLoading = true;
+
+		// Show loading indicator (optional)
+		if (aceShell && editorShell) {
+			aceShell.style.display = 'flex';
+			aceShell.style.alignItems = 'center';
+			aceShell.style.justifyContent = 'center';
+			aceShell.style.minHeight = field ? field.offsetHeight + 'px' : '40vh';
+			aceShell.innerHTML = '<div style="color: var(--text-fg-faint); font-family: var(--font-family);">Loading editor...</div>';
+		}
+
+		var aceScripts = [
+			'https://cdnjs.cloudflare.com/ajax/libs/ace/1.32.3/ace.js',
+			'https://cdnjs.cloudflare.com/ajax/libs/ace/1.32.3/keybinding-vim.min.js',
+			'https://cdnjs.cloudflare.com/ajax/libs/ace/1.32.3/keybinding-emacs.min.js'
+		];
+
+		var loadScript = function(src) {
+			return new Promise(function(resolve, reject) {
+				// Check if script is already loaded
+				var existingScript = document.querySelector('script[src="' + src + '"]');
+				if (existingScript && window.ace) {
+					resolve();
+					return;
+				}
+
+				var script = document.createElement('script');
+				script.src = src;
+				script.async = true;
+				script.onload = resolve;
+				script.onerror = function() {
+					console.warn('Failed to load Ace Editor script: ' + src);
+					// Continue loading other scripts even if one fails
+					resolve();
+				};
+				document.head.appendChild(script);
+			});
+		};
+
+		// Load all scripts in sequence
+		return Promise.all(aceScripts.map(loadScript))
+			.then(function() {
+				aceLoading = false;
+				if (window.ace) {
+					aceLoaded = true;
+					initializeAceEditor();
+				} else {
+					console.warn('Ace Editor failed to load, falling back to textarea');
+					if (editorShell) {
+						editorShell.classList.remove("ace-ready");
+					}
+					if (aceShell) {
+						aceShell.style.display = 'none';
+					}
+				}
+			})
+			.catch(function(error) {
+				console.error('Error loading Ace Editor:', error);
+				aceLoading = false;
+				if (editorShell) {
+					editorShell.classList.remove("ace-ready");
+				}
+				if (aceShell) {
+					aceShell.style.display = 'none';
+				}
+			});
+	}
+
+	/**
+	 * Initialize Ace Editor after scripts are loaded
+	 */
+	function initializeAceEditor() {
+		if (!window.ace || !aceShell || !field || !editorShell || aceEditor) {
+			return;
+		}
+
 		try {
 			/* ensure a reasonable height for the visual editor */
 			var initialHeight = field.offsetHeight;
@@ -167,6 +262,10 @@
 			} else {
 				aceShell.style.minHeight = "40vh";
 			}
+
+			// Clear loading indicator
+			aceShell.innerHTML = '';
+			aceShell.style.display = '';
 
 			aceEditor = ace.edit("field1-editor");
 
@@ -258,43 +357,77 @@
 			field.setAttribute("aria-hidden", "true");
 
 			// Set up keybind selector
-			var keybindSelect = document.getElementById("keybind-select");
-			if (keybindSelect) {
-				// Set the current selection based on saved preference
-				keybindSelect.value = savedKeybind;
+			setupKeybindSelector();
 
-				// Add event listener to change keybinds
-				keybindSelect.addEventListener("change", function() {
-					var selectedKeybind = this.value;
+			// Focus on Ace Editor if textarea was focused
+			if (document.activeElement === field) {
+				setTimeout(function() {
 					if (aceEditor) {
-						aceEditor.setKeyboardHandler(selectedKeybind);
-						// Save preference to sessionStorage
-						sessionStorage.setItem('ace_keybind_preference', selectedKeybind);
+						aceEditor.focus();
 					}
-				});
+				}, 100);
 			}
+
 		} catch (e) {
 			console.warn("Ace editor failed to initialize, falling back to textarea", e);
 			/* Fallback: ensure textarea is visible if Ace fails */
 			if (editorShell) {
 				editorShell.classList.remove("ace-ready");
 			}
-			// Ensure textarea is accessible when Ace fails
 			if (field) {
 				field.removeAttribute("aria-hidden");
 				field.removeAttribute("tabindex");
 			}
 		}
-	} else {
-		/* Fallback: ensure textarea is visible if Ace is not available */
-		if (editorShell) {
-			editorShell.classList.remove("ace-ready");
+	}
+
+	/**
+	 * Set up keybind selector functionality
+	 * Works before and after Ace Editor is loaded
+	 */
+	function setupKeybindSelector() {
+		var keybindSelect = document.getElementById("keybind-select");
+		if (keybindSelect) {
+			// Load keybind preference from sessionStorage or default to vim
+			var savedKeybind = sessionStorage.getItem('ace_keybind_preference') || "ace/keyboard/vim";
+
+			// Set the current selection based on saved preference
+			keybindSelect.value = savedKeybind;
+
+			// Apply to Ace Editor if already loaded
+			if (aceEditor) {
+				aceEditor.setKeyboardHandler(savedKeybind);
+			}
+
+			// Add event listener to change keybinds (only once)
+			keybindSelect.removeEventListener("change", handleKeybindChange);
+			keybindSelect.addEventListener("change", handleKeybindChange);
 		}
-		// Ensure textarea is accessible when Ace is not available
-		if (field) {
-			field.removeAttribute("aria-hidden");
-			field.removeAttribute("tabindex");
+	}
+
+	/**
+	 * Handle keybind selector change
+	 */
+	function handleKeybindChange() {
+		var keybindSelect = document.getElementById("keybind-select");
+		if (keybindSelect) {
+			var selectedKeybind = keybindSelect.value;
+			// Save preference to sessionStorage
+			sessionStorage.setItem('ace_keybind_preference', selectedKeybind);
+			// Apply to Ace Editor if loaded
+			if (aceEditor) {
+				aceEditor.setKeyboardHandler(selectedKeybind);
+			}
 		}
+	}
+
+	// Initialize keybind selector early (works before Ace loads)
+	setupKeybindSelector();
+
+	// Ace Editor will be loaded lazily when user interacts with the editor
+	// Ensure textarea is visible by default
+	if (editorShell) {
+		editorShell.classList.remove("ace-ready");
 	}
 
 	/*get answer button on ankiweb.net*/
@@ -316,7 +449,35 @@
 
 	var save_icon = document.getElementById('save');
 
+	// Lazy load Ace Editor when user focuses on textarea
 	if (field) {
+		var hasLoadedAce = false;
+
+		// Load Ace Editor on first focus
+		field.addEventListener('focus', function() {
+			if (!hasLoadedAce && !aceLoaded && !aceLoading) {
+				hasLoadedAce = true;
+				loadAceEditor().then(function() {
+					if (aceEditor) {
+						setTimeout(function() {
+							aceEditor.focus();
+						}, 100);
+					}
+				});
+			} else if (aceEditor) {
+				aceEditor.focus();
+			}
+		}, { once: true }); // Use 'once' to only trigger on first focus
+
+		// Also try to load on first keypress
+		field.addEventListener('keydown', function() {
+			if (!hasLoadedAce && !aceLoaded && !aceLoading) {
+				hasLoadedAce = true;
+				loadAceEditor();
+			}
+		}, { once: true });
+
+		// Focus field initially
 		if (aceEditor) {
 			aceEditor.focus();
 		} else {
@@ -437,7 +598,9 @@
 				e.key === 'Spacebar' ||
 				e.keyCode == 32) {
 
-				field_has_focus = (document.activeElement === field) || (aceEditor && aceEditor.isFocused && aceEditor.isFocused());
+				field_has_focus = (document.activeElement === field) ||
+					(aceEditor && aceEditor.isFocused && aceEditor.isFocused()) ||
+					(editorShell && editorShell.contains(document.activeElement));
 
 				if (field_has_focus == false) {
 					answer_button_ankiweb.click();

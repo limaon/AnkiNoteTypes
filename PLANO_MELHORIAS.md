@@ -15,7 +15,7 @@ Este documento apresenta um plano abrangente de melhorias para o template de car
 - [ ] **Navegação por teclado**: Melhorar o suporte para navegação sem mouse (Tab, Shift+Tab, Enter)
 - [x] **Contraste de cores**: Revisar e garantir contraste mínimo de 4.5:1 para texto normal e 3:1 para texto grande
 - [ ] **Screen readers**: Adicionar `role` apropriados e `aria-live` regions para feedback de ações
-- [ ] **Foco visível**: Garantir que todos os elementos focáveis tenham indicadores visuais claros
+- [x] **Foco visível**: Garantir que todos os elementos focáveis tenham indicadores visuais claros
 - [ ] **Atalhos de teclado documentados**: Criar seção de ajuda com todos os atalhos disponíveis
 
 #### Exemplo de Implementação
@@ -37,7 +37,7 @@ Este documento apresenta um plano abrangente de melhorias para o template de car
 ### 2. **Performance e Otimização**
 
 #### Carregamento
-- [ ] **Lazy loading de bibliotecas**: Carregar Ace Editor apenas quando necessário
+- [x] **Lazy loading de bibliotecas**: Carregar Ace Editor apenas quando necessário
 - [ ] **CDN fallbacks**: Implementar fallback para bibliotecas CDN em caso de falha
 - [ ] **Bundle size**: Considerar versões minificadas ou módulos específicos do Ace Editor
 - [ ] **Debounce no autosave**: Implementar debounce no salvamento automático (atualmente salva a cada keystroke)
