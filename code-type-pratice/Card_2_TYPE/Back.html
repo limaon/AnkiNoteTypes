@@ -1,0 +1,310 @@
+<!-- <link rel="stylesheet" href="_mobile.css" media="screen and (max-width: 600px)" /> -->
+
+<style>
+	code {
+		opacity: 0;
+		transition: opacity 0.1s;
+	}
+
+	body code[class*=language-],
+	body pre[class*=language-] {
+		-moz-tab-size: 0;
+		-o-tab-size: 0;
+		tab-size: 0;
+	}
+</style>
+
+<!-- <div class="subdeck">{{Subdeck}}</div> -->
+
+<script src="_diff_match_patch.js"></script>
+
+<div class="back">
+	<header>
+		<div>
+			<!--<h1 class="heading">{{Subdeck}}</h1>-->
+			<!--{{Deck}}-->
+		</div>
+	</header>
+
+	<main>
+		<div>
+			<h2 class="heading" id="heading0">Description</h2>
+		</div>
+
+		<div class="description">{{Description}}</div>
+		<br/>
+
+		<div class="description description--hint"><code>{{Hint}}</code></div>
+
+		<div class="grid_container">
+			<div class="grid_item_1">
+				<h2 class="heading" id="heading1">Your Solution</h2>
+
+				<div id="field1" class="field"></div>
+
+				<div id="footer1"><button class="buttons" disabled>Submit</button><span id="save">Saved</span></div>
+			</div>
+			<div class="grid_item_2">
+				<h2 class="heading" id="heading2">Suggested Solution</h2>
+
+				<!--<pre id="field2" class="field line-numbers next_to_typefield"> -->
+
+				<pre id="field2" class="field next_to_typefield">
+				<code class="language-{{Language}} match-braces rainbow-braces" id="answerText">{{Code}}</code>
+			</pre>
+
+        {{#Source}}
+				<div id="footer2">
+					<a href="https://www.youtube.com/results?search_query={{Source}}" title="Youtube videos">Youtube</a>
+					<a href="https://duckduckgo.com/?t=ffab&q={{Source}}&ia=web" title="Search on web">DuckDuckGo</a>
+					<a href="https://duckduckgo.com/?t=ffab&q={{Source}}&iax=images&ia=images" title="Search Images">Images</a>
+					<a href="https://chatgpt.com/?temporary-chat=true&model=gpt-4o&q={{Source}}" title="Search on ChatGPT">GPT-4o</a>
+    				<a href="https://chatgpt.com/?temporary-chat=true&model=o1&q={{Source}}" title="Search on ChatGPT">GPT-o1</a>
+					<a href="https://you.com/search?q={{Source}}&fromSearchBar=true&tbm=youchat&chatMode=default" title="Search on YouAI">YouAI</a>
+
+				</div>
+        {{/Source}}
+
+			</div>
+		</div>
+
+		{{#Further Description}}
+		<details class="further">
+			<summary class="buttons"><span>Further Description</span></summary>
+			<div class="description description--further">
+			{{Further Description}}
+			</div>
+		</details>
+		{{/Further Description}}
+
+		<details class="info">
+			<summary class="buttons"><span>Info</span></summary>
+			<div class="grid_container_2" id="tooltip">
+				<div class="grid_item_a">
+					<p>
+					<h3 class="heading">Submitting your answer</h3>
+					</p>
+					<p>Your answer will be saved automatically on every keystroke. In addition, you can press the
+						"Submit" button or "Ctrl" to save your solution.</p>
+
+					<!-- <p>If you want to modify your answer after saving it, selecte the type box, apply your changes, and re-submit.</p> -->
+
+					<p>To compare your answer with the suggested solution, either press the "Show Answer" button or exit
+						the text field and press "space".</p>
+				</div>
+
+				<div class="grid_item_b">
+					<p>
+					<h3 class="heading">Markup Meaning</h3>
+					</p>
+					<p><span class="correct" id="correct_h">Correct Characters</span> <span id="correct_d">Text marked
+							like this was typed by you into the text field, and does appear in the suggested
+							Solution.</span></p>
+					<p><del class="deleted" id="deleted_h">Missed Characters</del> <span id="deleted_d">Text marked like
+							this was <b>not</b> typed by you into the text field, but does appear in the suggested
+							Solution.</span></p>
+					<p><ins class="inserted" id="inserted_h">False Characters</ins> <span id="inserted_d">Text marked
+							like this was typed by you into the text field, but does <b>not</b> appear in the suggested
+							Solution.</span></p>
+				</div>
+			</div>
+		</details>
+	</main>
+</div>
+
+<script>
+	var sampleAnswer = document.getElementById("answerText");
+	var sampleAnswerInitialContent = sampleAnswer.innerHTML;
+	var sampleAnswerContentModifiedWhitespace;
+	var sampleAnswerContentUnescaped;
+
+	/*Replace some html characters; TODO -> extensive*/
+
+
+	function modifyWhitespace() {
+		sampleAnswerContentModifiedWhitespace = sampleAnswerInitialContent
+			.replace(/(<br>)/gi, "\n")
+			.replace(/\&nbsp;/gi, ' ');
+
+		sampleAnswer.innerHTML = sampleAnswerContentModifiedWhitespace;
+	}
+
+
+
+	modifyWhitespace();
+
+/*
+	function unescapeHTML() {
+		sampleAnswerContentUnescaped = sampleAnswerContentModifiedWhitespace
+			.replace(/\&lt;/gi, '<')
+			.replace(/\&gt;/gi, '>')
+			.replace(/&amp;/gi, '&');
+	}
+*/
+	function unescapeHTML() {
+		const parser = new DOMParser();
+		const doc = parser.parseFromString(sampleAnswerContentModifiedWhitespace, 'text/html');
+		sampleAnswerContentUnescaped = doc.documentElement.textContent;
+	}
+
+	unescapeHTML();
+
+	/*
+	'&': '&amp;',
+	'<': '&lt;',
+	'>': '&gt;',
+	'"': '&quot;',
+	"'": '&#39;',
+	'/': '&#x2F;',
+	'`': '&#x60;',
+	'=': '&#x3D;'
+		.replace(/(<\/p>)/gi, "\n")*/
+	/*.replace(/(<(.*)>)/gi, "")*/
+
+	/*copied from https://stackoverflow.com/a/53744331/20453811 */
+	/*Definition*/
+	function loadScript(scriptUrl) {
+		const script = document.createElement('script');
+		script.src = scriptUrl;
+		document.body.appendChild(script);
+
+		return new Promise((res, rej) => {
+			script.onload = res;
+			script.onerror = rej;
+		});
+	}
+
+	/*use*/
+	/*loadScript('_prism.min_with_line_numbers_addon.js')*/
+	loadScript('_prism.min.js')
+		.then(() => {
+			console.log('Script loaded!');
+			Prism.plugins.autoloader.languages_path = '';
+			Prism.highlightElement(sampleAnswer);
+		})
+		.catch(() => {
+			console.error('Script loading failed! Handle this error');
+		});
+
+	/*Todo: differentiate between an empty string and remove.Item*/
+	var field = document.getElementById("field1");
+	var swap = sessionStorage.getItem('input_transfer_front');
+	sessionStorage.removeItem('input_transfer_front');
+	if (swap !== null) {
+		sessionStorage.setItem('input_transfer_back', swap);
+	} else {
+		console.log('not null!');
+	}
+
+	var fieldContent = sessionStorage.getItem("input_transfer_back");
+
+	/*does probably not execute*/
+	if (sessionStorage.getItem('input_transfer_back') == null) {
+
+		var temp = sessionStorage.getItem('input_transfer_back');
+
+		console.log(temp);
+
+		if (temp == null) {
+			temp = '';
+		}
+
+		sessionStorage.setItem("input_transfer_back", temp);
+
+		sessionStorage.removeItem('input_transfer_back');
+	} else {
+		console.log('does not execute');
+	}
+	/*Call diff version of Diff_match_patch.js; todo: rename*/
+
+	var dmp = new diff_match_patch();
+	var diff = dmp.diff_main(sampleAnswerContentUnescaped, fieldContent);
+	dmp.diff_cleanupSemantic(diff);
+	var ds = dmp.diff_prettyHtml(diff);
+
+	field.innerHTML = ds;
+
+	setTimeout(function () {
+		field.classList.add('outline');
+	}, (1));
+</script>
+
+<!-- <link rel="stylesheet" href="_prism.min.css" id="light_theme"> -->
+<!-- <link rel="stylesheet" href="_prism-funky.min.css" id="dark_theme"> -->
+
+<!-- Prism.js themes via CDN -->
+<!-- Light theme options: prism.css, prism-coy.css, prism-solarizedlight.css, prism-tomorrow.css -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" id="light_theme">
+<!-- Dark theme options: prism-dark.css, prism-okaidia.css, prism-twilight.css, prism-funky.css -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-okaidia.css" id="dark_theme">
+
+
+<script>
+	/*Darkmode switcher. Done via JS to support both prefers-color-scheme of ankiweb.net and class changes of desktop app*/
+	var script_name;
+	var darkModePreference = window.matchMedia("(prefers-color-scheme: dark)");
+	console.log(window.matchMedia("(prefers-color-scheme: dark)").matches);
+	var darkModePreferred = false;
+
+	function determineDarkMode() {
+		if (darkModePreference.matches == true || document.body.classList.contains('night_mode') == true) {
+			darkModePreferred = true;
+		}
+		else {
+			darkModePreferred = false;
+		}
+	}
+
+	function switchStylesheet() {
+		if (darkModePreferred == true) {
+			enableStylesheet("dark_theme");
+			disableStylesheet("light_theme");
+		}
+		else {
+			enableStylesheet("light_theme");
+			disableStylesheet("dark_theme");
+		}
+	}
+
+	function enableStylesheet(styleSheetID) {
+		document.getElementById(styleSheetID).disabled = false;
+	}
+
+	function disableStylesheet(styleSheetID) {
+		document.getElementById(styleSheetID).disabled = true;
+	}
+
+	darkModePreference.addEventListener("change", function (e) {
+		applyStylesheet();
+	});
+
+	function onClassChange(node, callback) {
+		let lastClassString = node.classList.toString();
+
+		const mutationObserver = new MutationObserver((mutationList) => {
+			for (const item of mutationList) {
+				if (item.attributeName === "class") {
+					const classString = node.classList.toString();
+					if (classString !== lastClassString) {
+						callback(mutationObserver);
+						lastClassString = classString;
+						break;
+					}
+				}
+			}
+		});
+
+		mutationObserver.observe(node, { attributes: true });
+
+		return mutationObserver;
+	}
+
+	onClassChange(document.body, applyStylesheet);
+
+	function applyStylesheet() {
+		determineDarkMode();
+		switchStylesheet();
+	}
+
+	applyStylesheet();
+</script>

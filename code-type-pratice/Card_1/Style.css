@@ -1,0 +1,2092 @@
+/* ============================================
+   BASE VALUES - Property Definitions
+   ============================================ */
+:root {
+	--letter_spacing: 0px;
+
+	/* Animation & Feedback Colors */
+	@property --correct_insertion_color {
+		syntax: "<color>";
+		inherits: true;
+		initial-value: hsl(106, 100%, 25%);
+	}
+
+	@property --incorrect_omission_color {
+		syntax: "<color>";
+		inherits: true;
+		initial-value: hsl(211, 100%, 40%);
+	}
+
+	@property --incorrect_insertion_color {
+		syntax: "<color>";
+		inherits: true;
+		initial-value: hsl(3, 100%, 30%);
+	}
+
+	@property --text_shadow_color {
+		syntax: "<color>";
+		inherits: true;
+		initial-value: grey;
+	}
+
+	@property --selection_background_color {
+		syntax: "<color>";
+		inherits: true;
+		initial-value: hsl(52, 100%, 44%);
+	}
+
+	@property --safe_color {
+		syntax: "<color>";
+		inherits: true;
+		initial-value: green;
+	}
+
+	@property --hint_color {
+		syntax: "<color>";
+		inherits: true;
+		initial-value: brown;
+	}
+
+	/* Textfield Colors */
+	@property --textfield_background_color {
+		syntax: "<color>";
+		inherits: true;
+		initial-value: inherit;
+	}
+
+	@property --textfield_color {
+		syntax: "<color>";
+		inherits: true;
+		initial-value: black;
+	}
+
+	/* Background Colors */
+	@property --background_color {
+		syntax: "<color>";
+		inherits: true;
+		initial-value: white;
+	}
+
+	/* Prettify Theme Colors - Text */
+	@property --text-fg {
+		syntax: "<color>";
+		inherits: true;
+		initial-value: #333333e6;
+	}
+
+	@property --text-fg-faint {
+		syntax: "<color>";
+		inherits: true;
+		initial-value: #333333cc;
+	}
+
+	@property --text-bg-selected {
+		syntax: "<color>";
+		inherits: true;
+		initial-value: #3333331a;
+	}
+
+	/* Prettify Theme Colors - Card */
+	@property --card-bg {
+		syntax: "<color>";
+		inherits: true;
+		initial-value: #2b2d32;
+	}
+
+	@property --card-shell-bg {
+		syntax: "<color>";
+		inherits: true;
+		initial-value: #2C2C2C;
+	}
+
+	@property --card-border {
+		syntax: "<color>";
+		inherits: true;
+		initial-value: #f7f7f7;
+	}
+
+	@property --card-box-shadow {
+		syntax: "<color>";
+		inherits: true;
+		initial-value: #06070866;
+	}
+
+	@property --divider {
+		syntax: "<color>";
+		inherits: true;
+		initial-value: #3f4249;
+	}
+
+	/* Prettify Theme Colors - Tags */
+	@property --tag-fg {
+		syntax: "<color>";
+		inherits: true;
+		initial-value: #333333cc;
+	}
+
+	@property --tag-bg {
+		syntax: "<color>";
+		inherits: true;
+		initial-value: #3333330f;
+	}
+
+	@property --tag-fg-active {
+		syntax: "<color>";
+		inherits: true;
+		initial-value: #333333;
+	}
+
+	@property --tag-bg-active {
+		syntax: "<color>";
+		inherits: true;
+		initial-value: #3333331a;
+	}
+
+	/* Prettify Theme Colors - Cloze */
+	@property --cloze-fg {
+		syntax: "<color>";
+		inherits: true;
+		initial-value: #348ccb;
+	}
+
+	@property --cloze-bg {
+		syntax: "<color>";
+		inherits: true;
+		initial-value: transparent;
+	}
+
+	/* Prettify Theme Colors - Links */
+	@property --link-fg {
+		syntax: "<color>";
+		inherits: true;
+		initial-value: #2a70a2;
+	}
+
+	@property --link-fg-active {
+		syntax: "<color>";
+		inherits: true;
+		initial-value: #2f7eb6;
+	}
+
+	@property --link-bg-active {
+		syntax: "<color>";
+		inherits: true;
+		initial-value: transparent;
+	}
+
+	/* Prettify Theme Colors - Text Emphasis */
+	@property --italic-fg {
+		syntax: "<color>";
+		inherits: true;
+		initial-value: var(--text-fg);
+	}
+
+	@property --bold-italic-fg {
+		syntax: "<color>";
+		inherits: true;
+		initial-value: var(--text-fg);
+	}
+
+	@property --underline-fg {
+		syntax: "<color>";
+		inherits: true;
+		initial-value: var(--text-fg);
+	}
+
+	@property --random-color {
+		syntax: "<color>";
+		inherits: true;
+		initial-value: var(--cloze-fg);
+	}
+
+	/* Border & Spacing */
+	@property --border_width_thin {
+		syntax: "<length>";
+		inherits: true;
+		initial-value: 0.01rem;
+	}
+
+	@property --border_width_mid {
+		syntax: "<length>";
+		inherits: true;
+		initial-value: 0.1rem;
+	}
+
+	@property --border_width_thick {
+		syntax: "<length>";
+		inherits: true;
+		initial-value: 0.5rem;
+	}
+
+	@property --border_radius_large {
+		syntax: "<length>";
+		inherits: true;
+		initial-value: 0.5rem;
+	}
+
+	@property --summary_height {
+		syntax: "<length>";
+		inherits: true;
+		initial-value: 2.5rem;
+	}
+
+	/* ============================================
+	   DEFAULT VALUES - Light Mode
+	   ============================================ */
+
+	/* Animation & Feedback Colors */
+	--background_color: white;
+	--correct_insertion_color: hsl(120, 75%, 75%);
+	--incorrect_omission_color: hsl(211, 75%, 65%);
+	--incorrect_insertion_color: hsl(3, 75%, 64%);
+	--text_shadow_color: grey;
+	--selection_background_color: hsl(52, 100%, 46%);
+	--safe_color: green;
+	--hint_color: brown;
+
+	/* Textfield Colors */
+	--textfield_color: black;
+	--textfield_background_color: inherit;
+
+	/* Border & Spacing */
+	--border_width_thin: 0.01rem;
+	--border_width_mid: 0.1rem;
+	--border_width_thick: 0.5rem;
+	--border_radius_large: 0.5rem;
+	--summary_height: 2.5rem;
+
+	/* Typography */
+	--card-max-width: 50em;
+	--card-text-align: left;
+	--font-size-regular: 18px;
+	--font-size-small: 16px;
+	--font-size-smallest: 12px;
+	--font-family: "Inter",
+	"Space Grotesk",
+	-apple-system,
+	system-ui,
+	BlinkMacSystemFont,
+	"Segoe UI",
+	Roboto,
+	Helvetica,
+	Arial,
+	sans-serif;
+	--monospace-font-family: "JetBrains",
+	-apple-system,
+	system-ui,
+	"Ubuntu Mono",
+	SFMono-Regular,
+	Menlo,
+	Monaco,
+	Consolas,
+	"Liberation Mono",
+	"Courier New",
+	monospace;
+	--font_size_code: 1em;
+	--line_height_code: 1.1;
+
+	/* Images */
+	--img-width: 40%;
+	--img-brightness: 0.75;
+	--img-filter: none;
+
+	/* Utility Colors */
+	--color-3: #4a90e2;
+
+	/* Prettify Theme Colors - Text */
+	--text-fg: #333333e6;
+	--text-fg-faint: #333333cc;
+	--text-bg-selected: #3333331a;
+
+	/* Prettify Theme Colors - Card */
+	--card-bg: #2b2d32;
+	--card-shell-bg: #2C2C2C;
+	--card-border: #f7f7f7;
+	--card-box-shadow: #06070866;
+	--divider: #3f4249;
+
+	/* Prettify Theme Colors - Tags */
+	--tag-fg: #333333cc;
+	--tag-bg: #3333330f;
+	--tag-fg-active: #333333;
+	--tag-bg-active: #3333331a;
+
+	/* Prettify Theme Colors - Cloze */
+	--cloze-fg: #348ccb;
+	--cloze-bg: transparent;
+
+	/* Prettify Theme Colors - Links */
+	--link-fg: #2a70a2;
+	--link-fg-active: #2f7eb6;
+	--link-bg-active: transparent;
+
+	/* Prettify Theme Colors - Text Emphasis */
+	--italic-fg: var(--text-fg);
+	--bold-italic-fg: var(--text-fg);
+	--underline-fg: var(--text-fg);
+	--random-color: var(--cloze-fg);
+}
+
+/* ============================================
+   DARK MODE - Night Mode Overrides
+   ============================================ */
+:root.night-mode,
+:root[data-bs-theme="dark"],
+:root[data-darkreader-scheme="dark"],
+.night_mode,
+.card.night_mode {
+	/* Background Colors */
+	--background_color: #2C2C2C;
+
+	/* Animation & Feedback Colors */
+	--correct_insertion_color: hsl(106, 100%, 25%);
+	--incorrect_omission_color: hsl(211, 100%, 40%);
+	--incorrect_insertion_color: hsl(3, 100%, 30%);
+	--text_shadow_color: black;
+	--selection_background_color: hsl(52, 100%, 38%);
+	--safe_color: lightgreen;
+	--hint_color: #f1b563;
+
+	/* Textfield Colors */
+	--textfield_color: white;
+	--textfield_background_color: #0d1117;
+
+	/* Prettify Theme Colors - Text */
+	--text-fg: #d7dce2;
+	--text-fg-faint: #a6acb4;
+	--text-bg-selected: #ffffff1f;
+
+	/* Prettify Theme Colors - Card */
+	--card-bg: #2b2d32;
+	--card-shell-bg: #2C2C2C;
+	--card-border: #3a3c42;
+	--card-box-shadow: #06070866;
+	--divider: #3f4249;
+
+	/* Prettify Theme Colors - Tags */
+	--tag-fg: #ffffffb3;
+	--tag-bg: #ffffff14;
+	--tag-fg-active: #ffffff;
+	--tag-bg-active: #ffffff1f;
+
+	/* Prettify Theme Colors - Cloze */
+	--cloze-fg: #99ebff;
+	--cloze-bg: transparent;
+
+	/* Prettify Theme Colors - Links */
+	--link-fg: #5da3d5;
+	--link-fg-active: #71afda;
+	--link-bg-active: transparent;
+
+	/* Prettify Theme Colors - Text Emphasis */
+	--italic-fg: var(--text-fg);
+	--bold-italic-fg: var(--text-fg);
+	--underline-fg: var(--text-fg);
+	--random-color: var(--cloze-fg);
+}
+
+/* ============================================
+   LIGHT MODE - Explicit Light Overrides
+   ============================================ */
+:root:not(.night-mode),
+:root[data-bs-theme="light"],
+:root[data-darkreader-scheme="light"] {
+	/* Background Colors */
+	--background_color: #ffffff;
+
+	/* Prettify Theme Colors - Card */
+	--card-shell-bg: #ffffff;
+	--card-bg: #ffffff;
+	--card-border: #e5e7eb;
+	--card-box-shadow: #0000001a;
+	--divider: #e5e7eb;
+
+	/* Prettify Theme Colors - Text */
+	--text-fg: #333333e6;
+	--text-fg-faint: #333333cc;
+	--text-bg-selected: #3333331a;
+
+	/* Prettify Theme Colors - Text Emphasis */
+	--italic-fg: var(--text-fg);
+	--bold-italic-fg: var(--text-fg);
+	--underline-fg: var(--text-fg);
+
+	/* Prettify Theme Colors - Cloze */
+	--cloze-fg: #348ccb;
+	--cloze-bg: transparent;
+
+	/* Prettify Theme Colors - Links */
+	--link-fg: #2a70a2;
+	--link-fg-active: #2f7eb6;
+	--link-bg-active: transparent;
+
+	/* Prettify Theme Colors - Tags */
+	--tag-fg: #333333cc;
+	--tag-bg: #3333330f;
+	--tag-fg-active: #333333;
+	--tag-bg-active: #3333331a;
+}
+
+
+/* ============================================
+   SYSTEM PREFERENCE - Dark Mode
+   ============================================ */
+@media (prefers-color-scheme: dark) {
+	:root {
+		/* Background Colors */
+		--background_color: #2C2C2C;
+
+		/* Animation & Feedback Colors */
+		--correct_insertion_color: hsl(106, 100%, 25%);
+		--incorrect_omission_color: hsl(211, 100%, 40%);
+		--incorrect_insertion_color: hsl(3, 100%, 30%);
+		--text_shadow_color: black;
+		--selection_background_color: hsl(52, 100%, 38%);
+		--safe_color: lightgreen;
+		--hint_color: orange;
+
+		/* Textfield Colors */
+		--textfield_color: white;
+		--textfield_background_color: #0d1117;
+
+		/* Prettify Theme Colors - Text */
+		--text-fg: #d7dce2;
+		--text-fg-faint: #a6acb4;
+		--text-bg-selected: #ffffff1f;
+
+		/* Prettify Theme Colors - Card */
+		--card-bg: #2e2f31;
+		--card-border: #ffffff0a;
+		--card-box-shadow: #0000001f;
+		--divider: #ffffff1f;
+
+		/* Prettify Theme Colors - Tags */
+		--tag-fg: #ffffffb3;
+		--tag-bg: #ffffff14;
+		--tag-fg-active: #ffffff;
+		--tag-bg-active: #ffffff1f;
+
+		/* Prettify Theme Colors - Cloze */
+		--cloze-fg: #99ebff;
+		--cloze-bg: transparent;
+
+		/* Prettify Theme Colors - Links */
+		--link-fg: #5da3d5;
+		--link-fg-active: #71afda;
+		--link-bg-active: transparent;
+
+		/* Prettify Theme Colors - Text Emphasis */
+		--italic-fg: var(--text-fg);
+		--bold-italic-fg: var(--text-fg);
+		--underline-fg: var(--text-fg);
+		--random-color: var(--cloze-fg);
+	}
+
+	html {
+		background: #242426;
+	}
+
+	.count {
+		&.new {
+			color: rgb(51, 125, 255);
+			;
+		}
+
+		&.learn {
+			color: rgb(255, 97, 97);
+		}
+
+		&.review {
+			color: rgb(97, 255, 97);
+		}
+	}
+
+	nav.navbar .navbar-nav .nav-item a.nav-link {
+		color: lightgray;
+
+		&:hover {
+			color: grey;
+		}
+	}
+
+	body {
+		color: var(--text-fg);
+
+		& .navbar-brand {
+			color: var(--text-fg);
+
+			&:hover {
+				color: grey;
+			}
+		}
+	}
+
+	body {
+		color: var(--text-fg);
+		background-color: var(--card-shell-bg);
+	}
+
+	div#ansarea.svelte-192a69y {
+		background-color: transparent;
+	}
+
+
+
+	nav,
+	#ansarea-pad,
+	#ansarea {
+		/*background-color: hsla(215, 100%, 33%, 0.5);*/
+		background-color: transparent;
+	}
+
+	button {
+		color: white;
+		border-color: white;
+	}
+}
+
+/*increase contrast*/
+
+@media (prefers-contrast: less) {
+	.card {
+		font-weight: 200;
+	}
+}
+
+@media (prefers-contrast: more) {
+	.card {
+		font-weight: 700;
+	}
+
+	.correct,
+	.deleted,
+	.inserted {
+		text-shadow: 1px 1px var(--text_shadow_color);
+	}
+
+	.back #field1 {
+		text-shadow: 1px 1px var(--text_shadow_color);
+		text-align: left;
+	}
+}
+
+/*reduce motion*/
+
+@media (prefers-reduced-motion: no-preference) {
+	:root {
+		--animation_duration: 0.7s;
+		--font_size_start: 0%;
+		--font_size_end: var(--font_size_code);
+	}
+}
+
+/*Needs to be improved!!*/
+@media (prefers-reduced-motion: reduce) {
+
+	.correct,
+	.deleted,
+	.inserted {
+		animation: none !important;
+	}
+
+	html {
+		scroll-behavior: auto !important;
+	}
+}
+
+/*screen width*/
+
+
+@font-face {
+	font-family: InterVariable;
+	font-style: normal;
+	font-weight: 100 900;
+	font-display: swap;
+	src: url("_InterVariable.woff2") format("woff2");
+}
+
+@font-face {
+	font-family: "Inter";
+	src: local("Inter-Regular"), url("_Inter-Regular.ttf") format("truetype");
+	font-style: normal;
+	font-weight: 400;
+	font-display: swap;
+}
+
+@font-face {
+	font-family: "Inter";
+	src: local("Inter-Bold"), url("_Inter-Bold.ttf") format("truetype");
+	font-style: normal;
+	font-weight: 700;
+	font-display: swap;
+}
+
+@font-face {
+	font-family: "Inter";
+	src: local("Inter-Italic"), url("_Inter-Italic.ttf") format("truetype");
+	font-style: italic;
+	font-weight: 400;
+	font-display: swap;
+}
+
+@font-face {
+	font-family: "Inter";
+	src: local("Inter-BoldItalic"), url("_Inter-BoldItalic.ttf") format("truetype");
+	font-style: italic;
+	font-weight: 700;
+	font-display: swap;
+}
+
+@font-face {
+	font-family: "Ubuntu";
+	src: url("_Ubuntu.ttf") format("truetype");
+	font-style: normal;
+	font-weight: 400;
+	font-display: swap;
+}
+
+@font-face {
+	font-family: "JetBrains";
+	src: url("_JetBrains.ttf") format("truetype");
+	font-style: normal;
+	font-weight: 400;
+	font-display: swap;
+}
+
+/*
+@font-face {
+	font-family: InclusiveSans-Regular;
+	src: url("_InclusiveSans-Regular.ttf");
+  }
+*/
+
+/*html element selectors*/
+
+a,
+a:visited {
+	text-decoration: none;
+	color: var(--link-fg);
+	border-radius: 0.25em;
+	padding: 0 0.1em;
+	transition: all 0.1s;
+}
+
+a:hover,
+a:active {
+	text-decoration: underline;
+	color: var(--link-fg-active);
+	background-color: var(--link-bg-active);
+}
+
+b,
+strong {
+	color: var(--random-color);
+}
+
+i,
+em {
+	color: var(--italic-fg);
+}
+
+b>i,
+i>b {
+	color: var(--bold-italic-fg);
+}
+
+u {
+	color: var(--underline-fg);
+}
+
+body .btn {
+	border-width: 0.1rem;
+}
+
+.buttons {
+	font-size: 1.3rem;
+	background-color: inherit;
+
+	/*Should be working anyways, but there seems to be a bug in anki desktop*/
+	cursor: pointer;
+
+	border: var(--border_width_mid) solid grey !important;
+	border-radius: var(--border_radius_large) !important;
+}
+
+/*textarea, .back #field1*/
+code,
+.field {
+	font-family: var(--monospace-font-family);
+}
+
+del,
+ins {
+	text-decoration: none;
+}
+
+details {
+	font-size: 90%;
+	text-align: left;
+	margin: 1rem auto;
+
+	& p {
+		margin-top: 0px;
+		padding-top: 0.2rem;
+		padding-bottom: 0.2rem;
+	}
+}
+
+div {
+	padding: 0.1rem 0.2rem;
+}
+
+/*TODO ???*/
+header {
+	position: relative;
+}
+
+h1 {
+	font-size: 110%;
+	margin: 0px;
+}
+
+/*makes no sense, that this is smaller than h3*/
+h2 {
+	font-size: 100%;
+	margin: 0.5rem;
+	padding-top: 0rem;
+}
+
+h3 {
+	font-size: 100%;
+	margin: 0.1rem;
+}
+
+img {
+	border-radius: 0.25em;
+	display: block;
+	margin: 1em auto;
+	max-width: 90%;
+	width: 100%;
+	transition: transform 0.3s ease, box-shadow 0.3s ease, filter 0.3s ease, background-color 0.3s ease;
+	background-color: transparent;
+	cursor: zoom-in;
+	filter: var(--img-filter);
+}
+
+.night_mode img {
+	filter: invert(0);
+	opacity: 0.95;
+}
+
+img.zoomed {
+	position: fixed;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	max-width: 90%;
+	max-height: 90vh;
+	object-fit: contain;
+	z-index: 100;
+	box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+	background-color: #fff;
+	cursor: zoom-out;
+}
+
+body:has(img.zoomed)::before {
+	content: '';
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100vw;
+	height: 100vh;
+	background-color: rgba(0, 0, 0, 0.75);
+	z-index: 99;
+}
+
+img+br {
+	display: none;
+}
+
+p {
+	padding: 0.1rem;
+	border: 0.1rem;
+	margin: auto;
+}
+
+summary {
+	text-align: center;
+	margin-left: 0.2rem;
+	width: 4rem;
+	height: var(--summary_height);
+}
+
+summary span {
+	line-height: var(--summary_height);
+}
+
+textarea::placeholder {
+	/*Increases contrast of placeholder text*/
+	color: inherit;
+}
+
+/*class selectors*/
+.back #field1 {
+	& ::selection {
+		background-color: var(--selection_background_color);
+	}
+}
+
+.card {
+	container: card / inline-size;
+	font-family: var(--font-family);
+	font-size: var(--font-size-small);
+	color: var(--text-fg);
+	background-color: var(--card-shell-bg);
+	text-align: var(--card-text-align);
+	max-width: var(--card-max-width);
+	margin: 0.5em auto;
+	padding: 0.3em;
+	border-radius: 0.5em;
+	scrollbar-width: none;
+	cursor: default;
+}
+
+.card::selection {
+	background-color: var(--text-bg-selected);
+}
+
+.card.night_mode {
+	background-color: var(--card-shell-bg);
+	color: var(--text-fg);
+}
+
+.card.night_mode #button1 {
+	color: var(--text-fg);
+	border-color: var(--text-fg);
+	background-color: transparent;
+}
+
+.card.night_mode #button1:hover,
+.card.night_mode #button1:active {
+	border-color: var(--text-fg);
+	background-color: transparent !important;
+	box-shadow: none;
+}
+
+@media (min-width: 601px) {
+	.card {
+		font-size: var(--font-size-regular);
+		padding: 0.5em;
+	}
+
+	img {
+		max-width: var(--img-width);
+		width: auto;
+	}
+
+	summary {
+		width: 4.5rem;
+	}
+
+	.prettify-field {
+		margin: 0.3em 0.8em 0.8em 0.8em;
+	}
+
+	.prettify-deck {
+		margin: 2em;
+	}
+
+	.prettify-tags {
+		margin: 0 2em;
+	}
+
+	.field {
+		border-width: 0.2rem;
+		border-radius: 0.2rem;
+		padding: 1.25rem;
+	}
+}
+
+.prettify-flashcard {
+	background-color: var(--card-bg);
+	border-radius: 0.5em;
+	border: 2px solid var(--card-border);
+	box-shadow: var(--card-box-shadow) 0px 7px 14px 0px, var(--card-box-shadow) 0px 3px 6px 0px;
+	color: var(--text-fg);
+	font-family: var(--font-family);
+	font-size: var(--font-size-regular);
+	line-height: 1.5;
+	margin: 0.5em auto;
+	max-width: var(--card-max-width);
+	text-align: var(--card-text-align);
+	word-wrap: break-word;
+	letter-spacing: 0.1px;
+}
+
+.prettify-flashcard::selection {
+	background-color: var(--text-bg-selected);
+}
+
+.prettify-field {
+	margin: 0.2em 0.5em 0.5em 0.5em;
+	text-align: justify;
+	text-justify: inter-word;
+}
+
+.prettify-field--back {
+	color: var(--text-fg-faint);
+	font-size: var(--font-size-small);
+	margin: 0.6em 2.6em 1.6em 2.6em;
+}
+
+.prettify-field--front {
+	padding: 0 0.8em;
+}
+
+.prettify-field--front,
+.prettify-field--back {
+	min-height: auto;
+	max-height: auto;
+	overflow: auto;
+}
+
+.prettify-deck {
+	margin: 0 0.5em;
+	display: flex;
+	color: var(--text-fg-faint);
+	font-size: var(--font-size-regular);
+	white-space: nowrap;
+}
+
+.prettify-subdeck {
+	text-decoration: underline;
+	text-overflow: ellipsis;
+	overflow: hidden;
+}
+
+.prettify-tags {
+	margin: 0 1em;
+	display: flex;
+	flex-flow: row wrap;
+	font-size: var(--font-size-smallest);
+	justify-content: flex-end;
+}
+
+.prettify-tag {
+	all: initial;
+	background-color: var(--tag-bg);
+	border-radius: 0 0 0.6em 0.6em;
+	color: var(--tag-fg);
+	display: inline;
+	font-size: var(--font-size-smallest);
+	font-family: var(--monospace-font-family);
+	margin: 0 0.5em 0.5em 0;
+	padding: 0.3em 0.8em;
+	transition: all 0.25s;
+	word-break: break-word;
+}
+
+.prettify-tag:before {
+	content: "\f02c ";
+}
+
+.prettify-tag:hover {
+	background-color: var(--tag-bg-active);
+	color: var(--tag-fg-active);
+	cursor: pointer;
+}
+
+.prettify-divider {
+	background-color: transparent;
+	border: none;
+	border-bottom: 2px dashed var(--divider);
+	margin: 1em;
+	padding: 0;
+}
+
+.prettify-divider--answer {
+	border-bottom: 2px dashed var(--divider);
+}
+
+.prettify-field--front.overflown,
+.prettify-field--back.overflown {
+	border-bottom: 2px solid var(--card-border);
+	border-radius: 0.5em;
+}
+
+.prettify-flashcard::-webkit-scrollbar,
+.prettify-field::-webkit-scrollbar {
+	display: none;
+}
+
+.cloze {
+	background-color: var(--cloze-bg);
+	color: var(--random-color);
+}
+
+table {
+	border-collapse: separate;
+	border-spacing: 0;
+	margin: 0 auto;
+	max-width: 100%;
+}
+
+table thead {
+	background-color: var(--card-border);
+}
+
+table tr:nth-of-type(even) {
+	background-color: var(--card-border);
+}
+
+table tr:first-child th:first-child {
+	border-top-left-radius: 0.5em;
+}
+
+table tr:first-child th:last-child {
+	border-top-right-radius: 0.5em;
+}
+
+table tr:last-child td:first-child {
+	border-bottom-left-radius: 0.5em;
+}
+
+table tr:last-child td:last-child {
+	border-bottom-right-radius: 0.5em;
+}
+
+table th {
+	border-bottom: solid 1px var(--text-bg-selected);
+	border-left: solid 1px var(--text-bg-selected);
+	border-top: solid 1px var(--text-bg-selected);
+	padding: 0.5em;
+}
+
+table th:last-child {
+	border-right: solid 1px var(--text-bg-selected);
+}
+
+table td {
+	border-bottom: solid 1px var(--text-bg-selected);
+	border-left: solid 1px var(--text-bg-selected);
+	padding: 0.5em;
+}
+
+table td:last-of-type {
+	border-right: solid 1px var(--text-bg-selected);
+}
+
+footer {
+	font-size: var(--font-size-smallest);
+	text-align: center;
+	border-radius: 1em 1em 0 0;
+	border: 0.1rem solid var(--card-border);
+	border-bottom: none;
+	margin: 0 2em;
+	padding: 8px;
+	background-color: var(--card-border);
+}
+
+footer>a {
+	text-decoration: none;
+}
+
+footer>a:after {
+	content: "·";
+	color: var(--link-fg);
+	display: inline-block;
+	width: 12px;
+}
+
+footer>a:last-child:after {
+	content: "";
+	width: 0;
+}
+
+#typeans {
+	display: block;
+	width: 80%;
+	max-height: 600px;
+	padding: 10px;
+	margin: 0 auto;
+	border: 1px solid var(--color-3);
+	border-radius: 6px;
+	background-color: var(--card-bg);
+	font-family: var(--monospace-font-family);
+	font-size: var(--font-size-small);
+	color: var(--text-fg);
+	box-sizing: border-box;
+	transition: border-color 0.3s, box-shadow 0.3s, background-color 0.3s;
+	text-align: left;
+}
+
+#typeans:focus {
+	border-color: var(--color-3);
+	box-shadow: 0 0 8px rgba(74, 144, 226, 0.6);
+	outline: none;
+	background-color: var(--card-bg);
+}
+
+#typeans.centered {
+	text-align: center;
+	margin: 20px auto;
+}
+
+.typeGood {
+	font-weight: bold;
+}
+
+.typeBad {
+	text-decoration: underline;
+}
+
+.typeMissed {
+	font-style: italic;
+}
+
+.centered {
+	text-align: center;
+	margin: 20px auto;
+}
+
+#typearrow {
+	font-size: 24px;
+	text-align: center;
+	display: block;
+}
+
+@media (max-width: 600px) {
+	#typeans {
+		width: 90%;
+		font-size: var(--font-size-small);
+		padding: 10px;
+		max-height: 90%;
+	}
+
+	/* Dark mode for .field on mobile devices */
+	@media (prefers-color-scheme: dark) {
+		.field {
+			background-color: #0d1117;
+			color: white;
+			caret-color: white;
+		}
+
+		.card.night_mode .field {
+			background-color: #0d1117;
+			color: white;
+			caret-color: white;
+		}
+	}
+}
+
+.deck {
+	font-size: 65%;
+}
+
+.description {
+	text-align: left;
+	display: inline-block;
+}
+
+
+.description--hint {
+	display: flex;
+	justify-content: center;
+	margin: 0.4em auto;
+}
+
+.description--hint .hint {
+	display: inline-block;
+	padding: 0.2em 5.5em;
+	border-radius: 0.4em;
+	background-color: var(--card-border);
+	color: var(--hint_color);
+	font-size: var(--font-size-smallest);
+	white-space: normal;
+	word-break: break-word;
+}
+
+.back .description--hint .hint {
+	display: block !important;
+}
+
+.back .description--hint code {
+	display: inline-block;
+	padding: 0.2em 5.5em;
+	border-radius: 0.4em;
+	background-color: var(--card-border);
+	color: var(--hint_color);
+	font-size: var(--font-size-smallest);
+	white-space: normal;
+	word-break: break-word;
+	text-align: center;
+}
+
+.description--hint a.hint {
+	/* text-transform: uppercase; */
+	text-decoration: none;
+	cursor: pointer;
+}
+
+.description--hint code {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	white-space: normal;
+}
+
+.description--hint a.hint::before {
+	content: "Click: ";
+}
+
+.description--note {
+	display: block;
+	font-size: var(--font-size-smallest);
+	margin: 0.25rem auto;
+	max-width: 90%;
+	text-align: left;
+}
+
+.description--note code {
+	display: block;
+	white-space: normal !important;
+	word-break: break-word;
+	overflow-wrap: anywhere;
+}
+
+details.further {
+	margin: 0.5em 0;
+}
+
+.description--further {
+	font-size: var(--font-size-small);
+	line-height: 1.5;
+	text-align: justify;
+	padding: 0.3em 0.6em;
+}
+
+details.further>summary,
+details.further>summary.buttons,
+details.info>summary,
+details.info>summary.buttons {
+	width: auto;
+	min-width: 8rem;
+	padding: 0 1.2rem;
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+}
+
+details.further>summary.buttons::before,
+details.info>summary.buttons::before {
+	content: "\25B6";
+	margin-right: 0.6em;
+	font-size: 0.8em;
+	transition: transform 0.2s ease;
+}
+
+details.further[open]>summary.buttons::before,
+details.info[open]>summary.buttons::before {
+	transform: rotate(90deg);
+}
+
+pre,
+code {
+	white-space: pre !important;
+}
+
+/*
+@container (max-width: 300px){
+	.field{
+		padding: 0.5rem !important;
+	}
+}
+*/
+
+.field {
+	/*experiment 1: container query*/
+	container-type: size;
+
+	text-align: left;
+	color: var(--textfield_color);
+	background-color: var(--textfield_background_color);
+	caret-color: var(--textfield_color);
+	/*font-size: 1.3rem;*/
+	font-size: var(--font_size_code);
+	border-width: 0.1rem;
+	border-color: grey;
+	border-style: solid;
+	border-radius: 0.15rem;
+
+	min-block-size: 40vh;
+	padding: 1rem !important;
+
+	margin: 0px;
+
+	/*changed*/
+	line-height: var(--line_height_code);
+
+	/*P-RM4 START*/
+	/*unsure, if whitespace needs to be preserved with textarea, or if this is automatically done*/
+
+	white-space: pre !important;
+
+	/*P-RM4 END*/
+
+	&::-webkit-scrollbar {
+		display: block;
+		background-color: transparent !important;
+	}
+
+	&::-webkit-scrollbar-thumb {
+		background-color: hsla(0, 0%, 50%, 0.4) !important;
+		border-radius: 0.1rem !important;
+		width: 1rem !important;
+		height: 1rem !important;
+		/*transition: all 5s;*/
+	}
+
+	&::-webkit-scrollbar-thumb:active {
+		background-color: grey !important;
+	}
+
+	&::-webkit-scrollbar-corner {
+		background-color: var(--background_color);
+	}
+
+	/*Purpose: scrollbar-track is transparent and code can be viewed 'through it'; not possible with opacity: 0 etc.*/
+
+	scrollbar-color: hsla(0, 0%, 50%, 0.4) transparent;
+	overflow: auto;
+}
+
+/* Mobile dark mode specific rules for .field */
+@media (prefers-color-scheme: dark) {
+
+	.mobile .field,
+	.card.mobile .field,
+	.card.night_mode .field {
+		background-color: var(--textfield_background_color);
+		color: var(--textfield_color);
+		caret-color: var(--textfield_color);
+	}
+}
+
+/* Force dark mode for .field when night_mode is active on mobile */
+.card.mobile.night_mode .field,
+.card.night_mode.mobile .field {
+	background-color: #0d1117;
+	color: white;
+	caret-color: white;
+}
+
+/* Ace Editor Integration Classes */
+.editor-shell {
+	position: relative;
+	width: 100%;
+}
+
+.ace-shell {
+	width: 100%;
+	min-block-size: 40vh;
+	font-family: var(--monospace-font-family);
+	font-size: var(--font_size_code);
+	line-height: var(--line_height_code);
+	border: 0.2rem solid grey;
+	border-radius: 0.15rem;
+	/* Background and text colors commented to allow Ace theme to work */
+	/* background-color: var(--textfield_background_color); */
+	/* color: var(--textfield_color); */
+}
+
+/* Ace Editor Theme Integration */
+/* Let Ace theme (tomorrow-night, etc.) control all colors - no CSS interference */
+/* All color styling is handled by the Ace theme itself */
+
+
+/* These rules were commented out to allow Ace.js themes to work properly */
+/* Uncomment and customize if you want to override theme colors */
+/*
+.ace_editor {
+	background-color: var(--textfield_background_color) !important;
+	color: var(--textfield_color) !important;
+}
+
+.ace_gutter {
+	background-color: var(--textfield_background_color) !important;
+	color: var(--text-fg-faint) !important;
+	border-right: 1px solid var(--card-border);
+}
+
+.ace_gutter-active-line {
+	background-color: var(--text-bg-selected) !important;
+}
+
+.ace_cursor {
+	color: var(--textfield_color) !important;
+}
+
+.ace_selection {
+	background-color: var(--selection_background_color) !important;
+}
+
+.ace_marker-layer .ace_selected-word {
+	border: 1px solid var(--textfield_color);
+}
+*/
+
+/* Fallback: show textarea if Ace fails to load */
+.editor-shell:not(.ace-ready) .ace-shell {
+	display: none;
+}
+
+.editor-shell:not(.ace-ready) .field {
+	display: block;
+}
+
+.editor-shell.ace-ready .field {
+	display: none;
+}
+
+/*TODO: remove for prefers-reduced-motion?*/
+textarea {
+	transition: border-color 1s;
+}
+
+.helper {
+	text-transform: uppercase;
+	padding: 0.5 rem;
+	margin: 0.5 rem;
+}
+
+.hint {
+	font-size: 95%;
+	color: var(--hint_color);
+	text-align: center;
+	display: inline-block;
+}
+
+.logo {
+	width: 2rem;
+	height: auto;
+}
+
+.logo {
+	height: 1em;
+	width: auto;
+	padding: 0 0 0 0.5em;
+	border: 0;
+	margin: 0;
+	position: absolute;
+	top: 50%;
+	transform: translate(0, -50%);
+}
+
+.single_field {
+	max-width: 600px;
+	min-height: 36vh;
+	margin: 1rem auto;
+}
+
+.field.single_field,
+.single_field.field {
+	margin: 1rem auto;
+}
+
+.subdeck {
+	font-size: 70%;
+	margin: 1rem auto;
+	text-align: center;
+}
+
+::-webkit-scrollbar {
+	display: none;
+}
+
+
+
+#footer1,
+#footer2 {
+	display: inline-flex;
+	align-items: flex-start;
+	gap: 0.75rem;
+	margin-top: 1rem;
+	width: 100%;
+	justify-content: space-between;
+}
+
+.keybind-selector {
+	margin-left: auto;
+	display: flex;
+	align-items: center;
+	gap: 0.5rem;
+}
+
+.keybind-label {
+	font-family: var(--font-family);
+	font-size: var(--font-size-small);
+	color: var(--text-fg);
+	white-space: nowrap;
+}
+
+.keybind-dropdown {
+	font-family: var(--font-family);
+	font-size: 1.2rem;
+	padding: 0.4em 0.8em;
+	border: var(--border_width_mid) solid grey;
+	border-radius: var(--border_radius_large);
+	background-color: var(--card-bg);
+	color: var(--text-fg);
+	cursor: pointer;
+	transition: border-color 0.2s, background-color 0.2s;
+	line-height: 1.2;
+	height: auto;
+	box-sizing: border-box;
+	appearance: none;
+	-moz-appearance: none;
+	-webkit-appearance: none;
+}
+
+.keybind-dropdown:hover {
+	border-color: var(--text-fg);
+	background-color: var(--text-bg-selected);
+}
+
+.keybind-dropdown:focus {
+	outline: none;
+	border-color: var(--link-fg);
+	box-shadow: 0 0 0 2px rgba(74, 144, 226, 0.3);
+}
+
+.night_mode .keybind-dropdown,
+.card.night_mode .keybind-dropdown {
+	background-color: var(--card-bg);
+	color: var(--text-fg);
+	border-color: var(--text-fg);
+}
+
+#button1 {
+	box-sizing: border-box;
+	margin-top: 0;
+
+	&:hover {
+		background-color: inherit;
+		box-shadow: none;
+		/*same as base border, otherwhise the textfield will shrink/expand when hovering and unhovering the button*/
+		border: var(--border_width_mid) solid grey;
+	}
+
+	&:active {
+		box-shadow: 1px;
+		border: var(--border_width_mid) solid grey;
+		background-color: inherit;
+	}
+}
+
+#button1:active {
+	box-shadow: 1px;
+}
+
+#button1[disabled],
+#button1[disabled]:hover {
+	background-color: rgb(33, 33, 33);
+	border-bottom-color: grey;
+}
+
+#save {
+	color: var(--safe_color);
+	opacity: 0;
+	transition: opacity 1s;
+	padding-left: 0;
+	transition-timing-function: cubic-bezier(0.1, 1, 0.2, 1);
+}
+
+#save.show {
+	opacity: 1;
+}
+
+/*P-RM6 START*/
+/*does not work for whatever reason*/
+::-webkit-scrollbar-thumb:hover {
+	cursor: grab !important;
+}
+
+/*P-RM6 END*/
+
+/*
+::-webkit-resizer{
+	background-color: red !important;
+	color: yellow !important;
+}
+*/
+
+/*P-RM8 START*/
+/*
+ins, del, .correct {
+	text-decoration-thickness: 0.15rem;
+	text-decoration-line: underline;
+}
+
+.correct {
+	text-decoration-style: solid;
+}
+
+ins {
+	text-decoration-style: wavy;
+}
+
+del {
+	text-decoration-style: dotted;
+}
+*/
+/*P-RM8 END*/
+
+/*P-RM9 START*/
+/*
+ins, del, .correct {
+	outline: 2px transparent;
+	transition: outline var(--animation_duration);
+	margin: 2px;
+
+	letter-spacing: var(--letter_spacing);
+
+	box-decoration-break: clone;
+	-webkit-box-decoration-break: clone;
+}
+
+textarea, .back #field1{
+	line-height: calc(100% + 4px);
+	letter-spacing: var(--letter_spacing);
+}
+
+ins {
+	outline-style: dashed;
+}
+
+del {
+	outline-style: dotted;
+}
+
+.correct {
+	outline-style: solid;
+}
+
+.correct:hover, ins:hover, del:hover{
+	outline-color: inherit;
+}
+
+.outline .correct, .outline ins, .outline del{
+	outline-color: inherit;
+}
+*/
+/*P-RM9 END*/
+
+/*P-RM10 START*/
+/*
+del, ins {
+	border: 5px dotted transparent;
+	padding: 5px;
+	margin: 5px;
+}
+*/
+/*P-RM10 END*/
+
+/*TODO - Is it really not possible to do this via one animation/transition?*/
+.correct,
+.inserted {
+	animation: markup_diff;
+	animation-duration: var(--animation_duration);
+	animation-fill-mode: forwards;
+	animation-timing-function: ease-in-out;
+}
+
+.deleted {
+	animation: markup_diff, omission_incorrect;
+	animation-duration: var(--animation_duration);
+	animation-fill-mode: forwards;
+	animation-timing-function: ease-in-out;
+}
+
+.correct {
+	--animation-color: var(--correct_insertion_color);
+}
+
+.deleted {
+	--animation-color: var(--incorrect_omission_color);
+}
+
+.inserted {
+	--animation-color: var(--incorrect_insertion_color);
+}
+
+#tooltip {
+
+	& .correct,
+	& .inserted,
+	& .deleted {
+		animation-duration: 0s;
+	}
+
+	padding-top: 1rem;
+}
+
+/*animation*/
+@keyframes markup_diff {
+	from {
+		background-color: transparent;
+	}
+
+	to {
+		background-color: var(--animation-color);
+	}
+}
+
+@keyframes omission_incorrect {
+	from {
+		font-size: var(--font_size_start);
+	}
+
+	to {
+		font-size: var(--font_size_end);
+	}
+}
+
+/*grid*/
+.grid_container {
+	display: grid;
+	gap: 0.4vw;
+	grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+	min-height: auto;
+	margin-bottom: 0;
+	/*con "height": text box switches size when keyboard appears or dissapears on mobile*/
+}
+
+.grid_container_2 {
+	display: grid;
+	gap: 2vw;
+	grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+}
+
+html:has(link[href="https://ankiuser.net/logo.png"]) {
+	& .grid_container {
+		min-height: 50vh;
+	}
+}
+
+.grid_item_1,
+.grid_item_2 {
+	display: flex;
+	flex-direction: column;
+	gap: 0.75rem;
+	max-height: 800px;
+}
+
+@container card (min-width: 38rem) {
+	.grid_container {
+		grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+	}
+
+	#footer2 {
+		font-size: 14px;
+	}
+
+	.grid_container_2 {
+		grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+	}
+}
+
+@container card (max-width: 38rem) {
+	#footer2 {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 0.5rem;
+	}
+
+	details {
+		margin-top: 1rem;
+	}
+}
+
+
+
+/*TODO: extend to browser*/
+:not(.mobile).card.night_mode {
+	background-color: #2C2C2C;
+}
+
+/*mobile*/
+.mobile {
+	& div {
+		padding: 0.02rem;
+	}
+
+	& h2 {
+		margin: 0.5rem;
+		padding-top: 0.5rem;
+	}
+
+	& h2#heading0 {
+		padding-top: 0rem;
+	}
+
+	& img {
+		width: 40vw;
+		height: auto;
+	}
+
+	& summary {
+		width: 4rem;
+	}
+
+	& .field {
+		border: 0.1rem solid grey;
+		border-radius: 0.15rem;
+		padding: 0.5rem !important;
+		line-height: var(--line_height_code);
+		color: var(--textfield_color);
+		background-color: var(--textfield_background_color);
+		caret-color: var(--textfield_color);
+	}
+
+	& table {
+		margin-top: 2vw;
+	}
+
+	& .card {
+		padding: 0rem;
+		font-size: 1.1rem;
+	}
+
+	& .card.night_mode {
+		background-color: var(--card-shell-bg);
+		color: var(--text-fg);
+	}
+
+	& .helper {
+		padding-top: 1rem;
+	}
+
+	/*markup*/
+	& .correct,
+	& .inserted,
+	& .deleted {
+		animation: markup_diff;
+		animation-duration: var(--animation_duration);
+		animation-fill-mode: forwards;
+		animation-timing-function: ease-in-out;
+	}
+
+	& .night_mode {
+		& button {
+			color: white;
+			background-color: transparent;
+			border-color: white;
+		}
+
+		& .field {
+			background-color: var(--textfield_background_color);
+			color: var(--textfield_color);
+			caret-color: var(--textfield_color);
+		}
+	}
+}
+
+.token.tab:not(:empty),
+.token.cr,
+.token.lf,
+.token.space {
+	position: relative;
+}
+
+/* Hide whitespace indicators (dots, arrows, etc.) - COMMENTED OUT */
+/*
+.token.tab:not(:empty)::before,
+.token.cr::before,
+.token.lf::before,
+.token.space::before {
+	color: #808080;
+	opacity: 0.6;
+	position: absolute;
+}
+
+.token.tab:not(:empty)::before {
+	content: '\21E5';
+}
+
+.token.cr::before {
+	content: '\240D';
+}
+
+.token.crlf::before {
+	content: '\240D\240A';
+}
+
+.token.lf::before {
+	content: '\240A';
+}
+
+.token.space::before {
+	content: '\00B7';
+}
+*/
+
+.token.punctuation.brace-hover,
+.token.punctuation.brace-selected {
+	outline: solid 1px;
+}
+
+.rainbow-braces .token.punctuation.brace-level-1,
+.rainbow-braces .token.punctuation.brace-level-5,
+.rainbow-braces .token.punctuation.brace-level-9 {
+	color: #E50;
+	opacity: 1;
+}
+
+.rainbow-braces .token.punctuation.brace-level-2,
+.rainbow-braces .token.punctuation.brace-level-6,
+.rainbow-braces .token.punctuation.brace-level-10 {
+	color: #0B3;
+	opacity: 1;
+}
+
+.rainbow-braces .token.punctuation.brace-level-3,
+.rainbow-braces .token.punctuation.brace-level-7,
+.rainbow-braces .token.punctuation.brace-level-11 {
+	color: #26F;
+	opacity: 1;
+}
+
+.rainbow-braces .token.punctuation.brace-level-4,
+.rainbow-braces .token.punctuation.brace-level-8,
+.rainbow-braces .token.punctuation.brace-level-12 {
+	color: #E0E;
+	opacity: 1;
+}
+
+
+body code[class*=language-],
+body pre[class*=language-] {
+	font-family: var(--monospace-font-family);
+
+	text-align: left;
+	white-space: pre;
+	word-spacing: normal;
+	word-break: normal;
+	word-wrap: normal;
+	/*
+    -moz-tab-size: 4;
+    -o-tab-size: 4;
+    tab-size: 4;
+	*/
+	-moz-tab-size: 0;
+	-o-tab-size: 0;
+	tab-size: 0;
+	-webkit-hyphens: none;
+	-moz-hyphens: none;
+	-ms-hyphens: none;
+	hyphens: none;
+
+	/*line-height: 1.5;*/
+	line-height: var(--line_height_code);
+
+	/*font-size: 1em;*/
+	font-size: var(--font_size_code);
+}
+
+/*theme specific overrides*/
+body pre[class*=language-] {
+	padding: .4em .8em;
+	/*original value: margin: .5em 0;*/
+	margin: 0;
+}
+
+body code[class*=language-] {
+	box-shadow: none;
+}
+
+/*
+code:has(span){
+	opacity: 1;
+}*/
+
+code {
+	opacity: 1 !important;
+}
+
+/* Prism.js Theme Customization */
+/*
+ * These rules were commented out to allow Prism.js CDN themes to work properly.
+ * Uncomment and customize if you want to override theme colors.
+ */
+
+/*
+pre[class*="language-"],
+code[class*="language-"] {
+	background-color: var(--textfield_background_color) !important;
+	color: var(--textfield_color) !important;
+}
+
+.token.comment,
+.token.prolog,
+.token.doctype,
+.token.cdata {
+	color: var(--text-fg-faint) !important;
+	font-style: italic;
+}
+
+.token.punctuation {
+	color: var(--text-fg) !important;
+}
+
+.token.property,
+.token.tag,
+.token.boolean,
+.token.number,
+.token.constant,
+.token.symbol,
+.token.deleted {
+	color: #f92672 !important;
+}
+
+.token.selector,
+.token.attr-name,
+.token.string,
+.token.char,
+.token.builtin,
+.token.inserted {
+	color: #a6e22e !important;
+}
+
+.token.operator,
+.token.entity,
+.token.url,
+.language-css .token.string,
+.style .token.string {
+	color: var(--text-fg) !important;
+}
+
+.token.atrule,
+.token.attr-value,
+.token.keyword {
+	color: #66d9ef !important;
+}
+
+.token.function,
+.token.class-name {
+	color: #e6db74 !important;
+}
+
+.token.regex,
+.token.important,
+.token.variable {
+	color: #fd971f !important;
+}
+
+.line-numbers .line-numbers-rows {
+	border-right: 1px solid var(--card-border) !important;
+}
+
+.line-numbers-rows > span:before {
+	color: var(--text-fg-faint) !important;
+}
+*/

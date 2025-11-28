@@ -1,0 +1,399 @@
+<!-- <link rel="stylesheet" href="_mobile.css" media="screen and (max-width: 600px)" /> -->
+
+<div class="front">
+	<header>
+		<div>
+			<h1 class="heading">
+				<!--{{Subdeck}}-->
+				<!--{{Deck}}-->
+
+			</h1>
+		</div>
+	</header>
+
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.32.3/ace.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.32.3/keybinding-vim.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.32.3/keybinding-emacs.min.js"></script>
+	<script src="_diff_match_patch.js"></script>
+
+	<main>
+
+		<div><h2 class="heading" id="heading0">Description</h2></div>
+
+		<div class="description">
+			{{Description}}
+		</div>
+		<br/>
+
+		<div class="description description--hint">
+      <code>{{hint:Hint}}</code>
+    </div>
+
+		<section aria-labelledby="heading1">
+			<div class="grid_container single-column">
+				<div class="grid_item_1">
+					<h2 class="heading" id="heading1"><label for="field1">Your Solution</label></h2>
+					<div class="editor-shell">
+						<textarea id="field1" class="field" required placeholder="Type here ..." autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"></textarea>
+						<div id="field1-editor" class="ace-shell" aria-hidden="true"></div>
+					</div>
+					<div id="footer1">
+						<button id="button1" class="buttons" type="button">Submit</button>
+						<span id="save">Saved</span>
+						<div class="keybind-selector">
+							<span class="keybind-label">Keybind: </span>
+							<select id="keybind-select" class="keybind-dropdown">
+								<option value="ace/keyboard/vim">Vim</option>
+								<option value="ace/keyboard/emacs">Emacs</option>
+								<option value="ace/keyboard/vscode">Normal</option>
+							</select>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+
+		<details>
+			<summary class="buttons"><span>Info</span></summary>
+			<div class="grid_container_2" id="tooltip">
+				<div class="grid_item_a">
+					<p><h3 class="heading">Submitting your answer</h3></p>
+					<p>Your answer will be saved automatically on every keystroke. In addition, you can press the "Submit" button or "Ctrl" to save your solution.</p>
+
+					<!-- <p>If you want to modify your answer after saving it, selecte the type box, apply your changes, and re-submit.</p> -->
+
+					<p>To compare your answer with the suggested solution, either press the "Show Answer" button or exit the text field and press "space".</p>
+				</div>
+
+				<div class="grid_item_b">
+					<p><h3 class="heading">Markup Meaning</h3></p>
+					<p><span class="correct" id="correct_h">Correct Characters</span> <span id="correct_d">Text marked like this was typed by you into the text field, and does appear in the suggested Solution.</span></p>
+					<p><del class="deleted" id="deleted_h">Missed Characters</del> <span id="deleted_d">Text marked like this was <b>not</b> typed by you into the text field, but does appear in the suggested Solution.</span></p>
+					<p><ins class="inserted" id="inserted_h">False Characters</ins> <span id="inserted_d">Text marked like this was typed by you into the text field, but does <b>not</b> appear in the suggested Solution.</span></p>
+				</div>
+			</div>
+		</details>
+
+	</main>
+</div>
+
+<script>
+
+	sessionStorage.removeItem("input_transfer_back");
+
+	var field = document.getElementById("field1");
+	var field_has_focus;
+
+	var fieldContent;
+
+	/* ACE editor setup */
+	var aceEditor = null;
+	var aceShell = document.getElementById("field1-editor");
+	var editorShell = field ? field.closest(".editor-shell") : null;
+
+	/* Map language name to Ace Editor mode */
+	function getAceMode(language) {
+		if (!language) return "ace/mode/javascript"; // default fallback
+
+		var lang = language.toLowerCase().trim();
+		var modeMap = {
+			"javascript": "ace/mode/javascript",
+			"js": "ace/mode/javascript",
+			"typescript": "ace/mode/typescript",
+			"ts": "ace/mode/typescript",
+			"python": "ace/mode/python",
+			"py": "ace/mode/python",
+			"c": "ace/mode/c_cpp",
+			"cpp": "ace/mode/c_cpp",
+			"c++": "ace/mode/c_cpp",
+			"c_cpp": "ace/mode/c_cpp",
+			"java": "ace/mode/java",
+			"go": "ace/mode/golang",
+			"golang": "ace/mode/golang",
+			"rust": "ace/mode/rust",
+			"ruby": "ace/mode/ruby",
+			"php": "ace/mode/php",
+			"html": "ace/mode/html",
+			"css": "ace/mode/css",
+			"sql": "ace/mode/sql",
+			"json": "ace/mode/json",
+			"xml": "ace/mode/xml",
+			"markdown": "ace/mode/markdown",
+			"bash": "ace/mode/sh",
+			"shell": "ace/mode/sh",
+			"sh": "ace/mode/sh"
+		};
+
+		return modeMap[lang] || "ace/mode/" + lang; // Try direct mapping or use language as-is
+	}
+
+	/* Get language from template variable {{Language}} */
+	var language = "{{Language}}";
+	var aceMode = getAceMode(language);
+
+	if (window.ace && aceShell && field && editorShell) {
+		try {
+			/* ensure a reasonable height for the visual editor */
+			var initialHeight = field.offsetHeight;
+			if (initialHeight && initialHeight > 0) {
+				aceShell.style.minHeight = initialHeight + "px";
+			} else {
+				aceShell.style.minHeight = "40vh";
+			}
+
+			aceEditor = ace.edit("field1-editor");
+
+			// Load and set theme explicitly
+			ace.require("ace/theme/github_dark");
+			aceEditor.setTheme("ace/theme/github_dark");
+
+			aceEditor.session.setMode(aceMode);
+
+			// Load keybind preference from sessionStorage or default to vim
+			var savedKeybind = sessionStorage.getItem('ace_keybind_preference') || "ace/keyboard/vim";
+			aceEditor.setKeyboardHandler(savedKeybind);
+
+			aceEditor.setOptions({
+				// Layout & Display
+				showPrintMargin: false,        // Hide the vertical print margin line
+				wrap: false,                     // Enable line wrapping
+				showLineNumbers: true,          // Show line numbers in gutter
+				highlightActiveLine: false,      // Highlight the line with cursor
+				highlightGutterLine: true,     // Highlight line number in gutter
+				showFoldWidgets: true,          // Show code folding controls
+				fadeFoldWidgets: true,          // Fade fold widgets when not hovered
+
+				// Font & Typography
+				fontSize: 16,                   // Font size in pixels
+				fontFamily: "JetBrains",        // Font family (uses CSS var in practice)
+
+				// Indentation
+				tabSize: 4,                     // Number of spaces per tab
+				useSoftTabs: true,              // Use spaces instead of tabs
+				wrapBehavioursEnabled: true,    // Enable wrapping behaviors
+
+				// Scrolling
+				scrollPastEnd: 0.5,             // Allow scrolling past end (0.5 = 50% of viewport)
+				hScrollBarAlwaysVisible: false, // Always show horizontal scrollbar
+				vScrollBarAlwaysVisible: false,  // Always show vertical scrollbar
+
+				// Selection & Cursor
+				enableMultiselect: true,         // Enable multiple cursors (Ctrl+Click)
+				enableBasicAutocompletion: false, // Enable basic autocompletion (Ctrl+Space)
+				enableLiveAutocompletion: false,  // Enable live autocompletion (as you type)
+				enableSnippets: false,          // Enable code snippets
+
+				// Behavior
+				readOnly: false,                // Make editor read-only
+				behavioursEnabled: true,         // Enable auto-pairing of brackets, quotes, etc.
+				enableAutoIndent: true,         // Enable automatic indentation
+				copyWithEmptySelection: false,   // Copy line when nothing is selected
+
+				// Performance
+				useWorker: true,                // Use web worker for syntax checking (if available)
+				useWrapMode: false,             // Use wrap mode (alternative to wrap: true)
+
+				// Additional options (uncomment to test)
+				maxLines: 2000,          // Maximum number of lines (Infinity = unlimited)
+				// minLines: 1,                  // Minimum number of lines
+				placeholder: "START TO TYPE HERE...",  // Placeholder text (if editor is empty)
+				displayIndentGuides: true,    // Show indentation guides
+				// animatedScroll: false,         // Animate scrolling
+				// dragEnabled: true,            // Enable drag and drop
+				// mergeUndoDeltas: true,        // Merge undo deltas
+				// newLineMode: "auto",          // New line mode: "auto", "unix", "windows"
+			});
+			aceEditor.setValue(field.value || "", -1);
+
+			aceEditor.session.on("change", function () {
+				var v = aceEditor.getValue();
+				field.value = v;
+				/* trigger existing input saver logic */
+				try {
+					field.dispatchEvent(new Event("input", { bubbles: true }));
+				} catch (e) { }
+			});
+
+			/* Mark Ace as ready for CSS fallback */
+			editorShell.classList.add("ace-ready");
+
+			// Set up keybind selector
+			var keybindSelect = document.getElementById("keybind-select");
+			if (keybindSelect) {
+				// Set the current selection based on saved preference
+				keybindSelect.value = savedKeybind;
+
+				// Add event listener to change keybinds
+				keybindSelect.addEventListener("change", function() {
+					var selectedKeybind = this.value;
+					if (aceEditor) {
+						aceEditor.setKeyboardHandler(selectedKeybind);
+						// Save preference to sessionStorage
+						sessionStorage.setItem('ace_keybind_preference', selectedKeybind);
+					}
+				});
+			}
+		} catch (e) {
+			console.warn("Ace editor failed to initialize, falling back to textarea", e);
+			/* Fallback: ensure textarea is visible if Ace fails */
+			if (editorShell) {
+				editorShell.classList.remove("ace-ready");
+			}
+		}
+	} else {
+		/* Fallback: ensure textarea is visible if Ace is not available */
+		if (editorShell) {
+			editorShell.classList.remove("ace-ready");
+		}
+	}
+
+	/*get answer button on ankiweb.net*/
+	/*var answer_button_ankiweb = document.getElementsByClassName();*/
+
+	/*determine current platform*/
+	var current_platform = "";
+	var anki_logo_link = document.getElementsByTagName('link')[0];
+	var anki_logo_link_href = anki_logo_link.href;
+
+	if (anki_logo_link_href == "https://ankiuser.net/logo.png") {
+		current_platform = "ankiweb.net";
+	}
+
+	if (current_platform == "ankiweb.net") {
+		var parentDOM = document.getElementById("ansarea");
+		var answer_button_ankiweb = parentDOM.getElementsByClassName("btn-lg")[0];
+	}
+
+	var save_icon = document.getElementById('save');
+
+	if (field) {
+		if (aceEditor) {
+			aceEditor.focus();
+		} else {
+			field.focus();
+		}
+	}
+
+	/*Re insert input_transfer_front, if page is reloaded. input_transfer_front is removed on the back side, so it will not be inserted from the previous card (exeption: back template is not run)*/
+	/*changed undefinde to null*/
+
+	var storedFront = sessionStorage.getItem("input_transfer_front");
+	if (storedFront !== null) {
+		field.value = storedFront;
+		console.log("restored input_transfer_front");
+	}
+
+	/ *Save input when Ctrl Key is pressed */
+	// document.body.onkeyup = function (e) {
+	// 	if (e.key == "Control" ||
+	// 		e.code == "ControlLeft" ||
+	// 		e.code == "ControlRight" ||
+	// 		e.keyCode == 17) {
+
+	// 		e.preventDefault();
+
+	// 		/*Save current textarea-input in fieldContent*/
+	// 		fieldContent = field.value;
+
+	// 		sessionStorage.setItem("input_transfer_front", fieldContent);
+
+	// 		save_icon.classList.add('show');
+
+	// 		save_icon.addEventListener('transitionend', () => {
+	// 			save_icon.classList.remove('show');
+	// 		});
+
+	// 		/*move focus off the textarea element, so that spacebar can be pressed to show the answer; potentially remove in favor of passing focus to next element*/
+	// 		document.activeElement.blur();
+	// 	}
+	// }
+
+
+	/*Save input when save button is pressed*/
+	document.getElementById('button1').addEventListener('click', () => {
+
+		/*Save current textarea-input in fieldContent*/
+		fieldContent = field.value;
+
+		sessionStorage.setItem("input_transfer_front", fieldContent);
+
+		/*Add class to icon span, which triggers a css animation*/
+		save_icon.classList.add('show');
+
+		save_icon.addEventListener('transitionend', () => {
+			/*Remove class, after css animation ends*/
+			save_icon.classList.remove('show');
+		});
+
+		/*move focus off the textarea element, so that spacebar can be pressed to show the answer; potentially remove in favor of passing focus to next element*/
+		document.activeElement.blur();
+	});
+
+
+	/*Change default action of tab key from moving focus to indenting; potential accessibility concerns*/
+	field.addEventListener('keydown', function (e) {
+		if (e.key == 'Tab') {
+			e.preventDefault();
+			var start = this.selectionStart;
+			var end = this.selectionEnd;
+
+			/*set textarea value to: text before caret + tab + text after caret*/
+
+			this.value = this.value.substring(0, start) + "    " + this.value.substring(end);
+
+			/*put caret at right position again*/
+
+			this.selectionStart = this.selectionEnd = start + 4;
+
+			/*Move into separate function because of dublication*/
+			fieldContent = field.value;
+
+			sessionStorage.setItem("input_transfer_front", fieldContent);
+
+			save_icon.classList.add('show');
+			save_icon.addEventListener('transitionend', () => {
+				save_icon.classList.remove('show');
+			});
+		}
+	});
+
+
+	/*Save input every time the input event fires, i.e. every time a (printable charakter (?)) key is pressed while the <textarea> element is focused*/
+	field.addEventListener('input', function (e) {
+
+		fieldContent = field.value;
+
+		sessionStorage.setItem("input_transfer_front", fieldContent);
+
+		save_icon.classList.add('show');
+
+		save_icon.addEventListener('transitionend', () => {
+			save_icon.classList.remove('show');
+		});
+	});
+
+	/*check, if no input has been provided, and if so, provide an empty string as input*/
+	/*not sure, if this works*/
+	var helper_front = sessionStorage.getItem('input_transfer_front');
+
+	if (helper_front == null) {
+		sessionStorage.setItem('input_transfer_front', '');
+		console.log("No Input. Empty string provided as dummy.");
+	}
+
+	if (current_platform == "ankiweb.net") {
+		document.body.onkeyup = function (e) {
+			if (e.key === ' ' ||
+				e.key === 'Spacebar' ||
+				e.keyCode == 32) {
+
+				field_has_focus = (document.activeElement === field) || (aceEditor && aceEditor.isFocused && aceEditor.isFocused());
+
+				if (field_has_focus == false) {
+					answer_button_ankiweb.click();
+				}
+			}
+		}
+	}
+
+</script>

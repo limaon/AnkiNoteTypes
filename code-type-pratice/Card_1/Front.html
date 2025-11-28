@@ -1,0 +1,206 @@
+<!-- <link rel="stylesheet" href="_mobile.css" media="screen and (max-width: 600px)" /> -->
+
+<style>
+	code {
+		opacity: 0;
+		transition: opacity 0.1s;
+	}
+
+	body code[class*=language-],
+	body pre[class*=language-] {
+		-moz-tab-size: 0;
+		-o-tab-size: 0;
+		tab-size: 0;
+	}
+</style>
+
+<div class="subdeck">
+	<h1>{{Subdeck}}</h1>
+</div>
+
+<div class="helper">
+	<h2 style="text-transform: uppercase;">{{Language}} code</h2>
+</div>
+
+<div>
+	<!-- <pre class="field single_field line-numbers" id="card_2_code_field"> -->
+	<pre class="field single_field" id="card_2_code_field">
+		<code class="language-{{Language}} match-braces rainbow-braces" id="answerText">{{Code}}</code>
+	</pre>
+</div>
+
+{{#Hint}}
+<div>
+	<h2>DESCRIPTION (Hint)</h2>
+	<div class="description description--note">
+	   <code>{{Hint}}</code>
+	 </div>
+</div>
+{{/Hint}}
+
+<script>
+	var sampleAnswer = document.getElementById("answerText");
+	var sampleAnswerInitialContent = sampleAnswer.innerHTML;
+	var sampleAnswerContentModifiedWhitespace;
+
+	/*Replace some html characters; TODO -> extensive*/
+
+
+	function modifyWhitespace() {
+		sampleAnswerContentModifiedWhitespace = sampleAnswerInitialContent
+			.replace(/(<br>)/gi, "\n")
+			.replace(/\&nbsp;/gi, ' ');
+
+		sampleAnswer.innerHTML = sampleAnswerContentModifiedWhitespace;
+	}
+
+	modifyWhitespace();
+
+	/*Prevent Prism from auto highlighting*/
+	/*see https://prismjs.com/docs/Prism.html#.manual*/
+
+	window.Prism = window.Prism || {};
+	Prism.manual = true;
+
+	/*copied from https://stackoverflow.com/a/53744331/20453811 */
+	/*Definition*/
+
+	function loadScript(scriptUrl) {
+
+		const script = document.createElement('script');
+		script.src = scriptUrl;
+		document.body.appendChild(script);
+
+		return new Promise((res, rej) => {
+			script.onload = res;
+			script.onerror = rej;
+		});
+	}
+
+	/*use*/
+	/*
+	function showCode (){
+		sampleAnswer.classList.add('show');
+		console.log("code shown");
+	}
+	*/
+
+	/*use*/
+	/*loadScript('_prism.min_with_line_numbers_addon.js')*/
+	loadScript('_prism.min.js')
+		.then(() => {
+			console.log('Script loaded!');
+			Prism.plugins.autoloader.languages_path = '';
+			Prism.highlightElement(sampleAnswer);
+		})
+		.catch(() => {
+			console.error('Script loading failed! Handle this error');
+		});
+
+	// Select the node that will be observed for mutations
+	var targetNode = sampleAnswer;
+
+	// Options for the observer (which mutations to observe)
+	var config = { attributes: true, childList: true, subtree: true };
+
+	// Callback function to execute when mutations are observed
+	var callback2 = (mutationList, observer) => {
+		for (const mutation of mutationList) {
+			if (mutation.type === "childList") {
+				console.log("A child node has been added or removed.");
+				console.log(sampleAnswer.childNodes);
+			} else if (mutation.type === "attributes") {
+				console.log(`The ${mutation.attributeName} attribute was modified.`);
+			}
+		}
+	};
+
+	/*Create an observer instance linked to the callback function*/
+	var observer = new MutationObserver(callback2);
+
+	/*Start observing the target node for configured mutations*/
+	observer.observe(targetNode, config);
+
+	/*Later, you can stop observing*/
+	/*observer.disconnect();*/
+
+</script>
+
+<!-- <link rel="stylesheet" href="_prism.min.css" id="light_theme"> -->
+<!-- <link rel="stylesheet" href="_prism-funky.min.css" id="dark_theme"> -->
+
+<!-- Prism.js themes via CDN -->
+<!-- Light theme options: prism.css, prism-coy.css, prism-solarizedlight.css, prism-tomorrow.css -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" id="light_theme">
+<!-- Dark theme options: prism-dark.css, prism-okaidia.css, prism-twilight.css, prism-funky.css -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-okaidia.css" id="dark_theme">
+
+<script>
+	/*Darkmode switcher. Done via JS to support both prefers-color-scheme of ankiweb.net and class changes of desktop app*/
+	var script_name;
+	var darkModePreference = window.matchMedia("(prefers-color-scheme: dark)");
+	var darkModePreferred = false;
+
+	function determineDarkMode() {
+		if (darkModePreference.matches == true || document.body.classList.contains('night_mode') == true) {
+			darkModePreferred = true;
+		}
+		else {
+			darkModePreferred = false;
+		}
+	}
+
+	function switchStylesheet() {
+		if (darkModePreferred == true) {
+			enableStylesheet("dark_theme");
+			disableStylesheet("light_theme");
+		}
+		else {
+			enableStylesheet("light_theme");
+			disableStylesheet("dark_theme");
+		}
+	}
+
+	function enableStylesheet(styleSheetID) {
+		document.getElementById(styleSheetID).disabled = false;
+	}
+
+	function disableStylesheet(styleSheetID) {
+		document.getElementById(styleSheetID).disabled = true;
+	}
+
+
+	darkModePreference.addEventListener("change", function (e) {
+		applyStylesheet();
+	});
+
+	function onClassChange(node, callback) {
+		let lastClassString = node.classList.toString();
+
+		const mutationObserver = new MutationObserver((mutationList) => {
+			for (const item of mutationList) {
+				if (item.attributeName === "class") {
+					const classString = node.classList.toString();
+					if (classString !== lastClassString) {
+						callback(mutationObserver);
+						lastClassString = classString;
+						break;
+					}
+				}
+			}
+		});
+
+		mutationObserver.observe(node, { attributes: true });
+
+		return mutationObserver;
+	}
+
+	onClassChange(document.body, applyStylesheet);
+
+	function applyStylesheet() {
+		determineDarkMode();
+		switchStylesheet();
+	}
+
+	applyStylesheet();
+</script>
