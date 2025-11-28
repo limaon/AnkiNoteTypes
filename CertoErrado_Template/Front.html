@@ -1,0 +1,148 @@
+<div class="prettify-flashcard">
+  {{#Tags}}
+  <div class="prettify-tags">{{clickable:Tags}}</div>
+  {{/Tags}}
+
+  <div class="prettify-field prettify-field--front">
+    <tts service="android">
+      {{edit:EnunciadoQuestao}}
+    </tts>
+  </div>
+
+  {{#Imagem}}
+  <details class="imagem-container">
+    <summary class="imagem-label">Imagem</summary>
+    <div class="imagem-conteudo">{{Imagem}}</div>
+  </details>
+  {{/Imagem}}
+
+  <div class="alternativas-container">
+    <label class="alternativa-item" data-letra="C">
+      <input type="radio" name="resposta-questao" value="C" class="alternativa-radio">
+      <span class="alternativa-letra">C</span>
+      <span class="alternativa-texto">Certo</span>
+    </label>
+    <label class="alternativa-item" data-letra="E">
+      <input type="radio" name="resposta-questao" value="E" class="alternativa-radio">
+      <span class="alternativa-letra">E</span>
+      <span class="alternativa-texto">Errado</span>
+    </label>
+  </div>
+
+  {{#Anotacoes}}
+  <details class="anotacoes-container">
+    <summary class="anotacoes-label">Anotações</summary>
+    <div class="anotacoes-conteudo">{{Anotacoes}}</div>
+  </details>
+  {{/Anotacoes}}
+
+  <!-- {{Gabarito}} -->
+
+</div>
+
+<script>
+  // Split hierarchical tags
+  var tagsContainerEl = document.querySelectorAll('.prettify-tags > *')
+  if (tagsContainerEl.length > 0) {
+    var tags = []
+    tagsContainerEl.forEach((tagEl) => {
+      tagEl.classList.add('prettify-tag')
+      tags.push(tagEl.innerHTML)
+      tags.forEach((tag) => {
+        var childTag = tag.split('::').filter(Boolean)
+        tagEl.innerHTML = childTag[childTag.length - 1].trim()
+      })
+    })
+  } else {
+    tagsContainerEl = document.querySelector('.prettify-tags')
+    var tags = tagsContainerEl.innerHTML.split(' ').filter(Boolean)
+    var html = ''
+    tags.forEach((tag) => {
+      var childTag = tag.split('::').filter(Boolean)
+      html +=
+        "<span class='prettify-tag'>" +
+        childTag[childTag.length - 1] +
+        '</span>'
+    })
+    tagsContainerEl.innerHTML = html
+  }
+</script>
+
+
+<script>
+  // Random colors for bold text;
+  var randomIndex = Math.floor(Math.random() * 9 + 1);
+  var randomColor = "var(--color-" + randomIndex + ")";
+  document.documentElement.style.setProperty("--random-color", randomColor);
+</script>
+
+<script>
+MathJax.config.tex['macros'] = {
+    R: '{\\mathbb{R}}',
+    Z: '{\\mathbb{Z}}',
+    N: '{\\mathbb{N}}',
+    Q: '{\\mathbb{Q}}',
+    C: '{\\mathbb{C}}',
+    deg: '{^{\\circ}}',
+    ang: '{\\angle}',
+    norm: ['{\\lVert #1 \\rVert}', 1],
+    abs: ['{\\lvert #1 \\rvert}', 1]
+};
+if (typeof is_already_run == 'undefined') {
+  is_already_run = true;
+  MathJax.startup.getComponents();
+}
+</script>
+
+
+<script>
+// Feedback visual ao selecionar alternativa e salvar no localStorage
+document.querySelectorAll('.alternativa-radio').forEach(radio => {
+  radio.addEventListener('change', function() {
+    // Remove classe de todas as alternativas
+    document.querySelectorAll('.alternativa-item').forEach(item => {
+      item.classList.remove('alternativa-selecionada');
+    });
+    // Adiciona classe na alternativa selecionada
+    if (this.checked) {
+      this.closest('.alternativa-item').classList.add('alternativa-selecionada');
+
+      // Salvar seleção no localStorage para passar para o Back quando "Show Answer" for clicado
+      // Usa uma chave única baseada no timestamp atual (será a mais recente)
+      const timestamp = Date.now();
+      const respostaSelecionada = this.value; // "C" ou "E"
+      const storageKey = 'anki-resposta-selecionada-' + timestamp;
+      localStorage.setItem(storageKey, respostaSelecionada);
+
+      // Também salvar uma referência à chave mais recente para facilitar a busca
+      localStorage.setItem('anki-resposta-mais-recente', storageKey);
+
+      // DEBUG: Log no console
+      console.log('🔵 [FRONT] Alternativa selecionada:', respostaSelecionada);
+      console.log('🔵 [FRONT] Timestamp:', timestamp);
+      console.log('🔵 [FRONT] Salvo no localStorage:', storageKey, '=', respostaSelecionada);
+    }
+  });
+});
+</script>
+
+<script>
+  // Zoom de imagens: clicar para ampliar, clicar novamente para desampliar
+  // Usa event delegation para funcionar mesmo quando o DOM é atualizado (navegação entre cards)
+  // Função global que funciona tanto no front quanto no back
+  (function() {
+    // Verifica se já existe um handler global (evita duplicação)
+    if (!window.imageZoomHandler) {
+      window.imageZoomHandler = function(e) {
+        // Verifica se o clique foi em uma imagem dentro do flashcard
+        if (e.target && e.target.tagName === 'IMG' && e.target.closest('.prettify-flashcard')) {
+          e.target.classList.toggle('zoomed');
+        }
+      };
+
+      // Anexa o listener com capture para garantir que funcione em todos os contextos
+      document.addEventListener('click', window.imageZoomHandler, true);
+    }
+  })();
+</script>
+

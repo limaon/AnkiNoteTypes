@@ -1,0 +1,239 @@
+<div class="prettify-flashcard">
+  {{#Tags}}
+  <div class="prettify-tags">{{clickable:Tags}}</div>
+  {{/Tags}}
+  <div class="prettify-field prettify-field--front">{{edit:EnunciadoQuestao}}</div>
+
+  {{#Imagem}}
+  <details class="imagem-container">
+    <summary class="imagem-label">Imagem</summary>
+    <div class="imagem-conteudo">{{Imagem}}</div>
+  </details>
+  {{/Imagem}}
+
+  <hr class="prettify-divider prettify-divider--answer" id="answer" />
+
+  <!-- Elemento oculto com gabarito para acesso via JavaScript -->
+  <span data-gabarito="{{Gabarito}}" style="display:none;"></span>
+
+  <div class="alternativas-container alternativas-verso">
+    <label class="alternativa-item" data-letra="C">
+      <input type="radio" name="resposta-questao" value="C" class="alternativa-radio" disabled>
+      <span class="alternativa-letra">C</span>
+      <span class="alternativa-texto">Certo</span>
+    </label>
+    <label class="alternativa-item" data-letra="E">
+      <input type="radio" name="resposta-questao" value="E" class="alternativa-radio" disabled>
+      <span class="alternativa-letra">E</span>
+      <span class="alternativa-texto">Errado</span>
+    </label>
+    <!-- JavaScript adicionará classes: alternativa-correta, alternativa-acertou, alternativa-errada -->
+  </div>
+
+  {{#Anotacoes}}
+  <details class="anotacoes-container anotacoes-verso">
+    <summary class="anotacoes-label">Anotações</summary>
+    <div class="anotacoes-conteudo">{{Anotacoes}}</div>
+  </details>
+  {{/Anotacoes}}
+
+  <footer>
+    {{#EnunciadoQuestao}}
+    <a href="https://www.youtube.com/results?search_query={{EnunciadoQuestao}}" title="Youtube videos">Youtube</a>
+    <a href="https://duckduckgo.com/?t=ffab&q={{EnunciadoQuestao}}&ia=web" title="Search on web">DuckDuckGo</a>
+    <a href="https://duckduckgo.com/?t=ffab&q={{EnunciadoQuestao}}+site%3Aqconcursos.com+intext%3AQuestões&t=ffab&ia=web"
+      title="Questoes">Qconcusos</a>
+    <a href="https://duckduckgo.com/?t=ffab&q={{EnunciadoQuestao}}&iax=images&ia=images" title="Search Images">Images</a>
+    <a href="https://chatgpt.com/?temporary-chat=true&model=gpt-4o&q={{EnunciadoQuestao}}" title="Search on ChatGPT">GPT-4o</a>
+    <a href="https://chatgpt.com/?temporary-chat=true&model=o1&q={{EnunciadoQuestao}}" title="Search on ChatGPT">GPT-o1</a>
+    <a href="https://you.com/search?q={{EnunciadoQuestao}}&fromSearchBar=true&tbm=youchat&chatMode=default" title="Search on Phind">YouAI</a>
+    {{/EnunciadoQuestao}}
+  </footer>
+
+</div>
+
+<script>
+  // Split hierarchical tags
+  var tagsContainerEl = document.querySelectorAll('.prettify-tags > *')
+  if (tagsContainerEl.length > 0) {
+    var tags = []
+    tagsContainerEl.forEach((tagEl) => {
+      tagEl.classList.add('prettify-tag')
+      tags.push(tagEl.innerHTML)
+      tags.forEach((tag) => {
+        var childTag = tag.split('::').filter(Boolean)
+        tagEl.innerHTML = childTag[childTag.length - 1].trim()
+      })
+    })
+  } else {
+    tagsContainerEl = document.querySelector('.prettify-tags')
+    var tags = tagsContainerEl.innerHTML.split(' ').filter(Boolean)
+    var html = ''
+    tags.forEach((tag) => {
+      var childTag = tag.split('::').filter(Boolean)
+      html +=
+        "<span class='prettify-tag'>" +
+        childTag[childTag.length - 1] +
+        '</span>'
+    })
+    tagsContainerEl.innerHTML = html
+  }
+</script>
+
+<script>
+  // Random colors for bold text;
+  var randomIndex = Math.floor(Math.random() * 9 + 1);
+  var randomColor = "var(--color-" + randomIndex + ")";
+  document.documentElement.style.setProperty("--random-color", randomColor);
+</script>
+
+<script>
+// Comparação e feedback no verso do card
+// Este script só executa quando o Back.html é renderizado (após clicar em "Show Answer")
+// A seleção do usuário é obtida do localStorage, que foi salva no Front.html
+(function() {
+  console.log('🟢 [BACK] Script de comparação iniciado');
+
+  // 1. Obter gabarito de elemento oculto
+  const gabaritoEl = document.querySelector('[data-gabarito]');
+  let gabaritoTexto = gabaritoEl
+    ? gabaritoEl.getAttribute('data-gabarito').trim()
+    : null;
+
+  console.log('🟢 [BACK] Gabarito bruto encontrado:', gabaritoTexto);
+
+  if (!gabaritoTexto) {
+    console.warn('🟢 [BACK] ⚠️ Gabarito não encontrado');
+    return; // Se não houver gabarito, não fazer nada
+  }
+
+  // 2. Normalizar gabarito: aceitar "Certo", "Errado", "C", "E" (case-insensitive)
+  let gabarito = null;
+  const gabaritoNormalizado = gabaritoTexto.trim().toUpperCase();
+
+  if (gabaritoNormalizado === 'CERTO' || gabaritoNormalizado === 'C') {
+    gabarito = 'C';
+    console.log('🟢 [BACK] ✅ Gabarito normalizado: "Certo" → "C"');
+  } else if (gabaritoNormalizado === 'ERRADO' || gabaritoNormalizado === 'E') {
+    gabarito = 'E';
+    console.log('🟢 [BACK] ✅ Gabarito normalizado: "Errado" → "E"');
+  } else {
+    console.warn('🟢 [BACK] ⚠️ Gabarito inválido:', gabaritoTexto);
+    console.warn('🟢 [BACK] ⚠️ Esperado: "Certo", "Errado", "C" ou "E"');
+    return;
+  }
+
+  // 3. Obter alternativa selecionada pelo usuário do localStorage (salva no Front)
+  let respostaUsuario = null;
+  let storedAnswerKey = null;
+
+  // Tenta obter a chave mais recente
+  const mostRecentKey = localStorage.getItem('anki-resposta-mais-recente');
+  if (mostRecentKey) {
+    storedAnswerKey = mostRecentKey;
+    respostaUsuario = localStorage.getItem(mostRecentKey);
+    console.log('🟢 [BACK] Tentando chave mais recente:', mostRecentKey, '->', respostaUsuario);
+  }
+
+  // Se não encontrou pela chave mais recente, tenta buscar por todas as chaves
+  if (!respostaUsuario) {
+    const allStorageKeys = [];
+    for (let i = 0; i < localStorage.length; i++) {
+      const key = localStorage.key(i);
+      if (key && key.startsWith('anki-resposta-selecionada-')) {
+        allStorageKeys.push(key);
+      }
+    }
+    console.log('🟢 [BACK] Todas as chaves de resposta encontradas:', allStorageKeys);
+
+    // Tenta encontrar a resposta mais recente entre as chaves existentes
+    let latestTimestamp = 0;
+    for (const key of allStorageKeys) {
+      const timestampStr = key.replace('anki-resposta-selecionada-', '');
+      const timestamp = parseInt(timestampStr);
+      if (!isNaN(timestamp) && timestamp > latestTimestamp) {
+        latestTimestamp = timestamp;
+        storedAnswerKey = key;
+        respostaUsuario = localStorage.getItem(key);
+      }
+    }
+    if (respostaUsuario) {
+      console.log('🟢 [BACK] ✅ Resposta encontrada por busca de chaves:', storedAnswerKey, '->', respostaUsuario);
+    }
+  }
+
+  if (respostaUsuario) {
+    respostaUsuario = respostaUsuario.trim().toUpperCase();
+    console.log('🟢 [BACK] ✅ Resposta do usuário encontrada:', respostaUsuario);
+
+    // Marcar o radio button correspondente como checked (para manter a seleção visual)
+    const radioCorrespondente = document.querySelector(`.alternativa-radio[value="${respostaUsuario}"]`);
+    if (radioCorrespondente) {
+      radioCorrespondente.checked = true;
+      console.log('🟢 [BACK] ✅ Radio button marcado como checked:', respostaUsuario);
+    } else {
+      console.warn('🟢 [BACK] ⚠️ Radio button não encontrado para:', respostaUsuario);
+    }
+  } else {
+    console.warn('🟢 [BACK] ⚠️ Nenhuma resposta encontrada no localStorage');
+  }
+
+  // 4. Marcar alternativa correta (sempre verde, independente da escolha do usuário)
+  const alternativaCorreta = document.querySelector(`.alternativa-item[data-letra="${gabarito}"]`);
+  if (alternativaCorreta) {
+    alternativaCorreta.classList.add('alternativa-correta');
+    console.log('🟢 [BACK] ✅ Alternativa correta marcada (verde):', gabarito);
+  } else {
+    console.warn('🟢 [BACK] ⚠️ Elemento da alternativa correta não encontrado para gabarito:', gabarito);
+  }
+
+  // 5. Comparar e adicionar feedback baseado na escolha do usuário
+  if (respostaUsuario) {
+    console.log('🟢 [BACK] Comparando resposta do usuário:', respostaUsuario, 'com gabarito normalizado:', gabarito);
+    if (respostaUsuario === gabarito) {
+      // Usuário acertou - adicionar classe de acerto na alternativa correta
+      if (alternativaCorreta) {
+        alternativaCorreta.classList.add('alternativa-acertou');
+        console.log('🟢 [BACK] ✅✅✅ USUÁRIO ACERTOU!');
+      }
+    } else {
+      // Usuário errou - marcar a alternativa selecionada como errada (vermelho)
+      const alternativaErrada = document.querySelector(`.alternativa-item[data-letra="${respostaUsuario}"]`);
+      if (alternativaErrada) {
+        alternativaErrada.classList.add('alternativa-errada');
+        console.log('🟢 [BACK] ❌❌❌ USUÁRIO ERROU! Resposta correta:', gabarito, '| Resposta do usuário:', respostaUsuario);
+      } else {
+        console.warn('🟢 [BACK] ⚠️ Elemento da alternativa errada não encontrado para:', respostaUsuario);
+      }
+      // A alternativa correta já está marcada como verde acima
+    }
+  } else {
+    // Usuário não selecionou nada - apenas mostrar a correta em verde
+    console.log('🟢 [BACK] ℹ️ Usuário não selecionou nenhuma alternativa');
+  }
+
+  console.log('🟢 [BACK] Script de comparação finalizado');
+})();
+</script>
+
+
+<script>
+  // Zoom de imagens: clicar para ampliar, clicar novamente para desampliar
+  // Usa event delegation para funcionar mesmo quando o DOM é atualizado (navegação entre cards)
+  // Função global que funciona tanto no front quanto no back
+  (function() {
+    // Verifica se já existe um handler global (evita duplicação)
+    if (!window.imageZoomHandler) {
+      window.imageZoomHandler = function(e) {
+        // Verifica se o clique foi em uma imagem dentro do flashcard
+        if (e.target && e.target.tagName === 'IMG' && e.target.closest('.prettify-flashcard')) {
+          e.target.classList.toggle('zoomed');
+        }
+      };
+
+      // Anexa o listener com capture para garantir que funcione em todos os contextos
+      document.addEventListener('click', window.imageZoomHandler, true);
+    }
+  })();
+</script>
+
