@@ -34,55 +34,68 @@
 		<div class="description">{{Description}}</div>
 		<br/>
 
-		<div class="description description--hint"><code>{{Hint}}</code></div>
+		<div class="description description--hint"><code role="text" aria-label="Hint">{{Hint}}</code></div>
 
 		<div class="grid_container">
 			<div class="grid_item_1">
 				<h2 class="heading" id="heading1">Your Solution</h2>
 
-				<div id="field1" class="field"></div>
+				<div id="field1-help-back" class="sr-only">Comparison of your solution with the suggested solution. Correct characters are highlighted in green, missed characters in blue, and false characters in red.</div>
+				<div
+					id="field1"
+					class="field"
+					role="textbox"
+					aria-label="Your submitted solution compared with suggested solution"
+					aria-describedby="heading1 field1-help-back"
+					aria-readonly="true"></div>
 
-				<div id="footer1"><button class="buttons" disabled>Submit</button><span id="save">Saved</span></div>
+				<div id="footer1"><button class="buttons" disabled aria-label="Submit button (disabled on answer view)">Submit</button><span id="save" role="status" aria-live="polite" aria-label="Save status">Saved</span></div>
 			</div>
 			<div class="grid_item_2">
 				<h2 class="heading" id="heading2">Suggested Solution</h2>
 
 				<!--<pre id="field2" class="field line-numbers next_to_typefield"> -->
 
-				<pre id="field2" class="field next_to_typefield">
-				<code class="language-{{Language}} match-braces rainbow-braces" id="answerText">{{Code}}</code>
+				<pre
+					id="field2"
+					class="field next_to_typefield"
+					role="textbox"
+					aria-label="Suggested solution code"
+					aria-describedby="heading2"
+					aria-readonly="true">
+				<code class="language-{{Language}} match-braces rainbow-braces" id="answerText" aria-label="Suggested solution code in {{Language}}">{{Code}}</code>
 			</pre>
 
         {{#Source}}
-				<div id="footer2">
-					<a href="https://www.youtube.com/results?search_query={{Source}}" title="Youtube videos">Youtube</a>
-					<a href="https://duckduckgo.com/?t=ffab&q={{Source}}&ia=web" title="Search on web">DuckDuckGo</a>
-					<a href="https://duckduckgo.com/?t=ffab&q={{Source}}&iax=images&ia=images" title="Search Images">Images</a>
-					<a href="https://chatgpt.com/?temporary-chat=true&model=gpt-4o&q={{Source}}" title="Search on ChatGPT">GPT-4o</a>
-    				<a href="https://chatgpt.com/?temporary-chat=true&model=o1&q={{Source}}" title="Search on ChatGPT">GPT-o1</a>
-					<a href="https://you.com/search?q={{Source}}&fromSearchBar=true&tbm=youchat&chatMode=default" title="Search on YouAI">YouAI</a>
+				<nav id="footer2" role="navigation" aria-label="External resources">
+					<a href="https://www.youtube.com/results?search_query={{Source}}" title="Youtube videos" aria-label="Search on YouTube for {{Source}}">Youtube</a>
+					<a href="https://duckduckgo.com/?t=ffab&q={{Source}}&ia=web" title="Search on web" aria-label="Search on DuckDuckGo for {{Source}}">DuckDuckGo</a>
+					<a href="https://duckduckgo.com/?t=ffab&q={{Source}}&iax=images&ia=images" title="Search Images" aria-label="Search images on DuckDuckGo for {{Source}}">Images</a>
+					<a href="https://chatgpt.com/?temporary-chat=true&model=gpt-4o&q={{Source}}" title="Search on ChatGPT" aria-label="Ask ChatGPT GPT-4o about {{Source}}">GPT-4o</a>
+    				<a href="https://chatgpt.com/?temporary-chat=true&model=o1&q={{Source}}" title="Search on ChatGPT" aria-label="Ask ChatGPT GPT-o1 about {{Source}}">GPT-o1</a>
+					<a href="https://you.com/search?q={{Source}}&fromSearchBar=true&tbm=youchat&chatMode=default" title="Search on YouAI" aria-label="Search on YouAI for {{Source}}">YouAI</a>
 
-				</div>
+				</nav>
         {{/Source}}
 
 			</div>
 		</div>
 
 		{{#Further Description}}
-		<details class="further">
-			<summary class="buttons"><span>Further Description</span></summary>
-			<div class="description description--further">
+		<details class="further" id="further-details">
+			<summary class="buttons" aria-expanded="false" aria-controls="further-description"><span>Further Description</span></summary>
+			<div class="description description--further" id="further-description" role="region" aria-labelledby="further-heading">
 			{{Further Description}}
 			</div>
 		</details>
 		{{/Further Description}}
 
-		<details class="info">
-			<summary class="buttons"><span>Info</span></summary>
-			<div class="grid_container_2" id="tooltip">
+		<details class="info" id="info-details-back">
+			<summary class="buttons" aria-expanded="false" aria-controls="tooltip-back"><span>Info</span></summary>
+			<div class="grid_container_2" id="tooltip-back" role="region" aria-labelledby="tooltip-heading-back">
 				<div class="grid_item_a">
 					<p>
-					<h3 class="heading">Submitting your answer</h3>
+					<h3 class="heading" id="tooltip-heading-back">Submitting your answer</h3>
 					</p>
 					<p>Your answer will be saved automatically on every keystroke. In addition, you can press the
 						"Submit" button or "Ctrl" to save your solution.</p>
@@ -97,13 +110,13 @@
 					<p>
 					<h3 class="heading">Markup Meaning</h3>
 					</p>
-					<p><span class="correct" id="correct_h">Correct Characters</span> <span id="correct_d">Text marked
+					<p><span class="correct" id="correct_h" role="text" aria-label="Correct characters indicator">Correct Characters</span> <span id="correct_d">Text marked
 							like this was typed by you into the text field, and does appear in the suggested
 							Solution.</span></p>
-					<p><del class="deleted" id="deleted_h">Missed Characters</del> <span id="deleted_d">Text marked like
+					<p><del class="deleted" id="deleted_h" role="text" aria-label="Missed characters indicator">Missed Characters</del> <span id="deleted_d">Text marked like
 							this was <b>not</b> typed by you into the text field, but does appear in the suggested
 							Solution.</span></p>
-					<p><ins class="inserted" id="inserted_h">False Characters</ins> <span id="inserted_d">Text marked
+					<p><ins class="inserted" id="inserted_h" role="text" aria-label="False characters indicator">False Characters</ins> <span id="inserted_d">Text marked
 							like this was typed by you into the text field, but does <b>not</b> appear in the suggested
 							Solution.</span></p>
 				</div>
@@ -227,6 +240,27 @@
 	setTimeout(function () {
 		field.classList.add('outline');
 	}, (1));
+
+	// Update aria-expanded on details elements
+	var infoDetails = document.getElementById("info-details-back");
+	if (infoDetails) {
+		var summary = infoDetails.querySelector("summary");
+		if (summary) {
+			infoDetails.addEventListener("toggle", function() {
+				summary.setAttribute("aria-expanded", infoDetails.open ? "true" : "false");
+			});
+		}
+	}
+
+	var furtherDetails = document.getElementById("further-details");
+	if (furtherDetails) {
+		var summary = furtherDetails.querySelector("summary");
+		if (summary) {
+			furtherDetails.addEventListener("toggle", function() {
+				summary.setAttribute("aria-expanded", furtherDetails.open ? "true" : "false");
+			});
+		}
+	}
 </script>
 
 <!-- <link rel="stylesheet" href="_prism.min.css" id="light_theme"> -->

@@ -26,23 +26,50 @@
 		<br/>
 
 		<div class="description description--hint">
-      <code>{{hint:Hint}}</code>
+      <code role="text" aria-label="Hint">{{hint:Hint}}</code>
     </div>
 
 		<section aria-labelledby="heading1">
 			<div class="grid_container single-column">
 				<div class="grid_item_1">
 					<h2 class="heading" id="heading1"><label for="field1">Your Solution</label></h2>
+					<div id="field1-help" class="sr-only">Code editor. Type your solution here. Use Tab for indentation. Your code is saved automatically as you type.</div>
 					<div class="editor-shell">
-						<textarea id="field1" class="field" required placeholder="Type here ..." autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"></textarea>
-						<div id="field1-editor" class="ace-shell" aria-hidden="true"></div>
+						<textarea
+							id="field1"
+							class="field"
+							required
+							placeholder="Type here ..."
+							autocomplete="off"
+							autocorrect="off"
+							autocapitalize="off"
+							spellcheck="false"
+							aria-label="Code editor - Type your solution"
+							aria-describedby="field1-help heading1"
+							role="textbox"
+							aria-multiline="true"></textarea>
+						<div id="field1-editor" class="ace-shell" aria-hidden="true" aria-label="Visual code editor"></div>
 					</div>
 					<div id="footer1">
-						<button id="button1" class="buttons" type="button">Submit</button>
-						<span id="save">Saved</span>
+						<button
+							id="button1"
+							class="buttons"
+							type="button"
+							aria-label="Submit your solution and save it"
+							aria-describedby="save">Submit</button>
+						<span
+							id="save"
+							role="status"
+							aria-live="polite"
+							aria-atomic="true"
+							aria-label="Save status">Saved</span>
 						<div class="keybind-selector">
-							<span class="keybind-label">Keybind: </span>
-							<select id="keybind-select" class="keybind-dropdown">
+							<span class="keybind-label" id="keybind-label">Keybind: </span>
+							<select
+								id="keybind-select"
+								class="keybind-dropdown"
+								aria-label="Select keyboard binding preference"
+								aria-describedby="keybind-label">
 								<option value="ace/keyboard/vim">Vim</option>
 								<option value="ace/keyboard/emacs">Emacs</option>
 								<option value="ace/keyboard/vscode">Normal</option>
@@ -53,11 +80,11 @@
 			</div>
 		</section>
 
-		<details>
-			<summary class="buttons"><span>Info</span></summary>
-			<div class="grid_container_2" id="tooltip">
+		<details id="info-details">
+			<summary class="buttons" aria-expanded="false" aria-controls="tooltip"><span>Info</span></summary>
+			<div class="grid_container_2" id="tooltip" role="region" aria-labelledby="tooltip-heading">
 				<div class="grid_item_a">
-					<p><h3 class="heading">Submitting your answer</h3></p>
+					<p><h3 class="heading" id="tooltip-heading">Submitting your answer</h3></p>
 					<p>Your answer will be saved automatically on every keystroke. In addition, you can press the "Submit" button or "Ctrl" to save your solution.</p>
 
 					<!-- <p>If you want to modify your answer after saving it, selecte the type box, apply your changes, and re-submit.</p> -->
@@ -67,9 +94,9 @@
 
 				<div class="grid_item_b">
 					<p><h3 class="heading">Markup Meaning</h3></p>
-					<p><span class="correct" id="correct_h">Correct Characters</span> <span id="correct_d">Text marked like this was typed by you into the text field, and does appear in the suggested Solution.</span></p>
-					<p><del class="deleted" id="deleted_h">Missed Characters</del> <span id="deleted_d">Text marked like this was <b>not</b> typed by you into the text field, but does appear in the suggested Solution.</span></p>
-					<p><ins class="inserted" id="inserted_h">False Characters</ins> <span id="inserted_d">Text marked like this was typed by you into the text field, but does <b>not</b> appear in the suggested Solution.</span></p>
+					<p><span class="correct" id="correct_h" role="text" aria-label="Correct characters indicator">Correct Characters</span> <span id="correct_d">Text marked like this was typed by you into the text field, and does appear in the suggested Solution.</span></p>
+					<p><del class="deleted" id="deleted_h" role="text" aria-label="Missed characters indicator">Missed Characters</del> <span id="deleted_d">Text marked like this was <b>not</b> typed by you into the text field, but does appear in the suggested Solution.</span></p>
+					<p><ins class="inserted" id="inserted_h" role="text" aria-label="False characters indicator">False Characters</ins> <span id="inserted_d">Text marked like this was typed by you into the text field, but does <b>not</b> appear in the suggested Solution.</span></p>
 				</div>
 			</div>
 		</details>
@@ -149,6 +176,13 @@
 
 			aceEditor.session.setMode(aceMode);
 
+			// Update ARIA attributes when Ace Editor is ready
+			aceShell.setAttribute("aria-hidden", "false");
+			aceShell.setAttribute("aria-label", "Visual code editor - Type your solution");
+			aceShell.setAttribute("role", "textbox");
+			aceShell.setAttribute("aria-multiline", "true");
+			aceShell.setAttribute("aria-describedby", "field1-help heading1");
+
 			// Load keybind preference from sessionStorage or default to vim
 			var savedKeybind = sessionStorage.getItem('ace_keybind_preference') || "ace/keyboard/vim";
 			aceEditor.setKeyboardHandler(savedKeybind);
@@ -217,6 +251,12 @@
 			/* Mark Ace as ready for CSS fallback */
 			editorShell.classList.add("ace-ready");
 
+			// Update ARIA attributes - hide textarea visually but keep accessible, show Ace Editor
+			aceShell.setAttribute("aria-hidden", "false");
+			// Textarea will be hidden by CSS, but we keep it accessible for screen readers as fallback
+			field.setAttribute("tabindex", "-1");
+			field.setAttribute("aria-hidden", "true");
+
 			// Set up keybind selector
 			var keybindSelect = document.getElementById("keybind-select");
 			if (keybindSelect) {
@@ -239,11 +279,21 @@
 			if (editorShell) {
 				editorShell.classList.remove("ace-ready");
 			}
+			// Ensure textarea is accessible when Ace fails
+			if (field) {
+				field.removeAttribute("aria-hidden");
+				field.removeAttribute("tabindex");
+			}
 		}
 	} else {
 		/* Fallback: ensure textarea is visible if Ace is not available */
 		if (editorShell) {
 			editorShell.classList.remove("ace-ready");
+		}
+		// Ensure textarea is accessible when Ace is not available
+		if (field) {
+			field.removeAttribute("aria-hidden");
+			field.removeAttribute("tabindex");
 		}
 	}
 
@@ -393,6 +443,17 @@
 					answer_button_ankiweb.click();
 				}
 			}
+		}
+	}
+
+	// Update aria-expanded on details element
+	var infoDetails = document.getElementById("info-details");
+	if (infoDetails) {
+		var summary = infoDetails.querySelector("summary");
+		if (summary) {
+			infoDetails.addEventListener("toggle", function() {
+				summary.setAttribute("aria-expanded", infoDetails.open ? "true" : "false");
+			});
 		}
 	}
 
