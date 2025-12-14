@@ -1,0 +1,1919 @@
+<!-- <link rel="stylesheet" href="_mobile.css" media="screen and (max-width: 600px)" /> -->
+
+<div class="front">
+	<header>
+		<div>
+			<h1 class="heading">
+				<!--{{Subdeck}}-->
+				<!--{{Deck}}-->
+
+			</h1>
+		</div>
+	</header>
+
+	<!-- Ace Editor scripts will be loaded lazily when needed -->
+	<script src="_diff_match_patch.js"></script>
+
+	<main>
+		{{#Tags}}
+		<div class="prettify-tags">{{clickable:Tags}}</div>
+		{{/Tags}}
+
+		<!-- <div><h2 class="heading" id="heading0">Description</h2></div> -->
+		<div><h2 class="heading" id="heading0"><i>DESCRIPTION</i></h2></div>
+
+		<div class="description">
+			{{Description}}
+		</div>
+		<br/>
+
+	<!-- Container principal com borda que envolve todas as seções -->
+	<div class="main-sections-container">
+  {{#Hint}}
+	<section class="accordion-group">
+		<div class="accordion-tab">
+			<input type="checkbox" name="accordion-hint" id="accordion-hint" class="accordion-input">
+			<label for="accordion-hint" class="accordion-label">
+      <span>{{#Further Description}}Hint / Further Description{{/Further Description}}{{^Further Description}}Hint{{/Further Description}}</span>
+			</label>
+			<div class="accordion-content">
+        <br/>
+				<div class="grid_container_2{{^Further Description}} single-column{{/Further Description}}" id="hint-accordion-content" role="region" aria-labelledby="hint-accordion-heading">
+					<div class="grid_item_a">
+						{{#Further Description}}<h3 class="heading" id="hint-accordion-heading">Hint</h3>{{/Further Description}}
+						<code class="hint-source language-{{Language}}" aria-label="Hint code in {{Language}}" style="display:none;">{{Hint}}</code>
+						<div class="hint-editor-shell">
+							<div id="hint-editor" class="ace-shell hint-ace-shell" role="textbox" aria-label="Hint editor" aria-readonly="false"></div>
+						</div>
+					</div>
+          {{#Further Description}}
+					<div class="grid_item_b">
+            <h3 class="heading">Further Description (Output)</h3>
+						<code class="further-source language-{{Language}}" aria-label="Further description in {{Language}}" style="display:none;">{{Further Description}}</code>
+						<div class="further-editor-shell">
+							<div id="further-editor" class="ace-shell further-ace-shell" role="textbox" aria-label="Further description editor (read-only)" aria-readonly="true"></div>
+						</div>
+					</div>
+          {{/Further Description}}
+				</div>
+			</div>
+		</div>
+	</section>
+	{{/Hint}}
+	{{^Hint}}
+	{{#Further Description}}
+	<section class="accordion-group">
+		<div class="accordion-tab">
+			<input type="checkbox" name="accordion-hint" id="accordion-hint" class="accordion-input">
+			<label for="accordion-hint" class="accordion-label">
+      <span>Further Description (Output)</span>
+			</label>
+			<div class="accordion-content">
+        <br/>
+				<div class="grid_container_2 single-column" id="hint-accordion-content" role="region">
+					<div class="grid_item_a">
+						<code class="further-source language-{{Language}}" aria-label="Further description in {{Language}}" style="display:none;">{{Further Description}}</code>
+						<div class="further-editor-shell">
+							<div id="further-editor" class="ace-shell further-ace-shell" role="textbox" aria-label="Further description editor (read-only)" aria-readonly="true"></div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+	{{/Further Description}}
+	{{/Hint}}
+
+		<section aria-labelledby="heading1">
+			<div class="grid_container single-column">
+				<div class="grid_item_1">
+					<h2 class="heading" id="heading1"><label for="field1">Your Solution</label></h2>
+					<div id="field1-help" class="sr-only">Code editor. Type your solution here. Use Tab for indentation. Your code is saved automatically as you type.</div>
+					<div class="editor-shell">
+						<textarea
+							id="field1"
+							class="field"
+							required
+							placeholder="Type here ..."
+							autocomplete="off"
+							autocorrect="off"
+							autocapitalize="off"
+							spellcheck="false"
+							aria-label="Code editor - Type your solution"
+							aria-describedby="field1-help heading1"
+							role="textbox"
+							aria-multiline="true"></textarea>
+						<div id="field1-editor" class="ace-shell" aria-hidden="true" aria-label="Visual code editor"></div>
+					</div>
+					<div id="footer1">
+						<button
+							id="button1"
+							class="buttons"
+							type="button"
+							aria-label="Submit your solution and save it"
+							aria-describedby="save">Submit</button>
+						<span
+							id="save"
+							role="status"
+							aria-live="polite"
+							aria-atomic="true"
+							aria-label="Save status">Saved</span>
+						<div class="keybind-selector">
+							<span class="keybind-label" id="keybind-label">Keybind: </span>
+							<select
+								id="keybind-select"
+								class="keybind-dropdown"
+								aria-label="Select keyboard binding preference"
+								aria-describedby="keybind-label">
+								<option value="ace/keyboard/vim">Vim</option>
+								<option value="ace/keyboard/emacs">Emacs</option>
+								<option value="ace/keyboard/vscode">Normal</option>
+							</select>
+						</div>
+						<div class="autocomplete-toggle">
+							<label for="autocomplete-toggle" class="autocomplete-label">
+								<input
+									type="checkbox"
+									id="autocomplete-toggle"
+									class="autocomplete-checkbox"
+									aria-label="Enable code autocompletion suggestions"
+									aria-describedby="autocomplete-label-text">
+								<span id="autocomplete-label-text">Auto-complete</span>
+							</label>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+
+		<!-- Accordion de Info - com mesmo padrão dos outros acordeões -->
+		<section class="accordion-group">
+			<div class="accordion-tab">
+				<input type="checkbox" name="accordion-info" id="accordion-info" class="accordion-input">
+				<label for="accordion-info" class="accordion-label">
+					<span>Info</span>
+				</label>
+				<div class="accordion-content">
+					<div class="grid_container_2" id="tooltip" role="region" aria-labelledby="tooltip-heading">
+						<div class="grid_item_a">
+							<p><h3 class="heading" id="tooltip-heading">Submitting your answer</h3></p>
+							<p>Your answer will be saved automatically as you type (saves 0.5 seconds after you stop typing). In addition, you can press the "Submit" button to save your solution immediately.</p>
+							<p>To compare your answer with the suggested solution, either press the "Show Answer" button or exit the text field and press "space".</p>
+						</div>
+
+						<div class="grid_item_b">
+							<p><h3 class="heading">Markup Meaning</h3></p>
+							<p><span class="correct" id="correct_h" role="text" aria-label="Correct characters indicator">Correct Characters</span> <span id="correct_d">Text marked like this was typed by you into the text field, and does appear in the suggested Solution.</span></p>
+							<p><del class="deleted" id="deleted_h" role="text" aria-label="Missed characters indicator">Missed Characters</del> <span id="deleted_d">Text marked like this was <b>not</b> typed by you into the text field, but does appear in the suggested Solution.</span></p>
+							<p><ins class="inserted" id="inserted_h" role="text" aria-label="False characters indicator">False Characters</ins> <span id="inserted_d">Text marked like this was typed by you into the text field, but does <b>not</b> appear in the suggested Solution.</span></p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+	</div>
+	<!-- Fim do container principal -->
+
+	</main>
+</div>
+
+<script>
+
+	sessionStorage.removeItem("input_transfer_back");
+
+	var field = document.getElementById("field1");
+	var field_has_focus;
+
+	var fieldContent;
+
+	function debounce(func, wait) {
+		var timeout;
+		return function executedFunction() {
+			var context = this;
+			var args = arguments;
+			var later = function() {
+				clearTimeout(timeout);
+				func.apply(context, args);
+			};
+			clearTimeout(timeout);
+			timeout = setTimeout(later, wait);
+		};
+	}
+
+	function saveInputContent() {
+		fieldContent = field.value;
+		sessionStorage.setItem("input_transfer_front", fieldContent);
+
+		var save_icon = document.getElementById('save');
+		if (save_icon) {
+			save_icon.classList.add('show');
+			var removeClass = function() {
+				save_icon.classList.remove('show');
+				save_icon.removeEventListener('transitionend', removeClass);
+			};
+			save_icon.addEventListener('transitionend', removeClass);
+		}
+	}
+
+	var debouncedSaveInput = debounce(saveInputContent, 500);
+
+	function createLoadingIndicator(message, size) {
+		message = message || 'Loading...';
+		size = size || 'medium';
+
+		var loadingContainer = document.createElement('div');
+		loadingContainer.className = 'loading-indicator';
+		loadingContainer.setAttribute('role', 'status');
+		loadingContainer.setAttribute('aria-live', 'polite');
+		loadingContainer.setAttribute('aria-label', message);
+
+		var spinner = document.createElement('div');
+		spinner.className = 'loading-spinner loading-spinner--' + size;
+		spinner.setAttribute('aria-hidden', 'true');
+
+		var messageElement = document.createElement('span');
+		messageElement.className = 'loading-message';
+		messageElement.textContent = message;
+
+		loadingContainer.appendChild(spinner);
+		loadingContainer.appendChild(messageElement);
+
+		return loadingContainer;
+	}
+
+	function showLoading(container, message, size) {
+		if (!container) return null;
+
+		var loadingIndicator = createLoadingIndicator(message, size);
+		container.appendChild(loadingIndicator);
+
+		return loadingIndicator;
+	}
+
+	function hideLoading(loadingIndicator) {
+		if (loadingIndicator && loadingIndicator.parentNode) {
+			loadingIndicator.parentNode.removeChild(loadingIndicator);
+		}
+	}
+
+	/* ACE editor setup */
+	var aceEditor = null;
+	var aceShell = document.getElementById("field1-editor");
+	var editorShell = field ? field.closest(".editor-shell") : null;
+	var aceLoaded = false;
+	var aceLoading = false;
+
+	/* Map language name to Ace Editor mode */
+	function getAceMode(language) {
+		if (!language) return "ace/mode/javascript";
+
+		var lang = language.toLowerCase().trim();
+		var modeMap = {
+			"javascript": "ace/mode/javascript",
+			"js": "ace/mode/javascript",
+			"typescript": "ace/mode/typescript",
+			"ts": "ace/mode/typescript",
+			"python": "ace/mode/python",
+			"py": "ace/mode/python",
+			"c": "ace/mode/c_cpp",
+			"cpp": "ace/mode/c_cpp",
+			"c++": "ace/mode/c_cpp",
+			"c_cpp": "ace/mode/c_cpp",
+			"java": "ace/mode/java",
+			"go": "ace/mode/golang",
+			"golang": "ace/mode/golang",
+			"rust": "ace/mode/rust",
+			"ruby": "ace/mode/ruby",
+			"php": "ace/mode/php",
+			"html": "ace/mode/html",
+			"css": "ace/mode/css",
+			"sql": "ace/mode/sql",
+			"json": "ace/mode/json",
+			"xml": "ace/mode/xml",
+			"markdown": "ace/mode/markdown",
+			"bash": "ace/mode/sh",
+			"shell": "ace/mode/sh",
+			"sh": "ace/mode/sh"
+		};
+
+		return modeMap[lang] || "ace/mode/" + lang;
+	}
+
+	function getLanguageModeScript(language) {
+		if (!language) return "mode-javascript.min.js";
+
+		var lang = language.toLowerCase().trim();
+		var modeScriptMap = {
+			"javascript": "mode-javascript.min.js",
+			"js": "mode-javascript.min.js",
+			"typescript": "mode-typescript.min.js",
+			"ts": "mode-typescript.min.js",
+			"python": "mode-python.min.js",
+			"py": "mode-python.min.js",
+			"c": "mode-c_cpp.min.js",
+			"cpp": "mode-c_cpp.min.js",
+			"c++": "mode-c_cpp.min.js",
+			"c_cpp": "mode-c_cpp.min.js",
+			"java": "mode-java.min.js",
+			"go": "mode-golang.min.js",
+			"golang": "mode-golang.min.js",
+			"rust": "mode-rust.min.js",
+			"ruby": "mode-ruby.min.js",
+			"php": "mode-php.min.js",
+			"html": "mode-html.min.js",
+			"css": "mode-css.min.js",
+			"sql": "mode-sql.min.js",
+			"json": "mode-json.min.js",
+			"xml": "mode-xml.min.js",
+			"markdown": "mode-markdown.min.js",
+			"bash": "mode-sh.min.js",
+			"shell": "mode-sh.min.js",
+			"sh": "mode-sh.min.js"
+		};
+
+		var scriptName = modeScriptMap[lang];
+		if (scriptName) {
+			return "https://cdnjs.cloudflare.com/ajax/libs/ace/1.32.3/" + scriptName;
+		}
+
+		return "https://cdnjs.cloudflare.com/ajax/libs/ace/1.32.3/mode-text.min.js";
+	}
+
+	function getKeybindingScript() {
+		var savedKeybind = sessionStorage.getItem('ace_keybind_preference') || "ace/keyboard/vim";
+
+		if (savedKeybind.includes('vim')) {
+			return "https://cdnjs.cloudflare.com/ajax/libs/ace/1.32.3/keybinding-vim.min.js";
+		} else if (savedKeybind.includes('emacs')) {
+			return "https://cdnjs.cloudflare.com/ajax/libs/ace/1.32.3/keybinding-emacs.min.js";
+		}
+
+		return null;
+	}
+
+	var language = "{{Language}}";
+	var aceMode = getAceMode(language);
+
+	function loadAceEditor() {
+		if (aceLoaded || aceLoading) {
+			return Promise.resolve();
+		}
+
+		aceLoading = true;
+
+		if (aceShell && editorShell) {
+			aceShell.style.display = 'flex';
+			aceShell.style.alignItems = 'center';
+			aceShell.style.justifyContent = 'center';
+			aceShell.style.minHeight = field ? field.offsetHeight + 'px' : '40vh';
+			aceShell.innerHTML = ''; // Clear any existing content
+
+			var loadingIndicator = showLoading(aceShell, 'Loading code editor...', 'large');
+
+			aceShell._loadingIndicator = loadingIndicator;
+		}
+
+		var loadScript = function(src) {
+			return new Promise(function(resolve, reject) {
+				var existingScript = document.querySelector('script[src="' + src + '"]');
+				if (existingScript) {
+					resolve();
+					return;
+				}
+
+				var script = document.createElement('script');
+				script.src = src;
+				script.async = true;
+				script.onload = resolve;
+				script.onerror = function() {
+					console.warn('Failed to load Ace Editor script: ' + src);
+					resolve();
+				};
+				document.head.appendChild(script);
+			});
+		};
+
+		var scriptsToLoad = [];
+
+		var aceCore = 'https://cdnjs.cloudflare.com/ajax/libs/ace/1.32.3/ace.min.js';
+		scriptsToLoad.push(aceCore);
+
+		var aceTheme = '_theme-vscode.js';
+		scriptsToLoad.push(aceTheme);
+
+		var language = "{{Language}}";
+		var modeScript = getLanguageModeScript(language);
+		if (modeScript) {
+			scriptsToLoad.push(modeScript);
+		}
+
+			var keybindScript = getKeybindingScript();
+			if (keybindScript) {
+				scriptsToLoad.push(keybindScript);
+			}
+
+		return loadScript(aceCore)
+			.then(function() {
+				// Verify Ace core loaded
+				if (!window.ace) {
+					throw new Error('Ace Editor core failed to load');
+				}
+
+				var themeScript = scriptsToLoad.find(function(s) { return s.includes('theme-vscode'); });
+				var otherModules = scriptsToLoad.filter(function(s) {
+					return s !== aceCore && s !== themeScript;
+				});
+
+				if (themeScript) {
+					return loadScript(themeScript).then(function() {
+						return Promise.all(otherModules.map(loadScript));
+					});
+				} else {
+					return Promise.all(otherModules.map(loadScript));
+				}
+			})
+			.then(function() {
+				aceLoading = false;
+				if (window.ace) {
+					aceLoaded = true;
+					initializeAceEditor();
+				} else {
+					console.warn('Ace Editor failed to initialize, falling back to textarea');
+					handleAceLoadFailure();
+				}
+			})
+			.catch(function(error) {
+				console.error('Error loading Ace Editor:', error);
+				aceLoading = false;
+				handleAceLoadFailure();
+			});
+	}
+
+	function handleAceLoadFailure() {
+		if (editorShell) {
+			editorShell.classList.remove("ace-ready");
+		}
+		if (aceShell) {
+			aceShell.style.display = 'none';
+		}
+		if (field) {
+			field.removeAttribute("aria-hidden");
+			field.removeAttribute("tabindex");
+		}
+	}
+
+	function getAutocompletePreference() {
+		var savedPreference = sessionStorage.getItem('ace_autocomplete_enabled');
+		return savedPreference === 'true';
+	}
+
+	function initializeVisualLinting(editor, mode) {
+		if (!editor || !mode) return;
+
+		var language = getLanguageFromMode(mode);
+
+		try {
+			setupLintingWorker(editor, language);
+		} catch (error) {
+			console.warn('Failed to setup linting worker:', error);
+		}
+
+		setupManualLinting(editor, language);
+	}
+
+	function getLanguageFromMode(mode) {
+		if (!mode) return 'javascript';
+		var match = mode.match(/mode\/([^\/]+)/);
+		if (match && match[1]) {
+			return match[1].toLowerCase();
+		}
+		return 'javascript';
+	}
+
+	function setupLintingWorker(editor, language) {
+		var workerUrl = null;
+
+		var workerMap = {
+			'javascript': 'https://cdnjs.cloudflare.com/ajax/libs/ace/1.32.3/worker-javascript.min.js',
+			'typescript': 'https://cdnjs.cloudflare.com/ajax/libs/ace/1.32.3/worker-javascript.min.js',
+			'json': 'https://cdnjs.cloudflare.com/ajax/libs/ace/1.32.3/worker-json.min.js',
+			'css': 'https://cdnjs.cloudflare.com/ajax/libs/ace/1.32.3/worker-css.min.js',
+			'html': 'https://cdnjs.cloudflare.com/ajax/libs/ace/1.32.3/worker-html.min.js',
+			'xml': 'https://cdnjs.cloudflare.com/ajax/libs/ace/1.32.3/worker-xml.min.js'
+		};
+
+		if (workerMap[language]) {
+			workerUrl = workerMap[language];
+		}
+
+		if (workerUrl) {
+			editor.getSession().setMode(editor.session.getMode());
+		}
+	}
+
+	function setupManualLinting(editor, language) {
+		var lintTimeout = null;
+		var lastLintValue = '';
+
+		function performLint() {
+			var value = editor.getValue();
+
+			if (value === lastLintValue) {
+				return;
+			}
+			lastLintValue = value;
+
+			if (!value || !value.trim()) {
+				var existingAnnotations = editor.getSession().getAnnotations();
+				if (!existingAnnotations || existingAnnotations.length === 0) {
+					clearLintingErrors(editor);
+				}
+				return;
+			}
+
+			var errors = validateSyntax(value, language);
+
+			var existingAnnotations = editor.getSession().getAnnotations() || [];
+			var allErrors = existingAnnotations.concat(errors);
+
+			displayLintingErrors(editor, allErrors);
+		}
+
+		editor.getSession().on('changeAnnotation', function() {
+			var annotations = editor.getSession().getAnnotations() || [];
+			if (annotations.length > 0) {
+			}
+		});
+
+		editor.getSession().on('change', function() {
+			clearTimeout(lintTimeout);
+			lintTimeout = setTimeout(performLint, 500); // Debounce 500ms
+		});
+
+		setTimeout(performLint, 1000);
+	}
+
+	function validateSyntax(code, language) {
+		var errors = [];
+
+		try {
+			if (language === 'javascript' || language === 'js' || language === 'typescript' || language === 'ts') {
+				errors = validateJavaScript(code);
+			}
+			else if (language === 'python' || language === 'py') {
+				errors = validatePython(code);
+			}
+			else if (language === 'json') {
+				errors = validateJSON(code);
+			}
+		} catch (error) {
+			console.warn('Error during syntax validation:', error);
+		}
+
+		return errors;
+	}
+
+	function validateJavaScript(code) {
+		var errors = [];
+
+		if (!code || !code.trim()) {
+			return errors;
+		}
+
+		var openBrackets = (code.match(/\[/g) || []).length;
+		var closeBrackets = (code.match(/\]/g) || []).length;
+		var openParens = (code.match(/\(/g) || []).length;
+		var closeParens = (code.match(/\)/g) || []).length;
+		var openBraces = (code.match(/\{/g) || []).length;
+		var closeBraces = (code.match(/\}/g) || []).length;
+
+		var lines = code.split('\n');
+
+		if (openBrackets !== closeBrackets) {
+			var diff = openBrackets - closeBrackets;
+			var lastLine = lines.length - 1;
+			errors.push({
+				row: lastLine,
+				column: lines[lastLine].length,
+				text: 'Unmatched brackets: ' + (diff > 0 ? diff + ' more [' : Math.abs(diff) + ' more ]'),
+				type: 'error'
+			});
+		}
+
+		if (openParens !== closeParens) {
+			var diff = openParens - closeParens;
+			var lastLine = lines.length - 1;
+			errors.push({
+				row: lastLine,
+				column: lines[lastLine].length,
+				text: 'Unmatched parentheses: ' + (diff > 0 ? diff + ' more (' : Math.abs(diff) + ' more )'),
+				type: 'error'
+			});
+		}
+
+		if (openBraces !== closeBraces) {
+			var diff = openBraces - closeBraces;
+			var lastLine = lines.length - 1;
+			errors.push({
+				row: lastLine,
+				column: lines[lastLine].length,
+				text: 'Unmatched braces: ' + (diff > 0 ? diff + ' more {' : Math.abs(diff) + ' more }'),
+				type: 'error'
+			});
+		}
+
+		try {
+			new Function('"use strict";\n' + code);
+		} catch (e) {
+			var errorMsg = e.message || String(e);
+
+			var posMatch = errorMsg.match(/:(\d+):(\d+)/) || errorMsg.match(/line\s+(\d+)/i);
+			var errorLine = 0;
+			var errorCol = 0;
+
+			if (posMatch) {
+				errorLine = parseInt(posMatch[1]) - 2; // -2 for "use strict" line
+				if (posMatch[2]) errorCol = parseInt(posMatch[2]);
+				if (errorLine < 0) errorLine = 0;
+				if (errorLine >= lines.length) errorLine = lines.length - 1;
+			}
+
+			var cleanMsg = errorMsg.split('\n')[0].replace(/at .*/, '').trim();
+			if (cleanMsg.length > 80) {
+				cleanMsg = cleanMsg.substring(0, 77) + '...';
+			}
+			if (!cleanMsg) cleanMsg = 'Syntax error';
+
+			errors.push({
+				row: errorLine,
+				column: errorCol,
+				text: cleanMsg,
+				type: 'error'
+			});
+		}
+
+		return errors;
+	}
+
+	function validatePython(code) {
+		var errors = [];
+		var lines = code.split('\n');
+		var indentStack = [0];
+		var lastIndent = 0;
+
+		for (var i = 0; i < lines.length; i++) {
+			var line = lines[i];
+			var trimmed = line.trim();
+
+			if (!trimmed) continue;
+
+			var currentIndent = line.match(/^(\s*)/)[1].length;
+
+			if (trimmed.endsWith(':') && !trimmed.match(/:\s*$/)) {
+				errors.push({
+					row: i,
+					column: line.length,
+					text: 'Unexpected content after colon',
+					type: 'warning'
+				});
+			}
+
+			var singleQuotes = (line.match(/'/g) || []).length;
+			var doubleQuotes = (line.match(/"/g) || []).length;
+			if (singleQuotes % 2 !== 0 || doubleQuotes % 2 !== 0) {
+				errors.push({
+					row: i,
+					column: line.length,
+					text: 'Unmatched quotes',
+					type: 'error'
+				});
+			}
+
+			if (trimmed.match(/^\s*\w+\s*=/)) {
+			}
+		}
+
+		return errors;
+	}
+
+	function validateJSON(code) {
+		var errors = [];
+
+		try {
+			JSON.parse(code);
+		} catch (e) {
+			var match = e.message.match(/position (\d+)/);
+			if (match) {
+				var pos = parseInt(match[1]);
+				var lines = code.substring(0, pos).split('\n');
+				var errorLine = lines.length - 1;
+				var errorCol = lines[lines.length - 1].length;
+
+				errors.push({
+					row: errorLine,
+					column: errorCol,
+					text: e.message,
+					type: 'error'
+				});
+			} else {
+				errors.push({
+					row: 0,
+					column: 0,
+					text: e.message,
+					type: 'error'
+				});
+			}
+		}
+
+		return errors;
+	}
+
+	function displayLintingErrors(editor, errors) {
+		if (!editor || !errors || errors.length === 0) {
+			clearLintingErrors(editor);
+			return;
+		}
+
+		editor.getSession().clearAnnotations();
+
+		var annotations = errors.map(function(error) {
+			return {
+				row: error.row,
+				column: error.column || 0,
+				text: error.text || 'Syntax error',
+				type: error.type || 'error' // 'error', 'warning', 'info'
+			};
+		});
+
+		editor.getSession().setAnnotations(annotations);
+	}
+
+	function clearLintingErrors(editor) {
+		if (editor && editor.getSession) {
+			editor.getSession().clearAnnotations();
+		}
+	}
+
+	function initializeAceEditor() {
+		if (!window.ace || !aceShell || !field || !editorShell || aceEditor) {
+			return;
+		}
+
+		try {
+			var initialHeight = field.offsetHeight;
+			if (initialHeight && initialHeight > 0) {
+				aceShell.style.minHeight = initialHeight + "px";
+			} else {
+				aceShell.style.minHeight = "40vh";
+			}
+
+			if (aceShell._loadingIndicator) {
+				hideLoading(aceShell._loadingIndicator);
+				aceShell._loadingIndicator = null;
+			}
+			aceShell.innerHTML = '';
+			aceShell.style.display = '';
+
+			aceEditor = ace.edit("field1-editor");
+
+			ace.require("ace/theme/vscode");
+			aceEditor.setTheme("ace/theme/vscode");
+
+			aceEditor.session.setMode(aceMode);
+
+			aceShell.setAttribute("aria-hidden", "false");
+			aceShell.setAttribute("aria-label", "Visual code editor - Type your solution");
+			aceShell.setAttribute("role", "textbox");
+			aceShell.setAttribute("aria-multiline", "true");
+			aceShell.setAttribute("aria-describedby", "field1-help heading1");
+
+			var savedKeybind = sessionStorage.getItem('ace_keybind_preference') || "ace/keyboard/vim";
+			aceEditor.setKeyboardHandler(savedKeybind);
+
+			aceEditor.setOptions({
+				showPrintMargin: false,
+				wrap: false,
+				showLineNumbers: true,
+				highlightActiveLine: false,
+				highlightGutterLine: true,
+				showFoldWidgets: true,
+				fadeFoldWidgets: true,
+
+				fontSize: 16,
+				fontFamily: "JetBrains",
+
+				tabSize: 4,
+				useSoftTabs: true,
+				wrapBehavioursEnabled: true,
+
+				scrollPastEnd: 0.5,
+				hScrollBarAlwaysVisible: false,
+				vScrollBarAlwaysVisible: false,
+
+				enableMultiselect: true,
+
+				readOnly: false,
+				behavioursEnabled: true,
+				enableAutoIndent: true,
+				copyWithEmptySelection: false,
+				wrap: false,
+
+				useWorker: true, // Use web worker for syntax checking (if available)
+				// Note: Autocompletion options (enableBasicAutocompletion, enableLiveAutocompletion, enableSnippets)
+				// are set separately after language_tools extension is loaded
+
+				// Additional options (uncomment to test)
+				// Virtual Scrolling Optimization: Limit maxLines for better performance
+				// Ace Editor already has native virtual scrolling (only renders visible lines)
+				// Limiting maxLines helps prevent performance issues with extremely long files
+				maxLines: Infinity,
+				minLines: 10,
+				placeholder: "START TO TYPE HERE...",
+				displayIndentGuides: true,
+				animatedScroll: false,
+			});
+			aceEditor.setValue(field.value || "", -1);
+
+			aceEditor.$highlightMatchingBrackets = false;
+			aceEditor.$highlightMatchingTags = false;
+
+			var autocompleteEnabled = getAutocompletePreference();
+			if (autocompleteEnabled) {
+				applyAutocompletePreference(aceEditor, true);
+			}
+
+			initializeVisualLinting(aceEditor, aceMode);
+
+			aceEditor.session.on("change", function () {
+				var v = aceEditor.getValue();
+				field.value = v;
+
+				try {
+					field.dispatchEvent(new Event("input", { bubbles: true }));
+				} catch (e) { }
+			});
+
+			editorShell.classList.add("ace-ready");
+
+			aceShell.setAttribute("aria-hidden", "false");
+			field.setAttribute("tabindex", "-1");
+			field.setAttribute("aria-hidden", "true");
+
+			setupKeybindSelector();
+
+			setupAutocompleteToggle();
+
+			if (document.activeElement === field) {
+				setTimeout(function() {
+					if (aceEditor) {
+						aceEditor.focus();
+					}
+				}, 100);
+			}
+
+		} catch (e) {
+			console.warn("Ace editor failed to initialize, falling back to textarea", e);
+			if (editorShell) {
+				editorShell.classList.remove("ace-ready");
+			}
+			if (field) {
+				field.removeAttribute("aria-hidden");
+				field.removeAttribute("tabindex");
+			}
+		}
+	}
+
+	function setupKeybindSelector() {
+		var keybindSelect = document.getElementById("keybind-select");
+		if (keybindSelect) {
+			var savedKeybind = sessionStorage.getItem('ace_keybind_preference') || "ace/keyboard/vim";
+
+			keybindSelect.value = savedKeybind;
+
+			if (aceEditor) {
+				aceEditor.setKeyboardHandler(savedKeybind);
+			}
+
+			keybindSelect.removeEventListener("change", handleKeybindChange);
+			keybindSelect.addEventListener("change", handleKeybindChange);
+		}
+	}
+
+	function handleKeybindChange() {
+		var keybindSelect = document.getElementById("keybind-select");
+		if (keybindSelect) {
+			var selectedKeybind = keybindSelect.value;
+			sessionStorage.setItem('ace_keybind_preference', selectedKeybind);
+
+			var newKeybindScript = getKeybindingScript();
+			if (newKeybindScript && aceLoaded) {
+				var scriptExists = document.querySelector('script[src="' + newKeybindScript + '"]');
+				if (!scriptExists) {
+					var script = document.createElement('script');
+					script.src = newKeybindScript;
+					script.async = true;
+					script.onload = function() {
+						if (aceEditor) {
+							aceEditor.setKeyboardHandler(selectedKeybind);
+						}
+					};
+					script.onerror = function() {
+						console.warn('Failed to load keybinding script:', newKeybindScript);
+						if (aceEditor) {
+							aceEditor.setKeyboardHandler(null);
+						}
+					};
+					document.head.appendChild(script);
+				} else {
+					if (aceEditor) {
+						aceEditor.setKeyboardHandler(selectedKeybind);
+					}
+				}
+			} else if (aceEditor) {
+				if (selectedKeybind === 'ace/keyboard/vscode' || !newKeybindScript) {
+					aceEditor.setKeyboardHandler(selectedKeybind);
+				}
+			}
+		}
+	}
+
+	function setupAutocompleteToggle() {
+		var autocompleteToggle = document.getElementById('autocomplete-toggle');
+		if (!autocompleteToggle) return;
+
+		var isEnabled = getAutocompletePreference();
+		autocompleteToggle.checked = isEnabled;
+
+		autocompleteToggle.removeEventListener('change', handleAutocompleteToggleChange);
+		autocompleteToggle.addEventListener('change', handleAutocompleteToggleChange);
+
+		if (aceEditor) {
+			applyAutocompletePreference(aceEditor, isEnabled);
+		}
+	}
+
+	function handleAutocompleteToggleChange() {
+		var autocompleteToggle = document.getElementById('autocomplete-toggle');
+		if (!autocompleteToggle) return;
+
+		var isEnabled = autocompleteToggle.checked;
+
+		sessionStorage.setItem('ace_autocomplete_enabled', isEnabled.toString());
+
+		if (aceEditor) {
+			applyAutocompletePreference(aceEditor, isEnabled);
+		}
+	}
+
+	function loadLanguageTools() {
+		return new Promise(function(resolve, reject) {
+			try {
+				if (window.ace && ace.require) {
+					ace.require("ace/ext/language_tools");
+					// If we get here, it's already loaded
+					resolve();
+					return;
+				}
+			} catch (e) {
+			}
+
+			var existingScript = document.querySelector('script[src*="ext-language_tools"]');
+			if (existingScript) {
+				setTimeout(function() {
+					try {
+						ace.require("ace/ext/language_tools");
+						resolve();
+					} catch (e) {
+						var checkLoaded = function() {
+							try {
+								ace.require("ace/ext/language_tools");
+								resolve();
+							} catch (err) {
+								setTimeout(checkLoaded, 50);
+							}
+						};
+						checkLoaded();
+					}
+				}, 100);
+				return;
+			}
+
+			var script = document.createElement('script');
+			script.src = 'https://cdnjs.cloudflare.com/ajax/libs/ace/1.32.3/ext-language_tools.min.js';
+			script.async = true;
+
+			var loadTimeout = setTimeout(function() {
+				reject(new Error('Timeout loading language_tools'));
+			}, 10000);
+
+			script.onload = function() {
+				clearTimeout(loadTimeout);
+				setTimeout(function() {
+					try {
+						ace.require("ace/ext/language_tools");
+						resolve();
+					} catch (e) {
+						reject(e);
+					}
+				}, 100);
+			};
+
+			script.onerror = function() {
+				clearTimeout(loadTimeout);
+				reject(new Error('Failed to load language_tools script'));
+			};
+
+			document.head.appendChild(script);
+		});
+	}
+
+	function applyAutocompletePreference(editor, enabled) {
+		if (!editor) return;
+
+		var hasLanguageTools = false;
+		try {
+			hasLanguageTools = typeof ace !== 'undefined' && ace.require && ace.require('ace/ext/language_tools');
+		} catch (e) {
+		}
+
+		if (enabled) {
+			loadLanguageTools()
+				.then(function() {
+					try {
+						var langTools = ace.require('ace/ext/language_tools');
+						if (langTools) {
+							editor.setOption('enableBasicAutocompletion', true);
+							editor.setOption('enableLiveAutocompletion', true);
+							console.log('Autocompletion enabled. Press Ctrl+Space to trigger suggestions.');
+						}
+					} catch (error) {
+						console.warn('Language tools loaded but not available:', error);
+					}
+				})
+				.catch(function(error) {
+					console.warn('Failed to load language_tools extension:', error);
+					var toggle = document.getElementById('autocomplete-toggle');
+					if (toggle) {
+						toggle.checked = false;
+					}
+					sessionStorage.setItem('ace_autocomplete_enabled', 'false');
+				});
+		} else {
+			if (hasLanguageTools) {
+				try {
+					editor.setOption('enableBasicAutocompletion', false);
+					editor.setOption('enableLiveAutocompletion', false);
+					console.log('Autocompletion disabled.');
+				} catch (error) {
+				}
+			}
+		}
+	}
+
+	setupAutocompleteToggle();
+
+	setupKeybindSelector();
+
+	if (field && editorShell) {
+		function initAceAutoLoad() {
+			if (!aceLoaded && !aceLoading) {
+				loadAceEditor().then(function() {
+					if (aceEditor) {
+						setTimeout(function() {
+							aceEditor.focus();
+						}, 100);
+					}
+				});
+			}
+		}
+
+		if (document.readyState === 'loading') {
+			document.addEventListener('DOMContentLoaded', initAceAutoLoad);
+		} else {
+			setTimeout(initAceAutoLoad, 100);
+		}
+	}
+
+	if (editorShell) {
+		editorShell.classList.remove("ace-ready");
+	}
+
+	var current_platform = "";
+	var anki_logo_link = document.getElementsByTagName('link')[0];
+	var anki_logo_link_href = anki_logo_link.href;
+
+	if (anki_logo_link_href == "https://ankiuser.net/logo.png") {
+		current_platform = "ankiweb.net";
+	}
+
+	if (current_platform == "ankiweb.net") {
+		var parentDOM = document.getElementById("ansarea");
+		var answer_button_ankiweb = parentDOM.getElementsByClassName("btn-lg")[0];
+	}
+
+	var save_icon = document.getElementById('save');
+
+	if (field) {
+		field.addEventListener('focus', function() {
+			if (aceEditor) {
+				aceEditor.focus();
+			}
+		});
+
+		field.focus();
+	}
+
+	var storedFront = sessionStorage.getItem("input_transfer_front");
+	if (storedFront !== null) {
+		field.value = storedFront;
+		console.log("restored input_transfer_front");
+	}
+
+	document.getElementById('button1').addEventListener('click', () => {
+		saveInputContent();
+
+		document.activeElement.blur();
+	});
+
+
+	field.addEventListener('keydown', function (e) {
+		if (e.key == 'Tab') {
+			e.preventDefault();
+			var start = this.selectionStart;
+			var end = this.selectionEnd;
+
+			this.value = this.value.substring(0, start) + "    " + this.value.substring(end);
+
+			this.selectionStart = this.selectionEnd = start + 4;
+
+			saveInputContent();
+		}
+	});
+
+
+	field.addEventListener('input', function (e) {
+		debouncedSaveInput();
+	});
+
+	var helper_front = sessionStorage.getItem('input_transfer_front');
+
+	if (helper_front == null) {
+		sessionStorage.setItem('input_transfer_front', '');
+		console.log("No Input. Empty string provided as dummy.");
+	}
+
+	if (current_platform == "ankiweb.net") {
+		document.body.onkeyup = function (e) {
+			if (e.key === ' ' ||
+				e.key === 'Spacebar' ||
+				e.keyCode == 32) {
+
+				field_has_focus = (document.activeElement === field) ||
+					(aceEditor && aceEditor.isFocused && aceEditor.isFocused()) ||
+					(editorShell && editorShell.contains(document.activeElement));
+
+				if (field_has_focus == false) {
+					answer_button_ankiweb.click();
+				}
+			}
+		}
+	}
+
+</script>
+
+<script>
+  var tagsContainerEl = document.querySelectorAll('.prettify-tags > *')
+  if (tagsContainerEl.length > 0) {
+    var tags = []
+    tagsContainerEl.forEach((tagEl) => {
+      tagEl.classList.add('prettify-tag')
+      tags.push(tagEl.innerHTML)
+      tags.forEach((tag) => {
+        var childTag = tag.split('::').filter(Boolean)
+        tagEl.innerHTML = childTag[childTag.length - 1].trim()
+      })
+    })
+  } else {
+    tagsContainerEl = document.querySelector('.prettify-tags')
+    var tags = tagsContainerEl.innerHTML.split(' ').filter(Boolean)
+    var html = ''
+    tags.forEach((tag) => {
+      var childTag = tag.split('::').filter(Boolean)
+      html +=
+        "<span class='prettify-tag'>" +
+        childTag[childTag.length - 1] +
+        '</span>'
+    })
+    tagsContainerEl.innerHTML = html
+  }
+</script>
+
+<!-- Prism.js themes - VSCode Dark+ theme -->
+<!-- Light theme: Fallback to default prism theme -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" id="light_theme_front">
+<!-- Dark theme: VSCode Dark+ theme (official VSCode dark theme for Prism.js) -->
+<link rel="stylesheet" href="_prism-vsc-dark-plus.css" id="dark_theme_front">
+
+<script>
+	var darkModePreferenceFront = window.matchMedia("(prefers-color-scheme: dark)");
+	var darkModePreferredFront = false;
+
+	function determineDarkModeFront() {
+		if (darkModePreferenceFront.matches == true || document.body.classList.contains('night_mode') == true) {
+			darkModePreferredFront = true;
+		}
+		else {
+			darkModePreferredFront = false;
+		}
+	}
+
+	function switchStylesheetFront() {
+		if (darkModePreferredFront == true) {
+			document.getElementById("dark_theme_front").disabled = false;
+			document.getElementById("light_theme_front").disabled = true;
+		}
+		else {
+			document.getElementById("light_theme_front").disabled = false;
+			document.getElementById("dark_theme_front").disabled = true;
+		}
+	}
+
+	darkModePreferenceFront.addEventListener("change", function (e) {
+		applyStylesheetFront();
+	});
+
+	function onClassChangeFront(node, callback) {
+		let lastClassString = node.classList.toString();
+
+		const mutationObserver = new MutationObserver((mutationList) => {
+			for (const item of mutationList) {
+				if (item.attributeName === "class") {
+					const classString = node.classList.toString();
+					if (classString !== lastClassString) {
+						callback(mutationObserver);
+						lastClassString = classString;
+						break;
+					}
+				}
+			}
+		});
+
+		mutationObserver.observe(node, { attributes: true });
+
+		return mutationObserver;
+	}
+
+	onClassChangeFront(document.body, applyStylesheetFront);
+
+	function applyStylesheetFront() {
+		determineDarkModeFront();
+		switchStylesheetFront();
+	}
+
+	applyStylesheetFront();
+
+	function loadScript(scriptUrl) {
+		const script = document.createElement('script');
+		script.src = scriptUrl;
+		document.body.appendChild(script);
+
+		return new Promise((res, rej) => {
+			script.onload = res;
+			script.onerror = rej;
+		});
+	}
+
+	function normalizeLanguage(language) {
+		if (!language) return 'javascript';
+
+		var lang = language.toLowerCase().trim();
+		var langMap = {
+			"javascript": "javascript",
+			"js": "javascript",
+			"typescript": "typescript",
+			"ts": "typescript",
+			"python": "python",
+			"py": "python",
+			"c": "c",
+			"cpp": "cpp",
+			"c++": "cpp",
+			"c_cpp": "cpp",
+			"java": "java",
+			"go": "go",
+			"golang": "go",
+			"rust": "rust",
+			"ruby": "ruby",
+			"php": "php",
+			"html": "html",
+			"css": "css",
+			"sql": "sql",
+			"json": "json",
+			"xml": "xml",
+			"markdown": "markdown",
+			"bash": "bash",
+			"shell": "bash",
+			"sh": "bash"
+		};
+
+		return langMap[lang] || lang;
+	}
+
+	var cachedScripts = {};
+	function loadScriptOnce(src) {
+		if (cachedScripts[src]) return cachedScripts[src];
+		cachedScripts[src] = loadScript(src);
+		return cachedScripts[src];
+	}
+
+	function loadAceDependencies(language) {
+		var modeScript = getLanguageModeScript(language) || '';
+		var scripts = [
+			'https://cdnjs.cloudflare.com/ajax/libs/ace/1.32.3/ace.min.js',
+			'_theme-vscode.js',
+			modeScript
+		].filter(Boolean);
+
+		return scripts.reduce(function (promise, src) {
+			return promise.then(function () { return loadScriptOnce(src); });
+		}, Promise.resolve());
+	}
+
+	function formatCode(code, language) {
+		code = decodeHtmlEntities(code);
+		code = code.replace(/<br\s*\/?>/gi, '\n');
+		code = code.replace(/&nbsp;/gi, ' ');
+		code = code.replace(/<[^>]+>/g, '');
+		code = dedentCode(code);
+
+		if (typeof js_beautify === 'undefined') {
+			code = dedentCode(code);
+			code = code.replace(/\n{3,}/g, '\n\n');
+			return code;
+		}
+
+		language = normalizeLanguage(language);
+		code = dedentCode(code);
+
+		code = code.replace(/^\n+/, '').replace(/\n+$/, '');
+
+		var options = {
+			indent_size: 4,
+			indent_char: ' ',
+			max_preserve_newlines: 2,
+			preserve_newlines: true,
+			keep_array_indentation: false,
+			break_chained_methods: false,
+			indent_scripts: 'normal',
+			brace_style: 'collapse',
+			space_before_conditional: true,
+			unescape_strings: false,
+			jslint_happy: false,
+			end_with_newline: true,
+			wrap_line_length: 0,
+			indent_inner_html: false,
+			comma_first: false,
+			e4x: false,
+			indent_empty_lines: false
+		};
+
+		switch(language) {
+			case 'javascript':
+			case 'js':
+			case 'typescript':
+			case 'ts':
+				options.indent_size = 2;
+				options.brace_style = 'collapse';
+				return js_beautify(code, options);
+
+			case 'html':
+				options.indent_size = 2;
+				options.indent_inner_html = true;
+				return js_beautify.html_beautify(code, options);
+
+			case 'css':
+				options.indent_size = 2;
+				return js_beautify.css_beautify(code, options);
+
+			case 'json':
+				options.indent_size = 2;
+				return js_beautify(code, options);
+
+			case 'python':
+			case 'py':
+				// js-beautify não formata Python nativamente
+				// Usar formatação básica customizada
+				return formatPythonCode(code);
+
+			case 'java':
+			case 'c':
+			case 'cpp':
+			case 'go':
+			case 'rust':
+			case 'ruby':
+			case 'php':
+				options.indent_size = 4;
+				options.brace_style = 'collapse';
+				return js_beautify(code, options);
+
+			case 'sql':
+				return formatSQLCode(code);
+
+			case 'xml':
+				options.indent_size = 2;
+				return js_beautify.html_beautify(code, options);
+
+			default:
+				return formatBasicCode(code);
+		}
+	}
+
+	function decodeHtmlEntities(text) {
+		var textarea = document.createElement('textarea');
+		textarea.innerHTML = text;
+		return textarea.value;
+	}
+
+	function dedentCode(code) {
+		code = code.replace(/\r\n/g, '\n').replace(/\r/g, '\n');
+		code = code.replace(/^\s*\n+/, '').replace(/\n+\s*$/, '');
+
+		var lines = code.split('\n');
+		var minIndent = null;
+
+		lines.forEach(function(line) {
+			if (!line.trim()) return;
+			var match = line.match(/^(\s*)/);
+			var indent = match ? match[1].length : 0;
+			if (minIndent === null || indent < minIndent) {
+				minIndent = indent;
+			}
+		});
+
+		if (minIndent && minIndent > 0) {
+			lines = lines.map(function(line) {
+				return line.startsWith(' '.repeat(minIndent)) ? line.slice(minIndent) : line;
+			});
+		}
+
+		return lines.join('\n').replace(/^\s*\n+/, '').replace(/\n+\s*$/, '');
+	}
+
+	function formatPythonCode(code) {
+		code = decodeHtmlEntities(code);
+
+		code = code.replace(/<br\s*\/?>/gi, '\n');
+		code = code.replace(/&nbsp;/gi, ' ');
+		code = code.replace(/<[^>]+>/g, '');
+
+		code = code.replace(/\r\n/g, '\n').replace(/\r/g, '\n');
+		code = dedentCode(code);
+
+		code = code.replace(/(\w+)\s*=\s*\{([^}]+)\}/g, function(match, varName, dictContent) {
+			var items = [];
+			var currentItem = '';
+			var inString = false;
+			var stringChar = '';
+			var depth = 0;
+
+			for (var i = 0; i < dictContent.length; i++) {
+				var char = dictContent[i];
+
+				if ((char === '"' || char === "'") && (i === 0 || dictContent[i-1] !== '\\')) {
+					if (!inString) {
+						inString = true;
+						stringChar = char;
+					} else if (char === stringChar) {
+						inString = false;
+						stringChar = '';
+					}
+				}
+
+				if (!inString) {
+					if (char === '{') depth++;
+					if (char === '}') depth--;
+				}
+
+				if (char === ',' && !inString && depth === 0) {
+					if (currentItem.trim()) {
+						items.push(currentItem.trim());
+					}
+					currentItem = '';
+				} else {
+					currentItem += char;
+				}
+			}
+
+			if (currentItem.trim()) {
+				items.push(currentItem.trim());
+			}
+
+			var needsReformat = dictContent.indexOf('\n') === -1 || items.length === 1;
+
+			if (needsReformat && items.length > 0) {
+				var formattedItems = items.map(function(item, index) {
+					var comma = (index < items.length - 1) ? ',' : '';
+					return '    ' + item + comma;
+				});
+
+				return varName + ' = {\n' + formattedItems.join('\n') + '\n}';
+			}
+
+			return match;
+		});
+
+		code = code.replace(/(\w+)\s*=\s*\[([^\]]+)\]/g, function(match, varName, listContent) {
+			if (listContent.indexOf('\n') === -1 && listContent.length > 40) {
+				var items = listContent.split(',').map(function(item) {
+					return item.trim();
+				}).filter(function(item) {
+					return item.length > 0;
+				});
+
+				var formattedItems = items.map(function(item, index) {
+					var comma = (index < items.length - 1) ? ',' : '';
+					return '    ' + item + comma;
+				});
+
+				return varName + ' = [\n' + formattedItems.join('\n') + '\n]';
+			}
+			return match;
+		});
+
+		var lines = code.split('\n');
+		var formatted = [];
+		var indentSize = 4;
+
+		lines.forEach(function(line) {
+			var trimmed = line.trim();
+
+			// Preservar linhas vazias
+			if (!trimmed) {
+				formatted.push('');
+				return;
+			}
+
+			var originalIndent = (line.match(/^(\s*)/) || ['', ''])[1];
+
+			var indentLevel = Math.floor(originalIndent.length / indentSize);
+			var normalizedIndent = ' '.repeat(indentLevel * indentSize);
+
+			formatted.push(normalizedIndent + trimmed);
+		});
+
+		var result = formatted.join('\n');
+		result = result.replace(/^\s*\n+/, '').replace(/\n+\s*$/, '');
+		return result;
+	}
+
+	function formatSQLCode(code) {
+		code = code.trim();
+		code = code.replace(/\s+/g, ' ');
+		code = code.replace(/\s*,\s*/g, ',\n    ');
+		code = code.replace(/\s*(SELECT|FROM|WHERE|JOIN|INNER JOIN|LEFT JOIN|RIGHT JOIN|GROUP BY|ORDER BY|HAVING)\s+/gi, '\n$1 ');
+		return code.trim();
+	}
+
+	function formatBasicCode(code) {
+		code = code.trim();
+		code = code.replace(/\r\n/g, '\n').replace(/\r/g, '\n');
+		code = code.replace(/\n{3,}/g, '\n\n');
+		return code;
+	}
+
+	function processHintCode(retryCount) {
+		retryCount = retryCount || 0;
+		var maxRetries = 10;
+
+		var hintSource = document.querySelector('.hint-source');
+		if (!hintSource) {
+			if (retryCount < maxRetries) {
+				setTimeout(function() { processHintCode(retryCount + 1); }, 100);
+			}
+			return;
+		}
+
+		var originalCode = hintSource.innerHTML || '';
+
+		if (originalCode.indexOf('&') !== -1 || originalCode.indexOf('<') !== -1) {
+			var tempDiv = document.createElement('div');
+			tempDiv.innerHTML = originalCode;
+			originalCode = tempDiv.textContent || tempDiv.innerText || originalCode;
+		} else {
+			originalCode = hintSource.textContent || originalCode;
+		}
+
+		var languageMatch = hintSource.className.match(/language-(\w+)/);
+		var lang = languageMatch ? languageMatch[1] : '';
+
+		console.log('Detected language:', lang);
+		console.log('Original code length:', originalCode.length);
+		console.log('Original code preview:', originalCode.substring(0, 100));
+
+		loadScript('https://cdnjs.cloudflare.com/ajax/libs/js-beautify/1.14.7/beautify.min.js')
+			.then(() => {
+				console.log('js-beautify loaded!');
+
+				var formattedCode = formatCode(originalCode, lang);
+
+				formattedCode = formattedCode.replace(/^\s*\n+/, '').replace(/\n+\s*$/, '');
+
+				console.log('Formatted code length:', formattedCode.length);
+				console.log('Formatted code preview:', formattedCode.substring(0, 100));
+
+				hintSource.textContent = formattedCode;
+
+				initHintAce(formattedCode, lang);
+			})
+			.catch((error) => {
+				console.error('Failed to load formatting/highlighting libraries:', error);
+			});
+	}
+
+	function processFurtherCode() {
+		var furtherSource = document.querySelector('.further-source');
+		if (!furtherSource) {
+			return;
+		}
+
+		var originalCode = furtherSource.innerHTML || '';
+
+		if (originalCode.indexOf('&') !== -1 || originalCode.indexOf('<') !== -1) {
+			var tempDiv = document.createElement('div');
+			tempDiv.innerHTML = originalCode;
+			originalCode = tempDiv.textContent || tempDiv.innerText || originalCode;
+		} else {
+			originalCode = furtherSource.textContent || originalCode;
+		}
+
+		var languageMatch = furtherSource.className.match(/language-(\w+)/);
+		var lang = languageMatch ? languageMatch[1] : '';
+
+		console.log('Further lang:', lang, 'len:', originalCode.length);
+
+		loadScriptOnce('https://cdnjs.cloudflare.com/ajax/libs/js-beautify/1.14.7/beautify.min.js')
+			.then(() => {
+				var formattedCode = formatCode(originalCode, lang);
+				formattedCode = formattedCode.replace(/^\s*\n+/, '').replace(/\n+\s*$/, '');
+				furtherSource.textContent = formattedCode;
+				initFurtherAce(formattedCode, lang);
+			})
+			.catch(() => {
+				console.error('Failed to load js-beautify for further description');
+				initFurtherAce(originalCode, lang);
+			});
+	}
+
+	function destroyAceEditor(editor) {
+		if (editor && editor.destroy) {
+			try {
+				editor.destroy();
+			} catch (e) {
+				console.warn('Error destroying Ace editor:', e);
+			}
+		}
+	}
+
+	function cleanupAceEditors() {
+		if (window.hintAce) {
+			destroyAceEditor(window.hintAce);
+			window.hintAce = null;
+		}
+		if (window.furtherAce) {
+			destroyAceEditor(window.furtherAce);
+			window.furtherAce = null;
+		}
+	}
+
+	function adjustEditorHeight(editor, forcedRows) {
+		if (!editor || !editor.container || !editor.renderer) return;
+
+		var rows = forcedRows || (editor.session ? editor.session.getLength() : 1);
+		if (!rows || rows < 1) rows = 1;
+
+		editor.setOption('minLines', rows);
+		editor.setOption('maxLines', rows);
+
+		setTimeout(function() {
+			editor.renderer.onResize(true);
+			editor.resize(true);
+
+			var rowHeight = editor.renderer.lineHeight || 16;
+			var totalHeight = rowHeight * rows;
+
+			var padding = 24;
+			totalHeight += padding;
+
+			editor.container.style.height = totalHeight + 'px';
+			editor.container.style.minHeight = totalHeight + 'px';
+			editor.container.style.maxHeight = totalHeight + 'px';
+
+			var shell = editor.container.closest('.hint-editor-shell, .further-editor-shell');
+			if (shell) {
+				shell.style.height = 'auto';
+				shell.style.minHeight = 'auto';
+				shell.style.maxHeight = 'none';
+			}
+
+			setTimeout(function() {
+				editor.resize(true);
+			}, 10);
+		}, 50);
+	}
+
+	function initHintAce(formattedCode, language, retryCount) {
+		retryCount = retryCount || 0;
+		var maxRetries = 10;
+
+		var hintEditorEl = document.getElementById('hint-editor');
+		if (!hintEditorEl) {
+			if (retryCount < maxRetries) {
+				setTimeout(function() { initHintAce(formattedCode, language, retryCount + 1); }, 100);
+			}
+			return;
+		}
+
+		if (window.hintAce) {
+			destroyAceEditor(window.hintAce);
+			window.hintAce = null;
+		}
+
+		hintEditorEl.innerHTML = '';
+
+		var fixedLines = 6;
+
+		var createAceInstance = function() {
+			var element = document.getElementById('hint-editor');
+			if (!element) {
+				console.warn('Hint editor element disappeared before initialization');
+				return;
+			}
+
+			try {
+				var editor = ace.edit('hint-editor');
+				window.hintAce = editor;
+
+				editor.setTheme("ace/theme/vscode");
+				editor.session.setMode(getAceMode(language) || 'ace/mode/python');
+				editor.setValue(formattedCode || '', -1);
+				editor.setOptions({
+					showPrintMargin: false,
+					wrap: true,
+					fontSize: 16,
+					fontFamily: "JetBrains, monospace",
+					minLines: fixedLines,
+					maxLines: fixedLines,
+					highlightActiveLine: false,
+					useSoftTabs: true,
+					tabSize: 4
+				});
+				if (editor.renderer && editor.container) {
+					editor.container.style.lineHeight = '1.6';
+				}
+				editor.session.setScrollTop(0);
+				editor.renderer.scrollToLine(0, false, false);
+				editor.gotoLine(1, 0, true);
+				adjustEditorHeight(editor, fixedLines);
+			} catch (e) {
+				console.error('Error creating hint Ace editor:', e);
+			}
+		};
+
+		loadAceDependencies(language)
+			.then(createAceInstance)
+			.catch(() => console.error('Failed to load Ace for hint editor'));
+	}
+
+	function initFurtherAce(formattedCode, language) {
+		var editorEl = document.getElementById('further-editor');
+		if (!editorEl) {
+			return;
+		}
+
+		if (window.furtherAce) {
+			destroyAceEditor(window.furtherAce);
+			window.furtherAce = null;
+		}
+
+		editorEl.innerHTML = '';
+
+		var fixedLines = 6;
+
+		var createAceInstance = function() {
+			var element = document.getElementById('further-editor');
+			if (!element) {
+				console.warn('Further editor element disappeared before initialization');
+				return;
+			}
+
+			try {
+				var editor = ace.edit('further-editor');
+				window.furtherAce = editor;
+
+				editor.setTheme("ace/theme/vscode");
+				editor.session.setMode('ace/mode/text');
+				editor.setValue(formattedCode || '', -1);
+				editor.setOptions({
+					showPrintMargin: false,
+					showGutter: false,
+					wrap: true,
+					readOnly: true,
+					highlightActiveLine: false,
+					highlightGutterLine: false,
+					fontSize: 16,
+					fontFamily: "JetBrains, monospace",
+					minLines: fixedLines,
+					maxLines: fixedLines,
+					useSoftTabs: true,
+					tabSize: 4
+				});
+				editor.renderer.setShowGutter(false);
+				if (editor.renderer && editor.container) {
+					editor.container.style.lineHeight = '1.6';
+				}
+				editor.session.setScrollTop(0);
+				editor.renderer.scrollToLine(0, false, false);
+				editor.gotoLine(1, 0, true);
+				adjustEditorHeight(editor, fixedLines);
+			} catch (e) {
+				console.error('Error creating further Ace editor:', e);
+			}
+		};
+
+		loadAceDependencies(language)
+			.then(createAceInstance)
+			.catch(() => console.error('Failed to load Ace for further description'));
+	}
+
+	function reinitializeEditors() {
+		cleanupAceEditors();
+
+		setTimeout(function() {
+			processHintCode();
+			processFurtherCode();
+		}, 100);
+	}
+
+	if (document.readyState === 'loading') {
+		document.addEventListener('DOMContentLoaded', function() {
+			reinitializeEditors();
+		});
+	} else {
+		reinitializeEditors();
+	}
+
+	if (typeof anki !== 'undefined' && anki.hook) {
+		anki.hook('showAnswer', function() {
+			setTimeout(reinitializeEditors, 100);
+		});
+		anki.hook('showQuestion', function() {
+			setTimeout(reinitializeEditors, 100);
+		});
+	}
+
+	if (typeof MutationObserver !== 'undefined') {
+		var observer = new MutationObserver(function(mutations) {
+			var shouldReinit = false;
+			mutations.forEach(function(mutation) {
+				if (mutation.addedNodes.length > 0) {
+					for (var i = 0; i < mutation.addedNodes.length; i++) {
+						var node = mutation.addedNodes[i];
+						if (node.nodeType === 1) {
+							if (node.querySelector && (
+								node.querySelector('#hint-editor') ||
+								node.querySelector('#further-editor') ||
+								node.id === 'hint-editor' ||
+								node.id === 'further-editor'
+							)) {
+								shouldReinit = true;
+								break;
+							}
+						}
+					}
+				}
+			});
+
+			if (shouldReinit) {
+				clearTimeout(window._reinitTimeout);
+				window._reinitTimeout = setTimeout(reinitializeEditors, 200);
+			}
+		});
+
+		if (document.body) {
+			observer.observe(document.body, {
+				childList: true,
+				subtree: true
+			});
+		} else {
+			if (document.readyState === 'loading') {
+				document.addEventListener('DOMContentLoaded', function() {
+					if (document.body) {
+						observer.observe(document.body, {
+							childList: true,
+							subtree: true
+						});
+					}
+				});
+			}
+		}
+	}
+</script>

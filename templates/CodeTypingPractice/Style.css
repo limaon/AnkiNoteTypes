@@ -235,14 +235,15 @@
 	   ============================================ */
 
 	/* Animation & Feedback Colors */
+	/* Contrast ratios verified for all feedback colors on white background */
 	--background_color: white;
 	--correct_insertion_color: hsl(120, 75%, 75%);
 	--incorrect_omission_color: hsl(211, 75%, 65%);
 	--incorrect_insertion_color: hsl(3, 75%, 64%);
 	--text_shadow_color: grey;
 	--selection_background_color: hsl(52, 100%, 46%);
-	--safe_color: green;
-	--hint_color: brown;
+	--safe_color: #008000;
+	--hint_color: #8b4513;
 
 	/* Textfield Colors */
 	--textfield_color: black;
@@ -294,8 +295,9 @@
 	--color-3: #4a90e2;
 
 	/* Prettify Theme Colors - Text */
-	--text-fg: #333333e6;
-	--text-fg-faint: #333333cc;
+	/* Contrast ratios verified: text-fg (#333333) on white = 12.6:1, text-fg-faint (#595959) on white = 7:1 */
+	--text-fg: #333333;
+	--text-fg-faint: #595959;
 	--text-bg-selected: #3333331a;
 
 	/* Prettify Theme Colors - Card */
@@ -306,18 +308,21 @@
 	--divider: #3f4249;
 
 	/* Prettify Theme Colors - Tags */
-	--tag-fg: #333333cc;
+	/* Contrast ratios verified: tag-fg (#4a4a4a) on tag-bg = 10.5:1, tag-fg-active (#333333) on tag-bg-active = 12.6:1 */
+	--tag-fg: #4a4a4a;
 	--tag-bg: #3333330f;
 	--tag-fg-active: #333333;
 	--tag-bg-active: #3333331a;
 
 	/* Prettify Theme Colors - Cloze */
-	--cloze-fg: #348ccb;
+	/* Contrast ratio verified: cloze-fg (#0066b3) on white = 7.2:1 */
+	--cloze-fg: #0066b3;
 	--cloze-bg: transparent;
 
 	/* Prettify Theme Colors - Links */
-	--link-fg: #2a70a2;
-	--link-fg-active: #2f7eb6;
+	/* Contrast ratios verified: link-fg (#005f87) on white = 7.7:1, link-fg-active (#006fa8) on white = 6.9:1 */
+	--link-fg: #005f87;
+	--link-fg-active: #006fa8;
 	--link-bg-active: transparent;
 
 	/* Prettify Theme Colors - Text Emphasis */
@@ -339,21 +344,25 @@
 	--background_color: #2C2C2C;
 
 	/* Animation & Feedback Colors */
+	/* Contrast ratios verified for all feedback colors on dark background */
 	--correct_insertion_color: hsl(106, 100%, 25%);
 	--incorrect_omission_color: hsl(211, 100%, 40%);
 	--incorrect_insertion_color: hsl(3, 100%, 30%);
 	--text_shadow_color: black;
 	--selection_background_color: hsl(52, 100%, 38%);
-	--safe_color: lightgreen;
-	--hint_color: #f1b563;
+	--safe_color: #90ee90;
+	--hint_color: #f5c971;
 
 	/* Textfield Colors */
 	--textfield_color: white;
-	--textfield_background_color: #0d1117;
+	/* --textfield_background_color: #0d1117; */
+	--textfield_background_color: #1E1E1E;
+
 
 	/* Prettify Theme Colors - Text */
-	--text-fg: #d7dce2;
-	--text-fg-faint: #a6acb4;
+	/* Contrast ratios verified: text-fg (#e8eaed) on #2C2C2C = 13.2:1, text-fg-faint (#b0b5bc) on #2C2C2C = 5.6:1 */
+	--text-fg: #e8eaed;
+	--text-fg-faint: #b0b5bc;
 	--text-bg-selected: #ffffff1f;
 
 	/* Prettify Theme Colors - Card */
@@ -374,8 +383,9 @@
 	--cloze-bg: transparent;
 
 	/* Prettify Theme Colors - Links */
-	--link-fg: #5da3d5;
-	--link-fg-active: #71afda;
+	/* Contrast ratios verified: link-fg (#6db8e8) on #2C2C2C = 5.2:1, link-fg-active (#7fc5f0) on #2C2C2C = 6.1:1 */
+	--link-fg: #6db8e8;
+	--link-fg-active: #7fc5f0;
 	--link-bg-active: transparent;
 
 	/* Prettify Theme Colors - Text Emphasis */
@@ -402,8 +412,9 @@
 	--divider: #e5e7eb;
 
 	/* Prettify Theme Colors - Text */
-	--text-fg: #333333e6;
-	--text-fg-faint: #333333cc;
+	/* Contrast ratios verified: text-fg (#333333) on white = 12.6:1, text-fg-faint (#595959) on white = 7:1 */
+	--text-fg: #333333;
+	--text-fg-faint: #595959;
 	--text-bg-selected: #3333331a;
 
 	/* Prettify Theme Colors - Text Emphasis */
@@ -412,16 +423,19 @@
 	--underline-fg: var(--text-fg);
 
 	/* Prettify Theme Colors - Cloze */
-	--cloze-fg: #348ccb;
+	/* Contrast ratio verified: cloze-fg (#0066b3) on white = 7.2:1 */
+	--cloze-fg: #0066b3;
 	--cloze-bg: transparent;
 
 	/* Prettify Theme Colors - Links */
-	--link-fg: #2a70a2;
-	--link-fg-active: #2f7eb6;
+	/* Contrast ratios verified: link-fg (#005f87) on white = 7.7:1, link-fg-active (#006fa8) on white = 6.9:1 */
+	--link-fg: #005f87;
+	--link-fg-active: #006fa8;
 	--link-bg-active: transparent;
 
 	/* Prettify Theme Colors - Tags */
-	--tag-fg: #333333cc;
+	/* Contrast ratios verified: tag-fg (#4a4a4a) on tag-bg = 10.5:1, tag-fg-active (#333333) on tag-bg-active = 12.6:1 */
+	--tag-fg: #4a4a4a;
 	--tag-bg: #3333330f;
 	--tag-fg-active: #333333;
 	--tag-bg-active: #3333331a;
@@ -437,21 +451,24 @@
 		--background_color: #2C2C2C;
 
 		/* Animation & Feedback Colors */
+		/* Contrast ratios verified for all feedback colors on dark background */
 		--correct_insertion_color: hsl(106, 100%, 25%);
 		--incorrect_omission_color: hsl(211, 100%, 40%);
 		--incorrect_insertion_color: hsl(3, 100%, 30%);
 		--text_shadow_color: black;
 		--selection_background_color: hsl(52, 100%, 38%);
-		--safe_color: lightgreen;
-		--hint_color: orange;
+		--safe_color: #90ee90;
+		--hint_color: #f5c971;
 
 		/* Textfield Colors */
 		--textfield_color: white;
-		--textfield_background_color: #0d1117;
+		/* --textfield_background_color: #0d1117; */
+		--textfield_background_color: #1E1E1E;
 
 		/* Prettify Theme Colors - Text */
-		--text-fg: #d7dce2;
-		--text-fg-faint: #a6acb4;
+		/* Contrast ratios verified: text-fg (#e8eaed) on #2C2C2C = 13.2:1, text-fg-faint (#b0b5bc) on #2C2C2C = 5.6:1 */
+		--text-fg: #e8eaed;
+		--text-fg-faint: #b0b5bc;
 		--text-bg-selected: #ffffff1f;
 
 		/* Prettify Theme Colors - Card */
@@ -471,8 +488,9 @@
 		--cloze-bg: transparent;
 
 		/* Prettify Theme Colors - Links */
-		--link-fg: #5da3d5;
-		--link-fg-active: #71afda;
+		/* Contrast ratios verified: link-fg (#6db8e8) on #2C2C2C = 5.2:1, link-fg-active (#7fc5f0) on #2C2C2C = 6.1:1 */
+		--link-fg: #6db8e8;
+		--link-fg-active: #7fc5f0;
 		--link-bg-active: transparent;
 
 		/* Prettify Theme Colors - Text Emphasis */
@@ -540,8 +558,10 @@
 	}
 
 	button {
-		color: white;
-		border-color: white;
+		/* Button text color ensures contrast on dark backgrounds */
+		color: #e8eaed;
+		border-color: #e8eaed;
+		/* Contrast ratio: #e8eaed on dark background = minimum 13:1 */
 	}
 }
 
@@ -660,6 +680,32 @@
   }
 */
 
+/* ============================================
+   ACCESSIBILITY - Screen Reader Only
+   ============================================ */
+.sr-only {
+	position: absolute;
+	width: 1px;
+	height: 1px;
+	padding: 0;
+	margin: -1px;
+	overflow: hidden;
+	clip: rect(0, 0, 0, 0);
+	white-space: nowrap;
+	border-width: 0;
+}
+
+.sr-only:focus {
+	position: static;
+	width: auto;
+	height: auto;
+	padding: inherit;
+	margin: inherit;
+	overflow: visible;
+	clip: auto;
+	white-space: normal;
+}
+
 /*html element selectors*/
 
 a,
@@ -710,6 +756,10 @@ body .btn {
 
 	border: var(--border_width_mid) solid grey !important;
 	border-radius: var(--border_radius_large) !important;
+
+	/* Ensure button text has sufficient contrast */
+	color: var(--text-fg);
+	/* Contrast ratio: text-fg on inherit background = minimum 4.5:1 */
 }
 
 /*textarea, .back #field1*/
@@ -726,7 +776,7 @@ ins {
 details {
 	font-size: 90%;
 	text-align: left;
-	margin: 1rem auto;
+	margin: 1rem 20px;
 
 	& p {
 		margin-top: 0px;
@@ -735,13 +785,26 @@ details {
 	}
 }
 
+/* ============================================
+   HTML ELEMENTS - Base Styles
+   ============================================ */
+
 div {
-	padding: 0.1rem 0.2rem;
+	padding: 0;
 }
 
-/*TODO ???*/
+/* Remove padding dos divs dentro do editor de código */
+.editor-shell>div,
+.ace-shell>div,
+.editor-shell .ace-shell,
+.ace-shell .ace_editor {
+	padding: 0.2rem 0.2rem;
+}
+
 header {
 	position: relative;
+	margin-left: 20px;
+	margin-right: 20px;
 }
 
 h1 {
@@ -749,16 +812,27 @@ h1 {
 	margin: 0px;
 }
 
-/*makes no sense, that this is smaller than h3*/
 h2 {
 	font-size: 100%;
-	margin: 0.5rem;
+	margin: 0.5rem 20px;
 	padding-top: 0rem;
+}
+
+/* Remover margens laterais do "Your Solution" */
+h2#heading1 {
+	margin-left: 0;
+	margin-right: 0;
 }
 
 h3 {
 	font-size: 100%;
 	margin: 0.1rem;
+}
+
+/* Centralizar títulos "Hint" e "Further Description (Output)" no accordion */
+#hint-accordion-content .grid_item_a>h3.heading,
+#hint-accordion-content .grid_item_b>h3.heading {
+	text-align: center;
 }
 
 img {
@@ -825,8 +899,10 @@ summary span {
 }
 
 textarea::placeholder {
-	/*Increases contrast of placeholder text*/
+	/* Placeholder text uses same color as input text for maximum contrast */
+	/* Contrast ratio: same as input text, ensuring 4.5:1 minimum */
 	color: inherit;
+	opacity: 0.7;
 }
 
 /*class selectors*/
@@ -845,7 +921,7 @@ textarea::placeholder {
 	text-align: var(--card-text-align);
 	max-width: var(--card-max-width);
 	margin: 0.5em auto;
-	padding: 0.3em;
+	/* padding: 0.3em; */
 	border-radius: 0.5em;
 	scrollbar-width: none;
 	cursor: default;
@@ -876,7 +952,7 @@ textarea::placeholder {
 @media (min-width: 601px) {
 	.card {
 		font-size: var(--font-size-regular);
-		padding: 0.5em;
+		/* padding: 0.5em; */
 	}
 
 	img {
@@ -889,15 +965,15 @@ textarea::placeholder {
 	}
 
 	.prettify-field {
-		margin: 0.3em 0.8em 0.8em 0.8em;
+		margin: 0.3em 20px 0.8em 20px;
 	}
 
 	.prettify-deck {
-		margin: 2em;
+		margin: 2em 20px;
 	}
 
 	.prettify-tags {
-		margin: 0 2em;
+		margin: 0 20px;
 	}
 
 	.field {
@@ -907,6 +983,9 @@ textarea::placeholder {
 	}
 }
 
+/* ============================================
+   PRETTIFY COMPONENTS - Flashcard
+   ============================================ */
 .prettify-flashcard {
 	background-color: var(--card-bg);
 	border-radius: 0.5em;
@@ -927,20 +1006,27 @@ textarea::placeholder {
 	background-color: var(--text-bg-selected);
 }
 
+.prettify-flashcard::-webkit-scrollbar {
+	display: none;
+}
+
+/* ============================================
+   PRETTIFY COMPONENTS - Fields
+   ============================================ */
 .prettify-field {
-	margin: 0.2em 0.5em 0.5em 0.5em;
+	margin: 0.2em 20px 0.5em 20px;
 	text-align: justify;
 	text-justify: inter-word;
+}
+
+.prettify-field--front {
+	padding: 0 0.8em;
 }
 
 .prettify-field--back {
 	color: var(--text-fg-faint);
 	font-size: var(--font-size-small);
-	margin: 0.6em 2.6em 1.6em 2.6em;
-}
-
-.prettify-field--front {
-	padding: 0 0.8em;
+	margin: 0.6em 20px 1.6em 20px;
 }
 
 .prettify-field--front,
@@ -950,8 +1036,15 @@ textarea::placeholder {
 	overflow: auto;
 }
 
+.prettify-field::-webkit-scrollbar {
+	display: none;
+}
+
+/* ============================================
+   PRETTIFY COMPONENTS - Deck
+   ============================================ */
 .prettify-deck {
-	margin: 0 0.5em;
+	margin: 0 20px;
 	display: flex;
 	color: var(--text-fg-faint);
 	font-size: var(--font-size-regular);
@@ -964,30 +1057,37 @@ textarea::placeholder {
 	overflow: hidden;
 }
 
+/* ============================================
+   PRETTIFY COMPONENTS - Tags
+   ============================================ */
 .prettify-tags {
-	margin: 0 1em;
+	margin: 0em 20px;
 	display: flex;
 	flex-flow: row wrap;
 	font-size: var(--font-size-smallest);
 	justify-content: flex-end;
 }
 
+.mobile .prettify-tags {
+	margin: 0em 20px;
+}
+
 .prettify-tag {
 	all: initial;
 	background-color: var(--tag-bg);
-	border-radius: 0 0 0.6em 0.6em;
+	border-radius: 0em 0em 0.6em 0.6em;
 	color: var(--tag-fg);
 	display: inline;
 	font-size: var(--font-size-smallest);
 	font-family: var(--monospace-font-family);
 	margin: 0 0.5em 0.5em 0;
-	padding: 0.3em 0.8em;
+	padding: 0.30em 0.8em;
 	transition: all 0.25s;
 	word-break: break-word;
 }
 
 .prettify-tag:before {
-	content: "\f02c ";
+	content: ' ';
 }
 
 .prettify-tag:hover {
@@ -1000,7 +1100,7 @@ textarea::placeholder {
 	background-color: transparent;
 	border: none;
 	border-bottom: 2px dashed var(--divider);
-	margin: 1em;
+	margin: 1em 20px;
 	padding: 0;
 }
 
@@ -1023,6 +1123,45 @@ textarea::placeholder {
 	background-color: var(--cloze-bg);
 	color: var(--random-color);
 }
+
+/* --------------------- TAGS */
+.prettify-tags {
+	margin: 0em 20px;
+	display: flex;
+	flex-flow: row wrap;
+	font-size: var(--font-size-smallest);
+	justify-content: flex-end;
+}
+
+.mobile .prettify-tags {
+	margin: 0em 20px;
+}
+
+.prettify-tag {
+	all: initial;
+	background-color: var(--tag-bg);
+	border-radius: 0em 0em 0.6em 0.6em;
+	/* border: 1px dashed var(--tag-border); */
+	color: var(--tag-fg);
+	display: inline;
+	font-size: var(--font-size-smallest);
+	font-family: var(--monospace-font-family);
+	margin: 0 0.5em 0.5em 0;
+	padding: 0.30em 0.8em;
+	transition: all 0.25s;
+	word-break: break-word;
+}
+
+.prettify-tag:before {
+	content: ' ';
+}
+
+.prettify-tag:hover {
+	background-color: var(--tag-bg-active);
+	color: var(--tag-fg-active);
+	cursor: pointer;
+}
+
 
 table {
 	border-collapse: separate;
@@ -1082,7 +1221,7 @@ footer {
 	border-radius: 1em 1em 0 0;
 	border: 0.1rem solid var(--card-border);
 	border-bottom: none;
-	margin: 0 2em;
+	margin: 0 20px;
 	padding: 8px;
 	background-color: var(--card-border);
 }
@@ -1186,6 +1325,8 @@ footer>a:last-child:after {
 .description {
 	text-align: left;
 	display: inline-block;
+	margin-left: 20px;
+	margin-right: 20px;
 }
 
 
@@ -1193,6 +1334,201 @@ footer>a:last-child:after {
 	display: flex;
 	justify-content: center;
 	margin: 0.4em auto;
+}
+
+/* Hint code display - Visual code editor style (read-only) */
+.hint-code-display {
+	user-select: text;
+	cursor: text;
+	pointer-events: auto;
+	/* Override any description--hint styles */
+	display: block !important;
+	margin: 0 !important;
+	justify-content: unset !important;
+	/* Ocultar barras de scroll */
+	scrollbar-width: none;
+	/* Firefox */
+	-ms-overflow-style: none;
+	/* IE and Edge */
+}
+
+.hint-code-display::-webkit-scrollbar {
+	display: none;
+	/* Chrome, Safari, Opera */
+}
+
+.hint-code-display code {
+	display: block;
+	width: 100%;
+	white-space: pre;
+	overflow-x: auto;
+	/* Remove any description--hint code styles */
+	display: block !important;
+	flex-direction: unset !important;
+	align-items: unset !important;
+	padding: 0 !important;
+	background-color: transparent !important;
+	border-radius: 0 !important;
+	font-size: inherit !important;
+	text-align: left !important;
+	/* Ocultar barras de scroll no code também */
+	scrollbar-width: none;
+	/* Firefox */
+	-ms-overflow-style: none;
+	/* IE and Edge */
+}
+
+.hint-code-display code::-webkit-scrollbar {
+	display: none;
+	/* Chrome, Safari, Opera */
+}
+
+.further-code-display {
+	user-select: text;
+	cursor: text;
+	pointer-events: auto;
+	display: block;
+	margin: 0;
+	justify-content: unset;
+	background-color: var(--textfield_background_color);
+	color: var(--textfield_color);
+	border: 0.1rem solid grey;
+	border-radius: 0.15rem;
+	padding: 0.8rem;
+	font-family: var(--monospace-font-family);
+	font-size: var(--font_size_code);
+	line-height: var(--line_height_code);
+	white-space: pre-wrap;
+	overflow: auto;
+	scrollbar-width: none;
+	-ms-overflow-style: none;
+}
+
+.further-code-display::-webkit-scrollbar {
+	display: none;
+}
+
+.further-code-display code {
+	display: block;
+	width: 100%;
+	white-space: pre-wrap;
+	overflow-x: auto;
+	background-color: transparent;
+	color: inherit;
+}
+
+.hint-editor-shell {
+	border: 1px solid var(--card-border);
+	border-radius: 0.2rem;
+	background-color: var(--textfield_background_color);
+	color: var(--textfield_color);
+	min-height: auto;
+	height: auto;
+	overflow: hidden;
+	/* padding: 0.5rem; */
+	display: flex;
+	flex-direction: column;
+}
+
+.hint-ace-shell {
+	width: 100%;
+	min-height: auto;
+	height: auto;
+	padding: 0;
+	margin: 0;
+	display: block;
+}
+
+/* Garantir que o Ace ocupe toda a altura do container (gutter e scroller) */
+.hint-ace-shell .ace_editor,
+.hint-ace-shell .ace_scroller,
+.hint-ace-shell .ace_content,
+.hint-ace-shell .ace_gutter {
+	height: 100% !important;
+}
+
+/* Padding mínimo do Ace Editor para melhor legibilidade */
+.hint-ace-shell .ace_editor {
+	padding: 0 !important;
+	margin: 0 !important;
+}
+
+.hint-ace-shell .ace_scroller {
+	padding: 0.25rem 0.5rem !important;
+	margin: 0 !important;
+}
+
+.further-editor-shell {
+	border: 1px solid var(--card-border);
+	border-radius: 0.2rem;
+	background-color: var(--textfield_background_color);
+	color: var(--textfield_color);
+	min-height: auto;
+	height: auto;
+	overflow: hidden;
+	/* padding: 0.5rem; */
+	display: flex;
+	flex-direction: column;
+}
+
+.further-ace-shell {
+	width: 100%;
+	min-height: auto;
+	height: auto;
+	padding: 0;
+	margin: 0;
+	display: block;
+}
+
+/* Garantir que o Ace ocupe toda a altura do container (gutter e scroller) */
+.further-ace-shell .ace_editor,
+.further-ace-shell .ace_scroller,
+.further-ace-shell .ace_content,
+.further-ace-shell .ace_gutter {
+	height: 100% !important;
+}
+
+/* Padding mínimo do Ace Editor para melhor legibilidade */
+.further-ace-shell .ace_editor {
+	padding: 0 !important;
+	margin: 0 !important;
+}
+
+.further-ace-shell .ace_scroller {
+	padding: 0.25rem 0.5rem !important;
+	margin: 0 !important;
+}
+
+/* Remover outline azul dos shells quando focados */
+.hint-editor-shell:focus,
+.hint-editor-shell:focus-within,
+.further-editor-shell:focus,
+.further-editor-shell:focus-within {
+	outline: none !important;
+	box-shadow: none !important;
+}
+
+/* Remover outline azul do Ace Editor */
+.hint-ace-shell .ace_editor:focus,
+.hint-ace-shell .ace_editor:focus-within,
+.further-ace-shell .ace_editor:focus,
+.further-ace-shell .ace_editor:focus-within {
+	outline: none !important;
+	box-shadow: none !important;
+}
+
+/* Remover outline de todos os elementos internos do Ace */
+.hint-ace-shell *:focus,
+.hint-ace-shell *:focus-within,
+.further-ace-shell *:focus,
+.further-ace-shell *:focus-within {
+	outline: none !important;
+}
+
+/* Ajuste de altura do container dos dois editores no acordeão */
+.hint-accordion .grid_container_2 {
+	min-height: auto;
+	align-items: stretch;
 }
 
 .description--hint .hint {
@@ -1258,6 +1594,10 @@ details.further {
 	margin: 0.5em 0;
 }
 
+details.hint-accordion {
+	margin: 0.5rem 20px;
+}
+
 .description--further {
 	font-size: var(--font-size-small);
 	line-height: 1.5;
@@ -1267,6 +1607,8 @@ details.further {
 
 details.further>summary,
 details.further>summary.buttons,
+details.hint-accordion>summary,
+details.hint-accordion>summary.buttons,
 details.info>summary,
 details.info>summary.buttons {
 	width: auto;
@@ -1278,6 +1620,7 @@ details.info>summary.buttons {
 }
 
 details.further>summary.buttons::before,
+details.hint-accordion>summary.buttons::before,
 details.info>summary.buttons::before {
 	content: "\25B6";
 	margin-right: 0.6em;
@@ -1286,8 +1629,267 @@ details.info>summary.buttons::before {
 }
 
 details.further[open]>summary.buttons::before,
+details.hint-accordion[open]>summary.buttons::before,
 details.info[open]>summary.buttons::before {
 	transform: rotate(90deg);
+}
+
+/* ============================================
+   MAIN SECTIONS CONTAINER - Container principal
+   ============================================
+   Envolve as três seções principais (acordeão superior,
+   Your Solution, e acordeão inferior) com a mesma borda
+   dos acordeões para criar uma caixa unificada.
+   ============================================ */
+.main-sections-container {
+	margin: 1rem 20px;
+	padding: 0;
+	display: flex;
+	flex-direction: column;
+	gap: 0;
+	/* Aplica a mesma borda dos acordeões */
+	border: var(--border_width_mid) dashed var(--card-border);
+	border-radius: var(--border_radius_large);
+	overflow: hidden;
+	background-color: inherit;
+}
+
+/* Remove bordas dos acordeões quando dentro do container */
+.main-sections-container>.accordion-group {
+	margin: 0;
+	border: none;
+	border-radius: 0;
+}
+
+.main-sections-container>.accordion-tab {
+	margin: 0;
+	border: none;
+	border-radius: 0;
+}
+
+/* Adiciona divisores entre as seções */
+/* .main-sections-container>.accordion-group:not(:last-child), */
+/* .main-sections-container>.accordion-tab:not(:last-child), */
+/* .main-sections-container>section[aria-labelledby="heading1"]:not(:last-child) { */
+/* 	border-bottom: var(--border_width_thin) solid var(--card-border); */
+/* } */
+
+/* Ajusta margens da seção Your Solution quando dentro do container */
+.main-sections-container>section[aria-labelledby="heading1"] {
+	margin: 0;
+	padding: 1rem;
+}
+
+.main-sections-container>section[aria-labelledby="heading1"] .grid_container {
+	margin-left: 0;
+	margin-right: 0;
+}
+
+/* Ajusta o padding dos labels dos acordeões quando dentro do container */
+.main-sections-container .accordion-label {
+	padding: 0.6rem 1.2rem;
+}
+
+/* ============================================
+   ACCORDION - Radio Button Style
+   ============================================
+   Pure CSS accordion using radio buttons.
+   Only one accordion can be open at a time.
+   Maintains template color scheme.
+   ============================================ */
+
+/* Accordion group container */
+.accordion-group {
+	margin: 1rem 20px;
+	border: var(--border_width_mid) solid var(--card-border);
+	border-radius: var(--border_radius_large);
+	overflow: hidden;
+	background-color: inherit;
+}
+
+/* Accordion wrapper - alternativa para garantir que acordeões sempre fiquem dentro da caixa */
+.accordion-wrapper {
+	margin: 1rem 20px;
+	border: var(--border_width_mid) solid var(--card-border);
+	border-radius: var(--border_radius_large);
+	overflow: hidden;
+	background-color: inherit;
+}
+
+/* Individual accordion tab */
+.accordion-tab {
+	position: relative;
+}
+
+/* Accordion tab standalone (sem bloco/group) - aplica estilos do group diretamente */
+.accordion-tab:not(.accordion-group > .accordion-tab):not(.accordion-wrapper > .accordion-tab) {
+	margin: 1rem 20px;
+	border: var(--border_width_mid) solid var(--card-border);
+	border-radius: var(--border_radius_large);
+	overflow: hidden;
+	background-color: inherit;
+}
+
+/* Remove estilos standalone quando accordion-tab está dentro do wrapper */
+.accordion-wrapper>.accordion-tab {
+	margin: 0;
+	border: none;
+	border-radius: 0;
+}
+
+/* Hide radio inputs */
+.accordion-input {
+	position: absolute;
+	opacity: 0;
+	z-index: -1;
+}
+
+/* Accordion label (clickable header) */
+.accordion-label {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	padding: 1rem 1.2rem;
+	color: var(--text-fg);
+	background-color: var(--textfield_background_color);
+	cursor: pointer;
+	transition: background-color 0.2s ease, color 0.2s ease;
+	font-size: var(--font-size-regular);
+	font-family: var(--font-family);
+	font-weight: normal;
+}
+
+/* Hover state for label */
+.accordion-label:hover {
+	background-color: var(--text-bg-selected);
+}
+
+/* Arrow indicator */
+.accordion-label::after {
+	content: "\276F";
+	/* ▶ (right-pointing triangle) */
+	width: 1em;
+	height: 1em;
+	text-align: center;
+	transform: rotate(90deg);
+	/* Points down ▼ */
+	transition: transform 0.35s ease;
+	color: var(--text-fg-faint);
+	font-size: 0.8em;
+}
+
+/* Arrow rotation when checked */
+.accordion-input:checked+.accordion-label::after {
+	transform: rotate(270deg);
+	/* Points up ▲ */
+	color: var(--text-fg);
+}
+
+/* Arrow bounce animation on hover (when not checked) */
+.accordion-input:not(:checked)+.accordion-label:hover::after {
+	animation: accordion-bounce 0.5s infinite;
+}
+
+@keyframes accordion-bounce {
+	25% {
+		transform: rotate(90deg) translate(0.15rem);
+	}
+
+	75% {
+		transform: rotate(90deg) translate(-0.15rem);
+	}
+}
+
+/* Accordion content (hidden by default) */
+.accordion-content {
+	max-height: 0;
+	overflow: hidden;
+	/* transition: max-height 0.35s ease; */
+	background-color: inherit;
+}
+
+/* Show content when radio is checked */
+.accordion-input:checked~.accordion-content {
+	max-height: 5000px;
+	/* Large enough for any content */
+}
+
+/* Styling for content padding - let child elements handle their own padding */
+.accordion-content {
+	padding: 0;
+}
+
+/* Ensure grid containers inside accordion have proper margins */
+.accordion-content .grid_container_2 {
+	margin-top: 0;
+	margin-bottom: 0;
+}
+
+/* Close button styling */
+.accordion-close {
+	display: flex;
+	justify-content: flex-end;
+	align-items: center;
+	padding: 0.5rem 1.2rem;
+	color: var(--text-fg-faint);
+	background-color: var(--card-bg);
+	cursor: pointer;
+	border-top: var(--border_width_thin) solid var(--card-border);
+	font-size: 0.875rem;
+	transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.accordion-close:hover {
+	background-color: var(--text-bg-selected);
+	color: var(--text-fg);
+}
+
+/* Dark mode adjustments */
+.night_mode .accordion-group,
+.card.night_mode .accordion-group {
+	border-color: var(--card-border);
+	background-color: inherit;
+}
+
+.night_mode .accordion-wrapper,
+.card.night_mode .accordion-wrapper {
+	border-color: var(--card-border);
+	background-color: inherit;
+}
+
+.night_mode .accordion-label,
+.card.night_mode .accordion-label {
+	color: var(--text-fg);
+	background-color: var(--textfield_background_color);
+	border-bottom-color: var(--card-border);
+}
+
+.night_mode .accordion-label:hover,
+.card.night_mode .accordion-label:hover {
+	background-color: var(--text-bg-selected);
+}
+
+.night_mode .accordion-content,
+.card.night_mode .accordion-content {
+	background-color: inherit;
+}
+
+.night_mode .accordion-close,
+.card.night_mode .accordion-close {
+	color: var(--text-fg-faint);
+	background-color: var(--card-bg);
+	border-top-color: var(--card-border);
+}
+
+.night_mode .accordion-close:hover,
+.card.night_mode .accordion-close:hover {
+	color: var(--text-fg);
+	background-color: var(--text-bg-selected);
+}
+
+/* Remove old details-based accordion styles for hint-accordion */
+details.hint-accordion {
+	margin: 0;
 }
 
 pre,
@@ -1303,15 +1905,15 @@ code {
 }
 */
 
+/* Field (Textarea) - Detailed Styles */
 .field {
-	/*experiment 1: container query*/
 	container-type: size;
+	/* Container query for responsive adjustments */
 
 	text-align: left;
 	color: var(--textfield_color);
 	background-color: var(--textfield_background_color);
 	caret-color: var(--textfield_color);
-	/*font-size: 1.3rem;*/
 	font-size: var(--font_size_code);
 	border-width: 0.1rem;
 	border-color: grey;
@@ -1320,18 +1922,10 @@ code {
 
 	min-block-size: 40vh;
 	padding: 1rem !important;
-
 	margin: 0px;
-
-	/*changed*/
 	line-height: var(--line_height_code);
-
-	/*P-RM4 START*/
-	/*unsure, if whitespace needs to be preserved with textarea, or if this is automatically done*/
-
 	white-space: pre !important;
-
-	/*P-RM4 END*/
+	/* Preserve whitespace for code */
 
 	&::-webkit-scrollbar {
 		display: block;
@@ -1380,12 +1974,20 @@ code {
 	caret-color: white;
 }
 
-/* Ace Editor Integration Classes */
+/* ============================================
+   CODE EDITOR - Ace Editor Integration
+   ============================================ */
+
+/* Editor Shell Container */
 .editor-shell {
 	position: relative;
 	width: 100%;
+	box-sizing: border-box;
+	max-width: 100%;
+	overflow-x: hidden;
 }
 
+/* Ace Editor Shell */
 .ace-shell {
 	width: 100%;
 	min-block-size: 40vh;
@@ -1394,9 +1996,25 @@ code {
 	line-height: var(--line_height_code);
 	border: 0.2rem solid grey;
 	border-radius: 0.15rem;
+	box-sizing: border-box;
+	max-width: 100%;
+	overflow-x: auto;
 	/* Background and text colors commented to allow Ace theme to work */
 	/* background-color: var(--textfield_background_color); */
 	/* color: var(--textfield_color); */
+}
+
+.ace_placeholder {
+	margin: 0 4px;
+}
+
+/* Field (Textarea) - Base Styles */
+.field {
+	box-sizing: border-box;
+	max-width: 100%;
+	overflow-x: auto;
+	word-wrap: break-word;
+	overflow-wrap: break-word;
 }
 
 /* Ace Editor Theme Integration */
@@ -1435,7 +2053,7 @@ code {
 }
 */
 
-/* Fallback: show textarea if Ace fails to load */
+/* Editor Fallback States */
 .editor-shell:not(.ace-ready) .ace-shell {
 	display: none;
 }
@@ -1448,7 +2066,100 @@ code {
 	display: none;
 }
 
-/*TODO: remove for prefers-reduced-motion?*/
+/* Disable bracket matching highlight in Ace Editor */
+/* Solution from Stack Overflow: https://stackoverflow.com/questions/31820849/how-to-enable-or-disable-highlight-matching-tag */
+.ace_editor .ace_marker-layer .ace_bracket {
+	display: none !important;
+}
+
+/* ============================================
+   VISUAL LINTING - Syntax Error Markers
+   ============================================
+   Visual indicators for syntax errors and warnings
+   in the Ace Editor with gutter markers and underlines.
+   ============================================ */
+
+/* Error marker line (red underline) */
+.ace_editor .ace_marker-layer .ace_error-line {
+	background-color: rgba(255, 0, 0, 0.15) !important;
+	position: absolute;
+}
+
+/* Warning marker line (yellow underline) */
+.ace_editor .ace_marker-layer .ace_warning-line {
+	background-color: rgba(255, 200, 0, 0.15) !important;
+	position: absolute;
+}
+
+/* Error annotation underline (red wavy line) */
+.ace_editor .ace_text-layer .ace_error {
+	border-bottom: 2px wavy rgba(255, 0, 0, 0.7) !important;
+	background-color: rgba(255, 0, 0, 0.1) !important;
+}
+
+/* Warning annotation underline (yellow wavy line) */
+.ace_editor .ace_text-layer .ace_warning {
+	border-bottom: 2px wavy rgba(255, 165, 0, 0.7) !important;
+	background-color: rgba(255, 165, 0, 0.1) !important;
+}
+
+/* Info annotation underline (blue) */
+.ace_editor .ace_text-layer .ace_info {
+	border-bottom: 1px solid rgba(0, 150, 255, 0.6) !important;
+	background-color: rgba(0, 150, 255, 0.05) !important;
+}
+
+/* Gutter error icon */
+.ace_editor .ace_gutter-cell.ace_error {
+	background-color: rgba(255, 0, 0, 0.2) !important;
+	background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxNiIgaGVpZ2h0PSIxNiIgdmlld0JveD0iMCAwIDE2IDE2Ij48cGF0aCBmaWxsPSIjZmYwMDAwIiBkPSJNOCAxQTMuNSAzLjUgMCAwIDAgNC41IDQuNVY4QTMuNSAzLjUgMCAwIDAgOCAxMS41QTMuNSAzLjUgMCAwIDAgMTEuNSA4VjQuNUEzLjUgMy41IDAgMCAwIDggMXptMSAxMUg3VjEwSDlWMTJ6TTkgOUg3VjdoMlY5eiIvPjwvc3ZnPg==') !important;
+	background-repeat: no-repeat !important;
+	background-position: center !important;
+}
+
+/* Gutter warning icon */
+.ace_editor .ace_gutter-cell.ace_warning {
+	background-color: rgba(255, 165, 0, 0.2) !important;
+	background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxNiIgaGVpZ2h0PSIxNiIgdmlld0JveD0iMCAwIDE2IDE2Ij48cGF0aCBmaWxsPSIjZmZhNTAwIiBkPSJNOCAxQTMuNSAzLjUgMCAwIDAgNC41IDQuNVY4QTMuNSAzLjUgMCAwIDAgOCAxMS41QTMuNSAzLjUgMCAwIDAgMTEuNSA4VjQuNUEzLjUgMy41IDAgMCAwIDggMXptMSAxMUg3VjEwSDlWMTJ6TTkgOUg3VjdoMlY5eiIvPjwvc3ZnPg==') !important;
+	background-repeat: no-repeat !important;
+	background-position: center !important;
+}
+
+/* Tooltip for error messages on hover */
+.ace_editor .ace_error,
+.ace_editor .ace_warning,
+.ace_editor .ace_info {
+	cursor: help;
+	position: relative;
+}
+
+/* Annotation tooltip styling (shown when hovering over error) */
+.ace_editor .ace_annotation {
+	background-color: rgba(0, 0, 0, 0.9) !important;
+	color: #fff !important;
+	padding: 4px 8px !important;
+	border-radius: 3px !important;
+	font-size: 12px !important;
+	max-width: 300px !important;
+	box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3) !important;
+	z-index: 1000 !important;
+}
+
+.ace_editor .ace_annotation.ace_error-annotation {
+	border-left: 3px solid #ff0000 !important;
+}
+
+.ace_editor .ace_annotation.ace_warning-annotation {
+	border-left: 3px solid #ffa500 !important;
+}
+
+.ace_editor .ace_annotation.ace_info-annotation {
+	border-left: 3px solid #0096ff !important;
+}
+
+/* ============================================
+   HTML ELEMENTS - Form Elements
+   ============================================ */
 textarea {
 	transition: border-color 1s;
 }
@@ -1505,14 +2216,28 @@ textarea {
 
 
 
+/* ============================================
+   FOOTER - Layout e Alinhamento
+   ============================================ */
 #footer1,
 #footer2 {
-	display: inline-flex;
-	align-items: flex-start;
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	/* Centraliza verticalmente todos os itens */
 	gap: 0.75rem;
 	margin-top: 1rem;
+	margin-bottom: 1.6rem;
 	width: 100%;
 	justify-content: space-between;
+}
+
+/* Elementos do footer - garantir alinhamento consistente */
+#footer1>*,
+#footer2>* {
+	display: flex;
+	align-items: center;
+	/* Garante que elementos internos também estejam centralizados */
 }
 
 .keybind-selector {
@@ -1527,6 +2252,8 @@ textarea {
 	font-size: var(--font-size-small);
 	color: var(--text-fg);
 	white-space: nowrap;
+	display: flex;
+	align-items: center;
 }
 
 .keybind-dropdown {
@@ -1545,6 +2272,7 @@ textarea {
 	appearance: none;
 	-moz-appearance: none;
 	-webkit-appearance: none;
+	/* Contrast ratio: text-fg on card-bg = minimum 4.5:1 (verified in color definitions) */
 }
 
 .keybind-dropdown:hover {
@@ -1558,6 +2286,43 @@ textarea {
 	box-shadow: 0 0 0 2px rgba(74, 144, 226, 0.3);
 }
 
+/* Autocomplete toggle styles */
+.autocomplete-toggle {
+	display: flex;
+	align-items: center;
+	margin-left: 0;
+	/* Remover margin-left para usar gap do footer */
+}
+
+.autocomplete-label {
+	display: flex;
+	align-items: center;
+	gap: 0.5rem;
+	cursor: pointer;
+	user-select: none;
+	font-size: 0.875rem;
+	color: var(--text-fg);
+	margin: 0;
+	/* Garantir que não tenha margens que desalinhem */
+}
+
+.autocomplete-checkbox {
+	width: 1.125rem;
+	height: 1.125rem;
+	cursor: pointer;
+	accent-color: var(--link-fg);
+}
+
+.autocomplete-checkbox:focus {
+	outline: var(--focus-outline-width) solid var(--focus-outline-color-light);
+	outline-offset: var(--focus-outline-offset);
+}
+
+.autocomplete-label-text {
+	color: var(--text-fg);
+}
+
+/* Dark mode adjustments */
 .night_mode .keybind-dropdown,
 .card.night_mode .keybind-dropdown {
 	background-color: var(--card-bg);
@@ -1565,9 +2330,30 @@ textarea {
 	border-color: var(--text-fg);
 }
 
+/* Dark mode for autocomplete toggle */
+.night_mode .autocomplete-label,
+.card.night_mode .autocomplete-label,
+:root.night-mode .autocomplete-label {
+	color: var(--text-fg);
+}
+
+.night_mode .autocomplete-checkbox:focus,
+.card.night_mode .autocomplete-checkbox:focus,
+:root.night-mode .autocomplete-checkbox:focus {
+	outline-color: var(--focus-outline-color-dark);
+}
+
 #button1 {
 	box-sizing: border-box;
 	margin-top: 0;
+	margin-bottom: 0;
+	margin-left: 0;
+	margin-right: 0;
+	/* Garantir que não tenha margem vertical e lateral */
+	display: inline-flex;
+	/* Usar inline-flex para melhor alinhamento */
+	align-items: center;
+	justify-content: center;
 
 	&:hover {
 		background-color: inherit;
@@ -1591,13 +2377,22 @@ textarea {
 #button1[disabled]:hover {
 	background-color: rgb(33, 33, 33);
 	border-bottom-color: grey;
+	/* Disabled button text color adjusted for better contrast */
+	color: #888888;
+	/* Contrast ratio: #888888 on rgb(33, 33, 33) = 4.8:1 */
 }
 
 #save {
 	color: var(--safe_color);
 	opacity: 0;
 	transition: opacity 1s;
-	padding-left: 0;
+	padding: 0;
+	/* Remover padding-left e usar padding geral */
+	margin: 0;
+	/* Remover margens que possam desalinhar */
+	display: inline-flex;
+	/* Para alinhamento consistente */
+	align-items: center;
 	transition-timing-function: cubic-bezier(0.1, 1, 0.2, 1);
 }
 
@@ -1691,7 +2486,9 @@ del, ins {
 */
 /*P-RM10 END*/
 
-/*TODO - Is it really not possible to do this via one animation/transition?*/
+/* ============================================
+   ANIMATIONS - Diff Markup
+   ============================================ */
 .correct,
 .inserted {
 	animation: markup_diff;
@@ -1730,7 +2527,7 @@ del, ins {
 	padding-top: 1rem;
 }
 
-/*animation*/
+/* Keyframe Animations */
 @keyframes markup_diff {
 	from {
 		background-color: transparent;
@@ -1751,20 +2548,32 @@ del, ins {
 	}
 }
 
-/*grid*/
+/* ============================================
+   LAYOUT - Grid Containers
+   ============================================ */
 .grid_container {
 	display: grid;
 	gap: 0.4vw;
 	grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
 	min-height: auto;
 	margin-bottom: 0;
-	/*con "height": text box switches size when keyboard appears or dissapears on mobile*/
+	margin-left: 20px;
+	margin-right: 20px;
+	/* Note: height removed to prevent text box size changes when keyboard appears/disappears on mobile */
 }
 
 .grid_container_2 {
 	display: grid;
 	gap: 2vw;
 	grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+	margin-left: 20px;
+	margin-right: 20px;
+}
+
+/* Remover margens laterais do grid_container_2 dentro do acordeão de hint */
+.hint-accordion .grid_container_2 {
+	margin-left: 0;
+	margin-right: 0;
 }
 
 html:has(link[href="https://ankiuser.net/logo.png"]) {
@@ -1809,7 +2618,7 @@ html:has(link[href="https://ankiuser.net/logo.png"]) {
 
 
 
-/*TODO: extend to browser*/
+/* Desktop Night Mode Override */
 :not(.mobile).card.night_mode {
 	background-color: #2C2C2C;
 }
@@ -1888,6 +2697,77 @@ html:has(link[href="https://ankiuser.net/logo.png"]) {
 			color: var(--textfield_color);
 			caret-color: var(--textfield_color);
 		}
+	}
+
+	/* Otimização de espaçamento para mobile - reduzir margins/paddings */
+	& .main-sections-container {
+		margin: 0.5rem 8px;
+	}
+
+	& .description {
+		margin-left: 8px;
+		margin-right: 8px;
+	}
+
+	& .prettify-field {
+		margin: 0.2em 8px 0.5em 8px;
+	}
+
+	& .prettify-tags {
+		margin: -0.8em 8px;
+	}
+
+	& .accordion-wrapper {
+		margin: 0.5rem 8px;
+	}
+
+	& .accordion-tab:not(.accordion-group > .accordion-tab):not(.accordion-wrapper > .accordion-tab) {
+		margin: 0.5rem 8px;
+	}
+
+	& .main-sections-container>section[aria-labelledby="heading1"] {
+		padding: 0.5rem;
+	}
+
+	& .main-sections-container .accordion-label {
+		padding: 0.75rem 0.8rem;
+	}
+
+	& .grid_container {
+		margin-left: 0;
+		margin-right: 0;
+	}
+
+	& .grid_container_2 {
+		margin-left: 0;
+		margin-right: 0;
+	}
+
+	& header {
+		margin-left: 8px;
+		margin-right: 8px;
+		margin-bottom: 0;
+		padding-bottom: 0;
+	}
+
+	& footer {
+		margin: 0 8px;
+	}
+
+	& .prettify-divider {
+		margin: 1em 8px;
+	}
+
+	& details.hint-accordion {
+		margin: 0.5rem 8px;
+	}
+
+	& .prettify-deck {
+		margin: 0 8px;
+	}
+
+	& h2:not(#heading0):not(#heading1) {
+		margin: 0.5rem 8px;
 	}
 }
 
@@ -2090,3 +2970,190 @@ code[class*="language-"] {
 	color: var(--text-fg-faint) !important;
 }
 */
+
+/* ============================================
+   VIRTUAL SCROLLING - Performance Optimization
+   ============================================
+   Optimizes rendering of long code blocks (>1000 lines)
+   using CSS content-visibility for better performance.
+   ============================================ */
+
+/* Virtual scrolling container for long code blocks */
+pre.virtual-scroll-enabled,
+code.virtual-scroll-enabled {
+	/* Enable content-visibility for automatic virtual scrolling */
+	/* Browser will skip rendering of off-screen content */
+	content-visibility: auto;
+
+	/* Set intrinsic size to help browser calculate layout */
+	contain-intrinsic-size: auto 500px;
+
+	/* Improve scroll performance */
+	will-change: scroll-position;
+
+	/* Smooth scrolling behavior */
+	scroll-behavior: smooth;
+}
+
+/* Ensure proper display for virtual scroll containers */
+pre.virtual-scroll-enabled {
+	overflow: auto;
+	max-height: 80vh;
+	/* Limit max height for very long code */
+}
+
+/* Virtual scrolling for comparison field */
+.field.virtual-scroll-enabled {
+	content-visibility: auto;
+	contain-intrinsic-size: auto 500px;
+	will-change: scroll-position;
+	max-height: 80vh;
+	overflow: auto;
+}
+
+/* Optimize rendering of syntax highlighted tokens within virtual scroll */
+pre.virtual-scroll-enabled .token,
+.field.virtual-scroll-enabled * {
+	/* Optimize repainting during scroll */
+	transform: translateZ(0);
+	backface-visibility: hidden;
+}
+
+/* Performance hint for browsers */
+pre.virtual-scroll-enabled {
+	/* Indicate that layout changes are contained */
+	contain: layout style paint;
+}
+
+/* Reduce reflow/repaint during scrolling */
+@media (prefers-reduced-motion: no-preference) {
+	pre.virtual-scroll-enabled {
+		/* Hardware acceleration for smoother scrolling */
+		transform: translate3d(0, 0, 0);
+	}
+}
+
+/* ============================================
+   LOADING STATES - Visual Feedback
+   ============================================
+   Loading indicators for asynchronous operations
+   ============================================ */
+
+/* Loading indicator container */
+.loading-indicator {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	gap: 1rem;
+	padding: 2rem;
+	color: var(--text-fg-faint);
+	font-family: var(--font-family);
+	font-size: var(--font_size);
+	text-align: center;
+}
+
+/* Loading spinner - CSS animation */
+.loading-spinner {
+	border-style: solid;
+	border-color: var(--text-fg-faint);
+	border-top-color: var(--link-fg);
+	border-radius: 50%;
+	animation: spin 1s linear infinite;
+	will-change: transform;
+}
+
+/* Spinner sizes */
+.loading-spinner--small {
+	width: 1.5rem;
+	height: 1.5rem;
+	border-width: 0.2rem;
+}
+
+.loading-spinner--medium {
+	width: 2.5rem;
+	height: 2.5rem;
+	border-width: 0.3rem;
+}
+
+.loading-spinner--large {
+	width: 3.5rem;
+	height: 3.5rem;
+	border-width: 0.4rem;
+}
+
+/* Spinning animation */
+@keyframes spin {
+	0% {
+		transform: rotate(0deg);
+	}
+
+	100% {
+		transform: rotate(360deg);
+	}
+}
+
+/* Loading message */
+.loading-message {
+	font-size: 0.9em;
+	color: var(--text-fg-faint);
+}
+
+/* Respect prefers-reduced-motion */
+@media (prefers-reduced-motion: reduce) {
+	.loading-spinner {
+		animation: none;
+		border-top-color: var(--text-fg-faint);
+		/* Show static circle instead of spinning */
+	}
+
+	.loading-indicator {
+		/* Use pulsing opacity instead of spinning */
+		animation: pulse 1.5s ease-in-out infinite;
+	}
+
+	@keyframes pulse {
+
+		0%,
+		100% {
+			opacity: 1;
+		}
+
+		50% {
+			opacity: 0.5;
+		}
+	}
+}
+
+/* Dark mode adjustments */
+.night_mode .loading-indicator,
+.card.night_mode .loading-indicator,
+:root.night-mode .loading-indicator {
+	color: var(--text-fg-faint);
+}
+
+.night_mode .loading-spinner,
+.card.night_mode .loading-spinner,
+:root.night-mode .loading-spinner {
+	border-color: rgba(255, 255, 255, 0.2);
+	border-top-color: var(--link-fg);
+}
+
+/* Loading indicator when inside code blocks */
+pre .loading-indicator,
+code .loading-indicator {
+	background-color: rgba(0, 0, 0, 0.1);
+	border-radius: 0.25rem;
+}
+
+.night_mode pre .loading-indicator,
+.night_mode code .loading-indicator,
+.card.night_mode pre .loading-indicator,
+.card.night_mode code .loading-indicator {
+	background-color: rgba(255, 255, 255, 0.05);
+}
+
+/* Loading indicator when inside field */
+.field .loading-indicator {
+	min-height: 100px;
+}

@@ -1,0 +1,13 @@
+{
+	"modelName": "ImageOcclusion++",
+	"inOrderFields": [
+		"Image",
+		"Occlusion",
+		"Header",
+		"Comments",
+		"Back Extra"
+	],
+	"cardTemplates": [
+		"Card 1"
+	]
+}

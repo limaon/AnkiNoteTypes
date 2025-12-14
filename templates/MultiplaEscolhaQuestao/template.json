@@ -1,0 +1,17 @@
+{
+	"modelName": "MultiplaEscolhaQuestao",
+	"inOrderFields": [
+		"EnunciadoQuestao",
+		"Imagem",
+		"Alternativa-A",
+		"Alternativa-B",
+		"Alternativa-C",
+		"Alternativa-D",
+		"Alternativa-E",
+		"Anotacoes",
+		"Gabarito"
+	],
+	"cardTemplates": [
+		"Card 1"
+	]
+}

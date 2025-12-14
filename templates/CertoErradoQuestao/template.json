@@ -1,0 +1,12 @@
+{
+	"modelName": "CertoErradoQuestao",
+	"inOrderFields": [
+		"EnunciadoQuestao",
+		"Imagem",
+		"Anotacoes",
+		"Gabarito"
+	],
+	"cardTemplates": [
+		"Card 1"
+	]
+}

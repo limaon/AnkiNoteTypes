@@ -1,0 +1,137 @@
+<!--Templete de cartao de flashcard (tema prettify-flashcard)-->
+<div class="prettify-flashcard">
+  <!-- <div class="prettify-deck">{{Deck}}</div> -->
+
+  {{#Tags}}
+  <div class="prettify-tags">{{clickable:Tags}}</div>
+  {{/Tags}}
+
+  <div class="prettify-field prettify-field--front">
+    <tts service="android">
+        {{edit:Question}}
+    </tts>
+    {{#TypeHint}}
+    <code>{{hint::TypeHint}}</code>
+    {{/TypeHint}}
+  </div>
+
+  <div class="prettify-field--back">
+    <div class="prettify-divider prettify-divider--answer" id="answer"></div>
+    <div class="typeans-container">
+      <div class="terminal-line-anki">
+          <span class="terminal-prompt-anki">></span>
+          {{type:Answer}}
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    {{#Keywords}}
+    <a href="https://www.youtube.com/results?search_query={{Keywords}}" title="Youtube videos">Youtube</a>
+    <!-- <a href="https://codemadness.org/idiotbox/?q={{Keywords}}" title="Tutorials videos">CodeMadness</a> -->
+    <a href="https://duckduckgo.com/?t=ffab&q={{Keywords}}&ia=web" title="Search on web">DuckDuckGo</a>
+    <a href="https://duckduckgo.com/?t=ffab&q={{Keywords}}&iax=images&ia=images " title="Search Images">Images</a>
+    <!--<a href="https://www.phind.com/search?q={{Keywords}}" title="Search on Phind">Phind</a>-->
+    <a href="https://chatgpt.com/?temporary-chat=true&model=gpt-4o&q={{Keywords}}" title="Search on ChatGPT">GPT-4o</a>
+    <a href="https://chatgpt.com/?temporary-chat=true&model=o1&q={{Keywords}}" title="Search on ChatGPT">GPT-o1</a>
+    <a href="https://you.com/search?q={{Keywords}}&fromSearchBar=true&tbm=youchat&chatMode=default" title="Search on YouAI">YouAI</a>
+    {{/Keywords}}
+  </footer>
+</div>
+
+<script>
+  // Split hierarchical tags
+  var tagsContainerEl = document.querySelectorAll('.prettify-tags > *')
+  if (tagsContainerEl.length > 0) {
+      var tags = []
+      tagsContainerEl.forEach((tagEl) => {
+          tagEl.classList.add('prettify-tag')
+          tags.push(tagEl.innerHTML)
+          tags.forEach((tag) => {
+              var childTag = tag.split('::').filter(Boolean)
+              tagEl.innerHTML = childTag[childTag.length - 1].trim()
+          })
+      })
+  } else {
+      tagsContainerEl = document.querySelector('.prettify-tags')
+      var tags = tagsContainerEl.innerHTML.split(' ').filter(Boolean)
+      var html = ''
+      tags.forEach((tag) => {
+          var childTag = tag.split('::').filter(Boolean)
+          html +=
+              "<span class='prettify-tag'>" +
+              childTag[childTag.length - 1] +
+              '</span>'
+      })
+      tagsContainerEl.innerHTML = html
+  }
+</script>
+
+<script>
+  // Breadcrumbs to current deck
+  var deckEl = document.querySelector('.prettify-deck')
+  if (deckEl) {
+      var subDecks = deckEl.innerHTML.split('::').filter(Boolean)
+      var html = []
+      subDecks.forEach((subDeck) => {
+          html.push("<span class='prettify-subdeck'>" + subDeck + '</span>')
+      })
+      deckEl.innerHTML = html.join('&nbsp;/&nbsp;')
+  }
+</script>
+
+
+<script>
+  // Random colors for bold text;
+  var randomIndex = Math.floor(Math.random() * 9 + 1);
+  var randomColor = "var(--color-" + randomIndex + ")";
+  document.documentElement.style.setProperty("--random-color", randomColor);
+</script>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+      var inputEl = document.getElementById('typeans');
+      if (inputEl) {
+          inputEl.addEventListener('keypress', function (event) {
+              if (event.key === 'Enter') {
+                  event.preventDefault();
+                  this.classList.add('centered');
+              }
+          });
+      }
+  });
+</script>
+
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/highlight.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/default.min.css">
+<script>
+  // Inicializa o highlight.js
+  document.addEventListener('DOMContentLoaded', function () {
+      if (typeof hljs !== 'undefined') {
+          hljs.highlightAll();
+      } else {
+          console.error('highlight.js não está carregado.');
+      }
+  });
+</script>
+
+
+<script>
+MathJax.config.tex['macros'] = {
+  R: '{\\mathbb{R}}',
+  Z: '{\\mathbb{Z}}',
+  N: '{\\mathbb{N}}',
+  Q: '{\\mathbb{Q}}',
+  C: '{\\mathbb{C}}',
+  deg: '{^{\\circ}}',
+  ang: '{\\angle}',
+  norm: ['{\\lVert #1 \\rVert}', 1],
+  abs: ['{\\lvert #1 \\rvert}', 1]
+};
+if (typeof is_already_run == 'undefined') {
+is_already_run = true;
+MathJax.startup.getComponents();
+}
+</script>

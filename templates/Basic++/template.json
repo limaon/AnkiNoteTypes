@@ -1,0 +1,12 @@
+{
+    "modelName": "Basic++",
+    "inOrderFields": [
+        "Front",
+        "Back",
+        "Imagen",
+        "Keywords"
+    ],
+    "cardTemplates": [
+        "Card 1"
+    ]
+}

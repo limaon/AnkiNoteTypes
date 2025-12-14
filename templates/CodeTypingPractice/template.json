@@ -1,0 +1,16 @@
+{
+	"modelName": "CodeTypingPractice",
+	"inOrderFields": [
+		"Description",
+		"Language",
+		"Code",
+		"Hint",
+		"Further Description",
+		"Subdeck",
+		"Source"
+	],
+	"cardTemplates": [
+		"Card 1",
+		"Card 2_TYPE"
+	]
+}

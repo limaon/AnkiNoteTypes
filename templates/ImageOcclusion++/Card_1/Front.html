@@ -1,0 +1,73 @@
+<div class="prettify-flashcard">
+  {{#Tags}}
+  <div class="prettify-tags">{{clickable:Tags}}</div>
+  {{/Tags}}
+
+  <!-- Header (se houver) -->
+  {{#Header}}
+  <div class="prettify-field prettify-field--header">
+      {{Header}}
+  </div>
+  {{/Header}}
+
+  <!-- Occlusion Cloze (oculto) -->
+  <div style="display: none">{{cloze:Occlusion}}</div>
+
+  <!-- Mensagem de erro (se houver) -->
+  <div id="err"></div>
+
+  <!-- Container da imagem com occlusão -->
+  <div id="image-occlusion-container" class="prettify-field prettify-field--image-occlusion">
+      {{Image}}
+      <canvas id="image-occlusion-canvas"></canvas>
+  </div>
+</div>
+
+<!-- Script para configurar o Image Occlusion -->
+<script>
+  try {
+      anki.imageOcclusion.setup();
+  } catch (exc) {
+      document.getElementById("err").innerHTML = `Erro ao carregar a ocultação de imagem. Sua versão do Anki está atualizada?<br><br>${exc}`;
+  }
+</script>
+
+
+<script>
+// Split hierarchical tags
+var tagsContainerEl = document.querySelectorAll('.prettify-tags > *')
+if (tagsContainerEl.length > 0) {
+  var tags = []
+  tagsContainerEl.forEach((tagEl) => {
+    tagEl.classList.add('prettify-tag')
+    tags.push(tagEl.innerHTML)
+    tags.forEach((tag) => {
+      var childTag = tag.split('::').filter(Boolean)
+      tagEl.innerHTML = childTag[childTag.length - 1].trim()
+    })
+  })
+} else {
+  tagsContainerEl = document.querySelector('.prettify-tags')
+  var tags = tagsContainerEl.innerHTML.split(' ').filter(Boolean)
+  var html = ''
+  tags.forEach((tag) => {
+    var childTag = tag.split('::').filter(Boolean)
+    html +=
+      "<span class='prettify-tag'>" +
+      childTag[childTag.length - 1] +
+      '</span>'
+  })
+  tagsContainerEl.innerHTML = html
+}
+</script>
+
+<script>
+// Breadcrumbs to current deck
+var deckEl = document.querySelector('.prettify-deck')
+var subDecks = deckEl.innerHTML.split('::').filter(Boolean)
+html = []
+subDecks.forEach((subDeck) => {
+  html.push("<span class='prettify-subdeck'>" + subDeck + '</span>')
+})
+deckEl.innerHTML = html.join('&nbsp;/&nbsp;')
+</script>

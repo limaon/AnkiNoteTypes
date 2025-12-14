@@ -1,0 +1,12 @@
+{
+	"modelName": "OneLineTypeAnswer",
+	"inOrderFields": [
+		"Question",
+		"Answer",
+		"TypeHint",
+		"Keywords"
+	],
+	"cardTemplates": [
+		"Card 1"
+	]
+}

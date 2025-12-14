@@ -1,0 +1,614 @@
+/* --------------------- PREFERENCES */
+:root {
+	--card-text-align: left;
+	--card-max-width: 40em;
+	--font-size-regular: 20px;
+	--font-size-small: 14px;
+	--font-size-smallest: 12px;
+	--font-family: "Inter", "Space Grotesk", -apple-system, sytem-ui, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+	--nerd-font-family: "JetBrains";
+	--img-width: 40%;
+	--img-brightness: 0.75;
+	--img-filter: none;
+	--color-1: #A5D6A7;
+	--color-2: #ce90eb;
+	--color-3: #4A90E2;
+	--color-4: #00BFA5;
+	--color-5: #36d1c4;
+	--color-6: #FFD700;
+	--color-7: #FFB74D;
+	--color-8: #81D4FA;
+	--color-9: #2ECC71;
+}
+
+/* --------------------- COLORS */
+.card {
+	/* Light theme */
+	background-color: #cfd6d8;
+	--text-fg: #333333e6;
+	--text-fg-faint: #333333cc;
+	--text-bg-selected: #3333331a;
+	--card-bg: #ffffff;
+	--card-border: #f7f7f7;
+	--card-box-shadow: #3c42570f;
+	--divider: #3333331a;
+	--tag-fg: #333333cc;
+	--tag-bg: #3333330f;
+	--tag-fg-active: #333333;
+	--tag-bg-active: #3333331a;
+	--tag-border: transparent;
+	--cloze-fg: #348ccb;
+	--cloze-bg: transparent;
+	--link-fg: #2a70a2;
+	--link-bg: transparent;
+	--link-fg-active: #2f7eb6;
+	--link-bg-active: transparent;
+	--bold-fg: var(--text-fg);
+	--italic-fg: var(--text-fg);
+	--bold-italic-fg: var(--text-fg);
+	--underline-fg: var(--text-fg);
+}
+
+.card.night_mode {
+	/* Dark theme */
+	background-color: #242426;
+	--text-fg: #ffffffe6;
+	--text-fg-faint: #ffffffb3;
+	--text-bg-selected: #ffffff1f;
+	--card-bg: #2e2f31;
+	--card-border: #ffffff0a;
+	--card-box-shadow: #0000001f;
+	--divider: #ffffff1f;
+	--tag-fg: #ffffffb3;
+	--tag-bg: #ffffff14;
+	--tag-fg-active: #ffffff;
+	--tag-bg-active: #ffffff1f;
+	--tag-border: transparent;
+	--cloze-fg: #99ebff;
+	--cloze-bg: transparent;
+	--link-fg: #5da3d5;
+	--link-bg: transparent;
+	--link-fg-active: #71afda;
+	--link-bg-active: transparent;
+	--bold-fg: var(--text-fg);
+	--italic-fg: var(--text-fg);
+	--bold-italic-fg: var(--text-fg);
+	--underline-fg: var(--text-fg);
+}
+
+/* --------------------- BACKGROUND */
+.card {
+	cursor: default;
+	padding: 0.5em 0;
+}
+
+html:not(.mobile) .card {
+	padding: 0.5em;
+}
+
+.card::-webkit-scrollbar {
+	display: none;
+}
+
+/* --------------------- FLASHCARD */
+.prettify-flashcard {
+	background-color: var(--card-bg);
+	border-radius: 0.5em;
+	border: 2px solid var(--card-border);
+	box-shadow: 0px 7px 14px 0px var(--card-box-shadow);
+	color: var(--text-fg);
+	font-family: var(--font-family);
+	font-size: var(--font-size-regular);
+	line-height: 1.5;
+	margin: 1em auto;
+	max-width: var(--card-max-width);
+	text-align: var(--card-text-align);
+	word-wrap: break-word;
+	letter-spacing: 0.1px;
+}
+
+.prettify-flashcard::selection {
+	background-color: var(--text-bg-selected);
+}
+
+/* --------------------- FIELDS */
+.prettify-field {
+	margin: 0.6em 1.6em;
+}
+
+.mobile .prettify-field {
+	margin: 0.4em 1.4em;
+}
+
+.prettify-field--back {
+	color: var(--text-fg);
+}
+
+/* --------------------- DECK */
+.prettify-deck {
+	margin: 2em;
+	display: flex;
+	color: var(--text-fg-faint);
+	font-size: var(--font-size-small);
+	white-space: nowrap;
+}
+
+.mobile .prettify-deck {
+	margin: 1em;
+}
+
+.prettify-subdeck {
+	text-decoration: underline;
+	text-overflow: ellipsis;
+	overflow: hidden;
+}
+
+.hint {
+	margin: 10px auto;
+	text-transform: uppercase;
+	font-style: italic;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+/* --------------------- TAGS */
+.prettify-tags {
+	margin: 0em 2em;
+	display: flex;
+	flex-flow: row wrap;
+	justify-content: flex-end;
+}
+
+.mobile .prettify-tags {
+	margin: 0em 1em
+}
+
+.prettify-tag {
+	all: initial;
+	background-color: var(--tag-bg);
+	border-radius: 0em 0em 0.6em 0.6em;
+	color: var(--tag-fg);
+	display: inline;
+	font-size: var(--font-size-smallest);
+	font-family: var(--nerd-font-family);
+	margin: 0 0.5em 0.5em 0;
+	padding: 0.3em 0.8em;
+	transition: all 0.25s;
+	word-break: break-word;
+}
+
+.prettify-tag:before {
+	content: ' ';
+}
+
+.prettify-tag:hover {
+	background-color: var(--tag-bg-active);
+	/* border: 1px solid var(--tag-border); */
+	color: var(--tag-fg-active);
+	cursor: pointer;
+}
+
+/* --------------------- DIVIDER */
+.prettify-divider {
+	background-color: transparent;
+	border: none;
+	border-bottom: 2px dashed var(--divider);
+	margin: 1em;
+	padding: 0;
+}
+
+.prettify-divider--answer {
+	border-bottom: 2px dashed var(--divider);
+}
+
+/* --------------------- IMAGES */
+img {
+	border-radius: 0.25em;
+	display: block;
+	margin: 1em auto;
+	max-width: var(--img-width) !important;
+	transition: max-width 0.25s 0.1s, opacity 0.25s 0.1s, filter 0.1s, transform 0s;
+}
+
+.night_mode img {
+	filter: var(--img-filter);
+	opacity: var(--img-brightness);
+}
+
+img:hover {
+	cursor: zoom-in;
+	filter: none;
+	max-width: 100% !important;
+	opacity: 1;
+}
+
+img+br {
+	display: none;
+}
+
+html:not(.mobile) img:active {
+	border: 1px solid var(--link-fg-active);
+	cursor: zoom-out;
+	filter: none;
+	left: 0;
+	max-width: 95% !important;
+	opacity: 1;
+	position: fixed;
+	top: 0;
+	transform: translate(calc(50vw - 50%), calc(50vh - 50%));
+	z-index: 100;
+}
+
+/* --------------------- TABLES */
+table {
+	border-collapse: separate;
+	border-spacing: 0;
+	margin: 0 auto;
+	max-width: 100%;
+}
+
+table thead {
+	background-color: var(--card-border);
+}
+
+table tr:nth-of-type(even) {
+	background-color: var(--card-border);
+}
+
+table tr:first-child th:first-child {
+	border-top-left-radius: 0.5em;
+}
+
+table tr:first-child th:last-child {
+	border-top-right-radius: 0.5em;
+}
+
+table tr:last-child td:first-child {
+	border-bottom-left-radius: 0.5em;
+}
+
+table tr:last-child td:last-child {
+	border-bottom-right-radius: 0.5em;
+}
+
+table th {
+	border-bottom: solid 1px var(--text-bg-selected);
+	border-left: solid 1px var(--text-bg-selected);
+	border-top: solid 1px var(--text-bg-selected);
+	padding: 0.5em;
+}
+
+table th:last-child {
+	border-right: solid 1px var(--text-bg-selected);
+}
+
+table td {
+	border-bottom: solid 1px var(--text-bg-selected);
+	border-left: solid 1px var(--text-bg-selected);
+	padding: 0.5em;
+}
+
+table td:last-of-type {
+	border-right: solid 1px var(--text-bg-selected);
+}
+
+/* --------------------- HYPERLINKS */
+a,
+a:visited {
+	text-decoration: none;
+	color: var(--link-fg);
+	border-radius: 0.25em;
+	padding: 0 0.1em;
+	transition: all 0.1s;
+}
+
+a:hover,
+a:active {
+	text-decoration: underline;
+	color: var(--link-fg-active);
+	background-color: var(--link-bg-active);
+}
+
+/* --------------------- FORMATTING */
+b,
+strong {
+	color: var(--random-color);
+}
+
+i,
+em {
+	color: var(--italic-fg);
+}
+
+b>i,
+i>b {
+	color: var(--bold-italic-fg);
+}
+
+u {
+	color: var(--underline-fg);
+}
+
+pre {
+	white-space: normal;
+}
+
+/* --------------------- FOOTER */
+footer {
+	font-size: var(--font-size-smallest);
+	text-align: center;
+	border-radius: 1em 1em 0em 0em;
+	border: 0.1rem solid var(--card-border);
+	border-bottom: none;
+	margin: 0em 2em;
+	padding: 8px;
+	background-color: var(--card-border);
+}
+
+footer a {
+	text-decoration: none;
+}
+
+footer a:after {
+	content: "·";
+	color: var(--link-fg);
+	display: inline-block;
+	width: 12px;
+}
+
+footer>a:last-child:after {
+	content: "";
+	width: 0;
+}
+
+
+/* --------------------- CUSTOM FONTS */
+@font-face {
+	font-family: Inter;
+	/* src: local("Inter-Regular"), url("_Inter-Regular.woff2") format("woff2"); */
+	src: local("Inter-Regular"), url("_Inter-Regular.ttf") format("ttf");
+	font-style: normal;
+	font-weight: normal;
+}
+
+@font-face {
+	font-family: Inter;
+	/* src: local("Inter-Bold"), url("_Inter-Bold.woff2") format("wofff2"); */
+	src: local("Inter-Bold"), url("_Inter-Bold.ttf") format("ttf");
+	font-style: normal;
+	font-weight: bold;
+}
+
+@font-face {
+	font-family: Inter;
+	/* src: local("Inter-Italic"), url("_Inter-Italic.woff2") format("wofff2"); */
+	src: local("Inter-Italic"), url("_Inter-Italic.ttf") format("ttf");
+	font-style: italic;
+	font-weight: normal;
+}
+
+@font-face {
+	font-family: Inter;
+	/* src: local("Inter-BoldItalic"), url("_Inter-BoldItalic.woff2") format("wofff2"); */
+	src: local("Inter-BoldItalic"), url("_Inter-BoldItalic.ttf") format("ttf");
+	font-style: italic;
+	font-weight: bold;
+}
+
+@font-face {
+	font-family: "Ubuntu";
+	src: url("_Ubuntu.ttf");
+	font-style: normal;
+	font-weight: normal;
+}
+
+@font-face {
+	font-family: "JetBrains";
+	src: url("_JetBrains.ttf");
+	font-style: normal;
+	font-weight: normal;
+}
+
+/* --------------------- TYPEANS STYLING */
+.typeans-container {
+	width: 80%;
+	margin: 2em auto;
+	box-sizing: border-box;
+}
+
+/* .mobile .typeans-container {
+	width: 90%;
+	padding: 10px;
+	max-height: 90%;
+  } */
+
+/* Terminal Linux Style for Anki */
+.terminal-line-anki {
+	display: flex;
+	align-items: center;
+	font-family: "JetBrains", monospace;
+	font-size: var(--font-size-small);
+	background-color: var(--card-bg);
+	border: 1px solid var(--card-border);
+	border-radius: 6px;
+	padding: 0.75rem 1rem;
+	gap: 0.5rem;
+	box-shadow: 0px 2px 8px 0px var(--card-box-shadow);
+	width: 100%;
+	box-sizing: border-box;
+}
+
+.terminal-line-anki center {
+	display: flex;
+	flex: 1;
+	min-width: 0;
+	width: 100%;
+}
+
+.card.night_mode .terminal-line-anki {
+	background-color: #161b22;
+	border: 1px solid #30363d;
+}
+
+.terminal-prompt-anki {
+	color: var(--color-3);
+	font-weight: bold;
+	user-select: none;
+	font-size: var(--font-size-small);
+	flex-shrink: 0;
+}
+
+input:not(#typeans) {
+	padding: 0.2em 0;
+	border: none;
+	font-family: inherit;
+	border-bottom: 2px solid rgba(255, 255, 255, 0.5);
+	background: transparent;
+	color: white;
+	/*transition: border-color 0.3s ease;*/
+	transition: 180ms box-shadow ease-in-out;
+}
+
+input[type="text"]:not(#typeans) {
+	font-size: max(16px, 1em);
+	border: 1px dashed var(--link-fg);
+}
+
+.input-prompt {
+	margin-right: 0.5em;
+	color: var(--link-fg);
+}
+
+#typeans {
+	display: block;
+	flex: 1;
+	width: 100%;
+	min-width: 0;
+	max-height: 600px;
+	padding: 0;
+	margin: 0;
+	border: none;
+	border-radius: 0;
+	background-color: transparent;
+	font-family: "JetBrains", monospace;
+	font-size: var(--font-size-small);
+	color: var(--text-fg);
+	box-sizing: border-box;
+	transition: none;
+	text-align: left;
+	letter-spacing: 1.4px;
+	outline: none;
+}
+
+/* .mobile #typeans {
+
+  } */
+
+#typeans:focus {
+	border: none;
+	outline: none;
+	background-color: transparent;
+}
+
+#typeans.centered {
+	text-align: center;
+	margin: 0;
+}
+
+.typeGood {
+	font-weight: bold;
+}
+
+.typeBad {
+	text-decoration: underline;
+}
+
+.typeMissed {
+	font-style: normal;
+}
+
+.centered {
+	text-align: center;
+	margin: 20px auto;
+}
+
+#typearrow {
+	font-size: 20px;
+	text-align: center;
+	display: inline;
+}
+
+
+
+/* --------------------- BLOCK OF CODE */
+code {
+	font-family: "JetBrains", "Courier New", Courier, monospace;
+	font-size: 16px;
+	white-space: pre-wrap;
+	background-color: transparent;
+	border: none;
+	border-radius: 0;
+	padding: 0;
+	margin: 0 auto;
+	overflow-x: auto;
+	color: var(--text-fg);
+	display: block;
+	text-align: center;
+}
+
+code .hint {
+	margin: 0;
+	padding: 0;
+	display: inline;
+}
+
+.mobile .code {
+	font-size: 14px;
+	padding: 8px;
+}
+
+.nightMode .code {
+	background-color: #2e2e2e;
+	border: 1px solid #555;
+	color: #f5f5f5;
+}
+
+.hljs {
+	background: none;
+	color: var(--text-fg);
+}
+
+.prettify-field--code pre {
+	margin: 0;
+	white-space: pre-wrap;
+	word-wrap: break-word;
+	font-family: "JetBrains", monospace;
+	font-size: var(--font-size-smallest);
+	background-color: var(--color-bg);
+	padding: 1em;
+	border-radius: 0.5em;
+	overflow-x: auto;
+}
+
+@media (max-width: 600px) {
+	.prettify-field--code pre {
+		padding: 0.8em;
+		font-size: var(--font-size-smallest);
+	}
+
+	.terminal-line-anki {
+		padding: 0.5rem 0.75rem;
+		font-size: var(--font-size-smallest);
+	}
+
+	.terminal-prompt-anki {
+		font-size: var(--font-size-smallest);
+	}
+
+	#typeans {
+		width: 100%;
+		font-size: var(--font-size-smallest);
+		padding: 0;
+	}
+}
