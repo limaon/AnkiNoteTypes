@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Anki Templates Preview</title>
+    <style>
+        :root {
+            --primary-bg: #cfd6d8;
+            --card-bg: #ffffff;
+            --card-border: #f7f7f7;
+            --text-primary: #333333e6;
+            --text-secondary: #333333cc;
+
+            --accent-1: #4A90E2;
+            --accent-2: #00BFA5;
+            --accent-3: #2ECC71;
+            --accent-hover: #2a70a2;
+
+            --shadow-sm: 0 2px 8px rgba(60, 66, 87, 0.06);
+            --shadow-md: 0 7px 14px rgba(60, 66, 87, 0.1);
+            --shadow-lg: 0 10px 30px rgba(60, 66, 87, 0.12);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: "Inter", -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: var(--primary-bg);
+            color: var(--text-primary);
+            min-height: 100vh;
+            padding: 2rem;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 3rem;
+            padding: 2rem;
+            background: var(--card-bg);
+            border-radius: 16px;
+            box-shadow: var(--shadow-md);
+            border: 2px solid var(--card-border);
+        }
+
+        header h1 {
+            font-size: 2.5rem;
+            color: var(--text-primary);
+            margin-bottom: 0.5rem;
+            font-weight: 700;
+        }
+
+        header p {
+            font-size: 1.1rem;
+            color: var(--text-secondary);
+        }
+
+        .templates-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .template-card {
+            background: var(--card-bg);
+            border: 2px solid var(--card-border);
+            border-radius: 12px;
+            padding: 1.5rem;
+            box-shadow: var(--shadow-sm);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            cursor: pointer;
+        }
+
+        .template-card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-lg);
+            border-color: var(--accent-1);
+        }
+
+        .template-card h3 {
+            color: var(--text-primary);
+            margin-bottom: 0.5rem;
+            font-size: 1.3rem;
+            font-weight: 600;
+        }
+
+        .template-card p {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            line-height: 1.6;
+            margin-bottom: 1rem;
+        }
+
+        .template-card .fields {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-top: 1rem;
+        }
+
+        .template-card .field-tag {
+            background: rgba(74, 144, 226, 0.1);
+            color: var(--accent-1);
+            padding: 0.3rem 0.7rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            border: 1px solid rgba(74, 144, 226, 0.2);
+        }
+
+        .template-card .card-types {
+            margin-top: 1rem;
+            padding-top: 1rem;
+            border-top: 1px solid var(--card-border);
+        }
+
+        .template-card .card-type-badge {
+            display: inline-block;
+            background: linear-gradient(135deg, var(--accent-1) 0%, var(--accent-2) 100%);
+            color: white;
+            padding: 0.25rem 0.7rem;
+            border-radius: 12px;
+            font-size: 0.75rem;
+            font-weight: 500;
+            margin-right: 0.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .template-card .btn {
+            display: inline-block;
+            margin-top: 1rem;
+            padding: 0.7rem 1.5rem;
+            background: var(--accent-1);
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: 500;
+            transition: all 0.3s;
+            border: none;
+            cursor: pointer;
+        }
+
+        .template-card .btn:hover {
+            background: var(--accent-hover);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(74, 144, 226, 0.3);
+        }
+
+        .loading {
+            text-align: center;
+            color: var(--text-secondary);
+            font-size: 1.2rem;
+            padding: 3rem;
+        }
+
+        .error {
+            text-align: center;
+            color: #e74c3c;
+            background: var(--card-bg);
+            padding: 2rem;
+            border-radius: 12px;
+            margin: 2rem auto;
+            max-width: 600px;
+            border: 2px solid var(--card-border);
+            box-shadow: var(--shadow-md);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🎴 Anki Templates Preview</h1>
+            <p>Selecione um template para visualizar e testar</p>
+        </header>
+
+        <div id="templates-container" class="templates-grid">
+            <div class="loading">Carregando templates...</div>
+        </div>
+    </div>
+
+    <script>
+        const TEMPLATES = [
+            'Basic++',
+            'CertoErradoQuestao',
+            'Cloze++',
+            'CodeTypingPractice',
+            'ImageOcclusion++',
+            'MultiplaEscolhaQuestao',
+            'OneLineTypeAnswer'
+        ];
+
+        const DESCRIPTIONS = {
+            'Basic++': 'Template básico aprimorado com recursos modernos',
+            'CertoErradoQuestao': 'Template para questões de certo ou errado',
+            'Cloze++': 'Template de cloze deletion melhorado',
+            'CodeTypingPractice': 'Template para prática de código com digitação',
+            'ImageOcclusion++': 'Template para oclusão de imagens',
+            'MultiplaEscolhaQuestao': 'Template para questões de múltipla escolha',
+            'OneLineTypeAnswer': 'Template para prática de respostas de uma linha com digitação'
+        };
+
+        async function loadTemplateConfig(templateName) {
+            try {
+                const response = await fetch(`../templates/${templateName}/template.json`);
+                if (!response.ok) return null;
+                return await response.json();
+            } catch (error) {
+                console.error(`Erro ao carregar ${templateName}:`, error);
+                return null;
+            }
+        }
+
+        async function renderTemplates() {
+            const container = document.getElementById('templates-container');
+
+            try {
+                const templatesData = await Promise.all(
+                    TEMPLATES.map(async (name) => {
+                        const config = await loadTemplateConfig(name);
+                        return {
+                            name,
+                            config,
+                            description: DESCRIPTIONS[name] || 'Template personalizado'
+                        };
+                    })
+                );
+
+                const validTemplates = templatesData.filter(t => t.config !== null);
+
+                if (validTemplates.length === 0) {
+                    container.innerHTML = '<div class="error"><h2>❌ Nenhum template encontrado</h2><p>Verifique se os templates estão na pasta correta.</p></div>';
+                    return;
+                }
+
+                container.innerHTML = validTemplates.map(template => {
+                    const config = template.config;
+                    const fields = config.inOrderFields || [];
+                    const cardTypes = config.cardTemplates || ['Card 1'];
+
+                    return `
+                        <div class="template-card" onclick="openTemplate('${template.name}')">
+                            <h3>${config.modelName || template.name}</h3>
+                            <p>${template.description}</p>
+
+                            ${cardTypes.length > 1 ? `
+                                <div class="card-types">
+                                    <strong style="font-size: 0.85rem; color: #666;">Card Types:</strong><br>
+                                    ${cardTypes.map(ct =>
+                                        `<span class="card-type-badge">${ct}</span>`
+                                    ).join('')}
+                                </div>
+                            ` : ''}
+
+                            <div class="fields">
+                                ${fields.slice(0, 6).map(field =>
+                                    `<span class="field-tag">${field}</span>`
+                                ).join('')}
+                                ${fields.length > 6 ? `<span class="field-tag">+${fields.length - 6} mais</span>` : ''}
+                            </div>
+
+                            <a href="viewer.html?template=${encodeURIComponent(template.name)}"
+                               class="btn" onclick="event.stopPropagation()">
+                                Abrir Preview →
+                            </a>
+                        </div>
+                    `;
+                }).join('');
+
+            } catch (error) {
+                console.error('Erro ao renderizar templates:', error);
+                container.innerHTML = '<div class="error"><h2>❌ Erro ao carregar templates</h2><p>' + error.message + '</p></div>';
+            }
+        }
+
+        function openTemplate(name) {
+            window.location.href = `viewer.html?template=${encodeURIComponent(name)}`;
+        }
+
+        renderTemplates();
+    </script>
+</body>
+</html>
