@@ -1,1211 +1,474 @@
-<!-- <link rel="stylesheet" href="_mobile.css" media="screen and (max-width: 600px)" /> -->
+<!-- Card 2_TYPE - Back Template -->
+<!-- Shows typed solution + suggested solution with comparison -->
 
-<style>
-	code {
-		opacity: 0;
-		transition: opacity 0.1s;
-	}
+<!-- ============================================
+     FONTS - JetBrains Mono
+     ============================================ -->
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
 
-	body code[class*=language-],
-	body pre[class*=language-] {
-		-moz-tab-size: 0;
-		-o-tab-size: 0;
-		tab-size: 0;
-	}
-</style>
+<!-- ============================================
+     ACE EDITOR CDN
+     ============================================ -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.43.3/ace.js" charset="utf-8"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.43.3/theme-github_light_default.js" charset="utf-8"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.43.3/theme-github_dark.js" charset="utf-8"></script>
 
-<!-- <div class="subdeck">{{Subdeck}}</div> -->
+<!-- ============================================
+     JSDIFF CDN - Text differencing library
+     ============================================ -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jsdiff/8.0.2/diff.min.js" charset="utf-8"></script>
 
-<script src="_diff_match_patch.js"></script>
-
-<div class="back">
-	{{#Tags}}
-  <div class="prettify-tags">{{clickable:Tags}}</div>
-  {{/Tags}}
-
-	<header>
-		<div>
-			<!--<h1 class="heading">{{Subdeck}}</h1>-->
-			<!--{{Deck}}-->
-		</div>
-	</header>
-
-	<main>
-		<div>
-			<h2 class="heading" id="heading0">Description</h2>
-		</div>
-
-		<div class="description">{{Description}}</div>
-		<br/>
-
-	<!-- Container principal com borda que envolve todas as seções -->
-	<div class="main-sections-container">
-		<!-- Accordion Hint / Further Description - só mostra se pelo menos um campo estiver preenchido -->
-		{{#Hint}}
-		<section class="accordion-group">
-			<div class="accordion-tab">
-				<input type="checkbox" name="accordion-hint-back" id="accordion-hint-back" class="accordion-input">
-				<label for="accordion-hint-back" class="accordion-label">
-					<span>{{#Further Description}}Hint / Further Description{{/Further Description}}{{^Further Description}}Hint{{/Further Description}}</span>
-				</label>
-				<div class="accordion-content">
-					<br/>
-					<div class="grid_container_2{{^Further Description}} single-column{{/Further Description}}" id="hint-accordion-content-back" role="region" aria-labelledby="hint-accordion-heading-back">
-						<div class="grid_item_a">
-							{{#Further Description}}<h3 class="heading" id="hint-accordion-heading-back">Hint</h3>{{/Further Description}}
-							<!-- Fonte do hint (oculta, usada para formatação e Ace) -->
-							<code class="hint-source language-{{Language}}" aria-label="Hint code in {{Language}}" style="display:none;">{{Hint}}</code>
-							<div class="hint-editor-shell">
-								<div id="hint-editor-back" class="ace-shell hint-ace-shell" role="textbox" aria-label="Hint editor" aria-readonly="false"></div>
-							</div>
-						</div>
-						{{#Further Description}}
-						<div class="grid_item_b">
-							<h3 class="heading">Further Description (Output)</h3>
-							<!-- Fonte do Further Description (oculta, usada para Ace) -->
-							<code class="further-source language-{{Language}}" aria-label="Further description in {{Language}}" style="display:none;">{{Further Description}}</code>
-							<div class="further-editor-shell">
-								<div id="further-editor-back" class="ace-shell further-ace-shell" role="textbox" aria-label="Further description editor (read-only)" aria-readonly="true"></div>
-							</div>
-						</div>
-						{{/Further Description}}
-					</div>
-				</div>
-			</div>
-		</section>
-		{{/Hint}}
-		{{^Hint}}
-		{{#Further Description}}
-		<!-- Envolver em accordion-group para manter consistência com outros acordeões -->
-		<section class="accordion-group">
-			<div class="accordion-tab">
-				<input type="checkbox" name="accordion-hint-back" id="accordion-hint-back" class="accordion-input">
-				<label for="accordion-hint-back" class="accordion-label">
-					<span>Further Description (Output)</span>
-				</label>
-				<div class="accordion-content">
-					<br/>
-					<div class="grid_container_2 single-column" id="hint-accordion-content-back" role="region">
-						<div class="grid_item_a">
-							<!-- Não mostrar h3 quando só tem Further Description -->
-							<!-- Fonte do Further Description (oculta, usada para Ace) -->
-							<code class="further-source language-{{Language}}" aria-label="Further description in {{Language}}" style="display:none;">{{Further Description}}</code>
-							<div class="further-editor-shell">
-								<div id="further-editor-back" class="ace-shell further-ace-shell" role="textbox" aria-label="Further description editor (read-only)" aria-readonly="true"></div>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</section>
-		{{/Further Description}}
-		{{/Hint}}
-
-		<div class="grid_container">
-			<div class="grid_item_1">
-				<h2 class="heading" id="heading1">Your Solution</h2>
-
-				<div id="field1-help-back" class="sr-only">Comparison of your solution with the suggested solution. Correct characters are highlighted in green, missed characters in blue, and false characters in red.</div>
-				<div
-					id="field1"
-					class="field"
-					role="textbox"
-					aria-label="Your submitted solution compared with suggested solution"
-					aria-describedby="heading1 field1-help-back"
-					aria-readonly="true"></div>
-
-				<div id="footer1"><button class="buttons" disabled aria-label="Submit button (disabled on answer view)">Submit</button><span id="save" role="status" aria-live="polite" aria-label="Save status">Saved</span></div>
-			</div>
-			<div class="grid_item_2">
-				<h2 class="heading" id="heading2">Suggested Solution</h2>
-
-				<!--<pre id="field2" class="field line-numbers next_to_typefield"> -->
-
-				<pre
-					id="field2"
-					class="field next_to_typefield"
-					role="textbox"
-					aria-label="Suggested solution code"
-					aria-describedby="heading2"
-					aria-readonly="true">
-				<code class="language-{{Language}} match-braces rainbow-braces" id="answerText" aria-label="Suggested solution code in {{Language}}">{{Code}}</code>
-			</pre>
-
-        {{#Source}}
-				<nav id="footer2" role="navigation" aria-label="External resources">
-					<!-- Links externos comentados conforme solicitado -->
-					<!-- <a href="https://www.youtube.com/results?search_query={{Source}}" title="Youtube videos" aria-label="Search on YouTube for {{Source}}">Youtube</a> -->
-					<!-- <a href="https://duckduckgo.com/?t=ffab&q={{Source}}&ia=web" title="Search on web" aria-label="Search on DuckDuckGo for {{Source}}">DuckDuckGo</a> -->
-					<!-- <a href="https://duckduckgo.com/?t=ffab&q={{Source}}&iax=images&ia=images" title="Search Images" aria-label="Search images on DuckDuckGo for {{Source}}">Images</a> -->
-					<!-- <a href="https://chatgpt.com/?temporary-chat=true&model=gpt-4o&q={{Source}}" title="Search on ChatGPT" aria-label="Ask ChatGPT GPT-4o about {{Source}}">GPT-4o</a> -->
-					<!-- <a href="https://chatgpt.com/?temporary-chat=true&model=o1&q={{Source}}" title="Search on ChatGPT" aria-label="Ask ChatGPT GPT-o1 about {{Source}}">GPT-o1</a> -->
-					<!-- <a href="https://you.com/search?q={{Source}}&fromSearchBar=true&tbm=youchat&chatMode=default" title="Search on YouAI" aria-label="Search on YouAI for {{Source}}">YouAI</a> -->
-				</nav>
-        {{/Source}}
-
-			</div>
-		</div>
-
-		<!-- Accordion de Info - com mesmo padrão dos outros acordeões -->
-		<section class="accordion-group">
-			<div class="accordion-tab">
-				<input type="checkbox" name="accordion-info-back" id="accordion-info-back" class="accordion-input">
-				<label for="accordion-info-back" class="accordion-label">
-					<span>Info</span>
-				</label>
-				<div class="accordion-content">
-						<div class="grid_container_2" id="tooltip-back" role="region" aria-labelledby="tooltip-heading-back">
-						<div class="grid_item_a">
-							<p><h3 class="heading" id="tooltip-heading-back">Submitting your answer</h3></p>
-							<p>Your answer will be saved automatically on every keystroke. In addition, you can press the
-								"Submit" button or "Ctrl" to save your solution.</p>
-
-							<!-- <p>If you want to modify your answer after saving it, selecte the type box, apply your changes, and re-submit.</p> -->
-
-							<p>To compare your answer with the suggested solution, either press the "Show Answer" button or exit
-								the text field and press "space".</p>
-						</div>
-
-						<div class="grid_item_b">
-							<p><h3 class="heading">Markup Meaning</h3></p>
-							<p><span class="correct" id="correct_h" role="text" aria-label="Correct characters indicator">Correct Characters</span> <span id="correct_d">Text marked
-									like this was typed by you into the text field, and does appear in the suggested
-									Solution.</span></p>
-							<p><del class="deleted" id="deleted_h" role="text" aria-label="Missed characters indicator">Missed Characters</del> <span id="deleted_d">Text marked like
-									this was <b>not</b> typed by you into the text field, but does appear in the suggested
-									Solution.</span></p>
-							<p><ins class="inserted" id="inserted_h" role="text" aria-label="False characters indicator">False Characters</ins> <span id="inserted_d">Text marked
-									like this was typed by you into the text field, but does <b>not</b> appear in the suggested
-									Solution.</span></p>
-						</div>
-					</div>
-				</div>
-			</div>
-		</section>
-	</div>
-	<!-- Fim do container principal -->
-	</main>
+<!-- Header Section -->
+{{#Tags}}
+<div class="tags">
+  {{clickable:Tags}}
 </div>
+{{/Tags}}
+
+<!-- Main Content -->
+<main class="card-content">
+  <!-- Description -->
+  <div class="field field-description">
+    <h2>Description</h2>
+    {{Description}}
+  </div>
+
+  <!-- Hint / Further Description (MESMO grid do Front) -->
+  {{#Hint}}
+  <details class="conditional-section">
+    <summary>
+      {{#Further Description}}Hint / Further Description{{/Further Description}}
+      {{^Further Description}}Hint{{/Further Description}}
+    </summary>
+    <div class="conditional-content">
+      <!-- Hint / Further Grid (MESMO do Front) -->
+      <div class="hint-further-grid">
+        <!-- Hint -->
+        <div class="grid-item">
+          <div class="field field-hint">
+            <h3>Hint</h3>
+            <code class="language-{{Language}}">{{Hint}}</code>
+          </div>
+        </div>
+        <!-- Further Description (if present) -->
+        {{#Further Description}}
+        <div class="grid-item">
+          <div class="field field-further">
+            <h3>Further Description (Output)</h3>
+            <code class="language-{{Language}}">{{Further Description}}</code>
+          </div>
+        </div>
+        {{/Further Description}}
+      </div>
+    </div>
+  </details>
+  {{/Hint}}
+
+  <!-- Solution Comparison Grid -->
+  <div class="solution-comparison">
+    <div class="solution-grid">
+      <!-- Your Solution (Diff highlighting) -->
+      <div class="grid-item">
+        <h3>Your Solution</h3>
+        <div id="diff-result" class="diff-result">
+          <!-- Resultado do diff será inserido via JavaScript -->
+        </div>
+      </div>
+      <!-- Correct Answer (Ace Editor) -->
+      <div class="grid-item">
+        <h3>Correct Answer</h3>
+        <div id="correct-solution" class="ace-editor-container">{{Code}}</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Info Section -->
+  <details class="conditional-section">
+    <summary>Info</summary>
+    <div class="conditional-content info-content">
+      <h3>Submitting your answer</h3>
+      <p>Your answer was saved automatically as you typed.</p>
+
+      <h3>Diff Markup Meaning</h3>
+      <p><span class="diff-correct">■ Correct</span> Characters you typed correctly</p>
+      <p><span class="diff-missed">■ Missed</span> Characters you forgot to type</p>
+      <p><span class="diff-extra">■ Extra</span> Characters you typed that don't belong</p>
+    </div>
+  </details>
+
+  <!-- Source (Conditional) -->
+  {{#Source}}
+  <div class="footer">
+    <div class="footer-links">
+      <span class="footer-links-label">Learn More:</span>
+      <a href="https://www.youtube.com/results?search_query={{Source}}" target="_blank" class="footer-link" title="Search on YouTube">
+        YouTube
+      </a>
+      <span class="footer-link-separator">|</span>
+      <a href="https://stackoverflow.com/search?q={{Source}}" target="_blank" class="footer-link" title="Search on StackOverflow">
+        StackOverflow
+      </a>
+      <span class="footer-link-separator">|</span>
+      <a href="https://duckduckgo.com/?q={{Source}}" target="_blank" class="footer-link" title="Search on DuckDuckGo">
+        DuckDuckGo
+      </a>
+    </div>
+  </div>
+  {{/Source}}
+
+
+</main>
+
 
 <script>
-	/* ============================================
-	   LOADING STATES - Visual Feedback
-	   ============================================
-	   Provides loading indicators for asynchronous operations
-	   to give users visual feedback during processing.
-	   ============================================ */
-
-	/**
-	 * Create a loading indicator element
-	 * @param {string} message - Loading message to display
-	 * @param {string} size - Size of spinner: 'small', 'medium', 'large' (default: 'medium')
-	 * @returns {HTMLElement} Loading indicator element
-	 */
-	function createLoadingIndicator(message, size) {
-		message = message || 'Loading...';
-		size = size || 'medium';
-
-		var loadingContainer = document.createElement('div');
-		loadingContainer.className = 'loading-indicator';
-		loadingContainer.setAttribute('role', 'status');
-		loadingContainer.setAttribute('aria-live', 'polite');
-		loadingContainer.setAttribute('aria-label', message);
-
-		var spinner = document.createElement('div');
-		spinner.className = 'loading-spinner loading-spinner--' + size;
-		spinner.setAttribute('aria-hidden', 'true');
-
-		var messageElement = document.createElement('span');
-		messageElement.className = 'loading-message';
-		messageElement.textContent = message;
-
-		loadingContainer.appendChild(spinner);
-		loadingContainer.appendChild(messageElement);
-
-		return loadingContainer;
-	}
-
-	/**
-	 * Show loading indicator in a container
-	 * @param {HTMLElement} container - Container element to show loading in
-	 * @param {string} message - Loading message
-	 * @param {string} size - Size of spinner
-	 * @returns {HTMLElement} Loading indicator element (for removal later)
-	 */
-	function showLoading(container, message, size) {
-		if (!container) return null;
-
-		var loadingIndicator = createLoadingIndicator(message, size);
-		container.appendChild(loadingIndicator);
-
-		return loadingIndicator;
-	}
-
-	/**
-	 * Hide loading indicator
-	 * @param {HTMLElement} loadingIndicator - Loading indicator element to remove
-	 */
-	function hideLoading(loadingIndicator) {
-		if (loadingIndicator && loadingIndicator.parentNode) {
-			loadingIndicator.parentNode.removeChild(loadingIndicator);
-		}
-	}
-
-	var sampleAnswer = document.getElementById("answerText");
-	var sampleAnswerInitialContent = sampleAnswer.innerHTML;
-	var sampleAnswerContentModifiedWhitespace;
-	var sampleAnswerContentUnescaped;
-
-	/*Replace some html characters; TODO -> extensive*/
-
-
-	function modifyWhitespace() {
-		sampleAnswerContentModifiedWhitespace = sampleAnswerInitialContent
-			.replace(/(<br>)/gi, "\n")
-			.replace(/\&nbsp;/gi, ' ');
-
-		sampleAnswer.innerHTML = sampleAnswerContentModifiedWhitespace;
-	}
-
-
-
-	modifyWhitespace();
-
-/*
-	function unescapeHTML() {
-		sampleAnswerContentUnescaped = sampleAnswerContentModifiedWhitespace
-			.replace(/\&lt;/gi, '<')
-			.replace(/\&gt;/gi, '>')
-			.replace(/&amp;/gi, '&');
-	}
-*/
-	function unescapeHTML() {
-		const parser = new DOMParser();
-		const doc = parser.parseFromString(sampleAnswerContentModifiedWhitespace, 'text/html');
-		sampleAnswerContentUnescaped = doc.documentElement.textContent;
-	}
-
-	unescapeHTML();
-
-	/*
-	'&': '&amp;',
-	'<': '&lt;',
-	'>': '&gt;',
-	'"': '&quot;',
-	"'": '&#39;',
-	'/': '&#x2F;',
-	'`': '&#x60;',
-	'=': '&#x3D;'
-		.replace(/(<\/p>)/gi, "\n")*/
-	/*.replace(/(<(.*)>)/gi, "")*/
-
-	/*copied from https://stackoverflow.com/a/53744331/20453811 */
-	/*Definition*/
-	function loadScript(scriptUrl) {
-		const script = document.createElement('script');
-		script.src = scriptUrl;
-		document.body.appendChild(script);
-
-		return new Promise((res, rej) => {
-			script.onload = res;
-			script.onerror = rej;
-		});
-	}
-
-	/*use*/
-	/*loadScript('_prism.min_with_line_numbers_addon.js')*/
-
-	// Show loading indicator for syntax highlighting
-	var answerPre = document.getElementById("field2");
-	var prismLoadingIndicator = null;
-	if (answerPre && sampleAnswer) {
-		prismLoadingIndicator = showLoading(answerPre, 'Loading syntax highlighting...', 'small');
-	}
-
-	loadScript('_prism.min.js')
-		.then(() => {
-			console.log('Script loaded!');
-
-			// Hide loading indicator
-			if (prismLoadingIndicator) {
-				hideLoading(prismLoadingIndicator);
-				prismLoadingIndicator = null;
-			}
-
-			Prism.plugins.autoloader.languages_path = '';
-			Prism.highlightElement(sampleAnswer);
-		})
-		.catch(() => {
-			console.error('Script loading failed! Handle this error');
-
-			// Hide loading indicator even on error
-			if (prismLoadingIndicator) {
-				hideLoading(prismLoadingIndicator);
-				prismLoadingIndicator = null;
-			}
-		});
-
-	/*Todo: differentiate between an empty string and remove.Item*/
-	var field = document.getElementById("field1");
-	var swap = sessionStorage.getItem('input_transfer_front');
-	sessionStorage.removeItem('input_transfer_front');
-	if (swap !== null) {
-		sessionStorage.setItem('input_transfer_back', swap);
-	} else {
-		console.log('not null!');
-	}
-
-	var fieldContent = sessionStorage.getItem("input_transfer_back");
-
-	/*does probably not execute*/
-	if (sessionStorage.getItem('input_transfer_back') == null) {
-
-		var temp = sessionStorage.getItem('input_transfer_back');
-
-		console.log(temp);
-
-		if (temp == null) {
-			temp = '';
-		}
-
-		sessionStorage.setItem("input_transfer_back", temp);
-
-		sessionStorage.removeItem('input_transfer_back');
-	} else {
-		console.log('does not execute');
-	}
-	/* ============================================
-	   MEMOIZATION - Diff Calculation Cache
-	   ============================================
-	   Caches diff_match_patch calculations to avoid
-	   unnecessary recalculations when inputs haven't changed.
-	   Improves performance for repeated views or similar content.
-	   ============================================ */
-
-	/**
-	 * Generate a simple hash for string content
-	 * Used as cache key to identify unique input combinations
-	 */
-	function simpleHash(str) {
-		if (!str) return '0';
-		var hash = 0;
-		for (var i = 0; i < str.length; i++) {
-			var char = str.charCodeAt(i);
-			hash = ((hash << 5) - hash) + char;
-			hash = hash & hash; // Convert to 32-bit integer
-		}
-		return hash.toString(36);
-	}
-
-	/**
-	 * Generate cache key from both inputs
-	 */
-	function getCacheKey(suggestedSolution, userSolution) {
-		var suggestedHash = simpleHash(suggestedSolution);
-		var userHash = simpleHash(userSolution);
-		return 'diff_cache_' + suggestedHash + '_' + userHash;
-	}
-
-	/**
-	 * In-memory cache for diff results (fast access)
-	 */
-	var diffCache = new Map();
-
-	/**
-	 * Maximum cache size to prevent memory issues
-	 */
-	var MAX_CACHE_SIZE = 50;
-
-	/**
-	 * Calculate diff with memoization
-	 * Returns cached result if available, otherwise calculates and caches
-	 */
-	function calculateDiffWithCache(suggestedSolution, userSolution) {
-		// Generate cache key
-		var cacheKey = getCacheKey(suggestedSolution, userSolution);
-
-		// Check in-memory cache first
-		if (diffCache.has(cacheKey)) {
-			console.log('Diff cache hit (memory)');
-			return diffCache.get(cacheKey);
-		}
-
-		// Check sessionStorage cache (persists across page reloads)
-		try {
-			var cachedResult = sessionStorage.getItem(cacheKey);
-			if (cachedResult) {
-				console.log('Diff cache hit (sessionStorage)');
-				var parsedResult = cachedResult;
-				// Store in memory cache for faster future access
-				diffCache.set(cacheKey, parsedResult);
-				return parsedResult;
-			}
-		} catch (e) {
-			console.warn('SessionStorage unavailable for diff cache:', e);
-		}
-
-		// Cache miss - calculate diff
-		console.log('Diff cache miss - calculating...');
-		var dmp = new diff_match_patch();
-		var diff = dmp.diff_main(suggestedSolution, userSolution);
-		dmp.diff_cleanupSemantic(diff);
-		var diffHtml = dmp.diff_prettyHtml(diff);
-
-		// Store in cache
-		try {
-			// Limit cache size - remove oldest entries if needed
-			if (diffCache.size >= MAX_CACHE_SIZE) {
-				// Remove first (oldest) entry
-				var firstKey = diffCache.keys().next().value;
-				diffCache.delete(firstKey);
-			}
-
-			// Store in memory cache
-			diffCache.set(cacheKey, diffHtml);
-
-			// Store in sessionStorage (with size limit check)
-			try {
-				// Count sessionStorage entries for diff cache
-				var cacheCount = 0;
-				for (var i = 0; i < sessionStorage.length; i++) {
-					if (sessionStorage.key(i).startsWith('diff_cache_')) {
-						cacheCount++;
-					}
-				}
-
-				// Remove oldest cache entries if limit exceeded
-				if (cacheCount >= MAX_CACHE_SIZE) {
-					var oldestKey = null;
-					for (var j = 0; j < sessionStorage.length; j++) {
-						var key = sessionStorage.key(j);
-						if (key && key.startsWith('diff_cache_')) {
-							oldestKey = key;
-							break;
-						}
-					}
-					if (oldestKey) {
-						sessionStorage.removeItem(oldestKey);
-					}
-				}
-
-				sessionStorage.setItem(cacheKey, diffHtml);
-			} catch (storageError) {
-				console.warn('Could not store diff in sessionStorage:', storageError);
-			}
-		} catch (e) {
-			console.warn('Error caching diff result:', e);
-		}
-
-		return diffHtml;
-	}
-
-	/**
-	 * Clear diff cache (useful for debugging or forced recalculation)
-	 * Can be called manually: clearDiffCache()
-	 */
-	function clearDiffCache() {
-		diffCache.clear();
-
-		// Clear from sessionStorage
-		try {
-			var keysToRemove = [];
-			for (var i = 0; i < sessionStorage.length; i++) {
-				var key = sessionStorage.key(i);
-				if (key && key.startsWith('diff_cache_')) {
-					keysToRemove.push(key);
-				}
-			}
-			keysToRemove.forEach(function(key) {
-				sessionStorage.removeItem(key);
-			});
-			console.log('Diff cache cleared (' + keysToRemove.length + ' entries)');
-		} catch (e) {
-			console.warn('Error clearing diff cache from sessionStorage:', e);
-		}
-	}
-
-	// Make clearDiffCache available globally for debugging
-	window.clearDiffCache = clearDiffCache;
-
-	/* ============================================
-	   ACE EDITOR - Hint and Further Description
-	   ============================================
-	   Initialize Ace editors for Hint and Further Description
-	   similar to Front.html but with different IDs
-	   ============================================ */
-
-	/* Map language name to Ace Editor mode */
-	function getAceMode(language) {
-		if (!language) return "ace/mode/javascript"; // default fallback
-
-		var lang = language.toLowerCase().trim();
-		var modeMap = {
-			"javascript": "ace/mode/javascript",
-			"js": "ace/mode/javascript",
-			"typescript": "ace/mode/typescript",
-			"ts": "ace/mode/typescript",
-			"python": "ace/mode/python",
-			"py": "ace/mode/python",
-			"c": "ace/mode/c_cpp",
-			"cpp": "ace/mode/c_cpp",
-			"c++": "ace/mode/c_cpp",
-			"c_cpp": "ace/mode/c_cpp",
-			"java": "ace/mode/java",
-			"go": "ace/mode/golang",
-			"golang": "ace/mode/golang",
-			"rust": "ace/mode/rust",
-			"ruby": "ace/mode/ruby",
-			"php": "ace/mode/php",
-			"html": "ace/mode/html",
-			"css": "ace/mode/css",
-			"sql": "ace/mode/sql",
-			"json": "ace/mode/json",
-			"xml": "ace/mode/xml",
-			"markdown": "ace/mode/markdown",
-			"bash": "ace/mode/sh",
-			"shell": "ace/mode/sh",
-			"sh": "ace/mode/sh"
-		};
-
-		return modeMap[lang] || "ace/mode/" + lang;
-	}
-
-	/**
-	 * Get the Ace Editor mode script filename for the given language
-	 */
-	function getLanguageModeScript(language) {
-		if (!language) return "mode-javascript.min.js";
-
-		var lang = language.toLowerCase().trim();
-		var modeScriptMap = {
-			"javascript": "mode-javascript.min.js",
-			"js": "mode-javascript.min.js",
-			"typescript": "mode-typescript.min.js",
-			"ts": "mode-typescript.min.js",
-			"python": "mode-python.min.js",
-			"py": "mode-python.min.js",
-			"c": "mode-c_cpp.min.js",
-			"cpp": "mode-c_cpp.min.js",
-			"c++": "mode-c_cpp.min.js",
-			"c_cpp": "mode-c_cpp.min.js",
-			"java": "mode-java.min.js",
-			"go": "mode-golang.min.js",
-			"golang": "mode-golang.min.js",
-			"rust": "mode-rust.min.js",
-			"ruby": "mode-ruby.min.js",
-			"php": "mode-php.min.js",
-			"html": "mode-html.min.js",
-			"css": "mode-css.min.js",
-			"sql": "mode-sql.min.js",
-			"json": "mode-json.min.js",
-			"xml": "mode-xml.min.js",
-			"markdown": "mode-markdown.min.js",
-			"bash": "mode-sh.min.js",
-			"shell": "mode-sh.min.js",
-			"sh": "mode-sh.min.js"
-		};
-
-		var scriptName = modeScriptMap[lang];
-		if (scriptName) {
-			return "https://cdnjs.cloudflare.com/ajax/libs/ace/1.32.3/" + scriptName;
-		}
-
-		return "https://cdnjs.cloudflare.com/ajax/libs/ace/1.32.3/mode-text.min.js";
-	}
-
-	// Cache para evitar múltiplos carregamentos dos mesmos scripts
-	var cachedScripts = {};
-	function loadScriptOnce(src) {
-		if (cachedScripts[src]) return cachedScripts[src];
-		cachedScripts[src] = loadScript(src);
-		return cachedScripts[src];
-	}
-
-	// Carregar dependências do Ace (core, tema e modo da linguagem)
-	function loadAceDependencies(language) {
-		var modeScript = getLanguageModeScript(language) || '';
-		var scripts = [
-			'https://cdnjs.cloudflare.com/ajax/libs/ace/1.32.3/ace.min.js',
-			'_theme-vscode.js',
-			modeScript
-		].filter(Boolean);
-
-		// Carrega em sequência para respeitar dependências
-		return scripts.reduce(function (promise, src) {
-			return promise.then(function () { return loadScriptOnce(src); });
-		}, Promise.resolve());
-	}
-
-	// Função para decodificar HTML entities
-	function decodeHtmlEntities(text) {
-		var textarea = document.createElement('textarea');
-		textarea.innerHTML = text;
-		return textarea.value;
-	}
-
-	// Remover indentação comum e linhas vazias no topo/rodapé
-	function dedentCode(code) {
-		code = code.replace(/\r\n/g, '\n').replace(/\r/g, '\n');
-		code = code.replace(/^\s*\n+/, '').replace(/\n+\s*$/, '');
-
-		var lines = code.split('\n');
-		var minIndent = null;
-
-		lines.forEach(function(line) {
-			if (!line.trim()) return;
-			var match = line.match(/^(\s*)/);
-			var indent = match ? match[1].length : 0;
-			if (minIndent === null || indent < minIndent) {
-				minIndent = indent;
-			}
-		});
-
-		if (minIndent && minIndent > 0) {
-			lines = lines.map(function(line) {
-				return line.startsWith(' '.repeat(minIndent)) ? line.slice(minIndent) : line;
-			});
-		}
-
-		return lines.join('\n').replace(/^\s*\n+/, '').replace(/\n+\s*$/, '');
-	}
-
-	// Formatação básica genérica
-	function formatBasicCode(code) {
-		code = code.trim();
-		code = code.replace(/\r\n/g, '\n').replace(/\r/g, '\n');
-		code = code.replace(/\n{3,}/g, '\n\n');
-		return code;
-	}
-
-	// Função para formatar código baseado na linguagem
-	function formatCode(code, language) {
-		code = decodeHtmlEntities(code);
-		code = code.replace(/<br\s*\/?>/gi, '\n');
-		code = code.replace(/&nbsp;/gi, ' ');
-		code = code.replace(/<[^>]+>/g, '');
-		code = dedentCode(code);
-		return formatBasicCode(code);
-	}
-
-	// Função para processar e formatar o código do hint
-	function processHintCodeBack(retryCount) {
-		retryCount = retryCount || 0;
-		var maxRetries = 10;
-
-		var hintSource = document.querySelector('.hint-source');
-		if (!hintSource) {
-			if (retryCount < maxRetries) {
-				setTimeout(function() { processHintCodeBack(retryCount + 1); }, 100);
-			}
-			return;
-		}
-
-		var originalCode = hintSource.innerHTML || '';
-
-		if (originalCode.indexOf('&') !== -1 || originalCode.indexOf('<') !== -1) {
-			var tempDiv = document.createElement('div');
-			tempDiv.innerHTML = originalCode;
-			originalCode = tempDiv.textContent || tempDiv.innerText || originalCode;
-		} else {
-			originalCode = hintSource.textContent || originalCode;
-		}
-
-		var languageMatch = hintSource.className.match(/language-(\w+)/);
-		var lang = languageMatch ? languageMatch[1] : '';
-
-		// Formatar código
-		var formattedCode = formatCode(originalCode, lang);
-		formattedCode = formattedCode.replace(/^\s*\n+/, '').replace(/\n+\s*$/, '');
-		hintSource.textContent = formattedCode;
-
-		// Inicializar Ace no hint
-		initHintAceBack(formattedCode, lang);
-	}
-
-	// Função para processar e formatar o código do Further Description
-	function processFurtherCodeBack() {
-		var furtherSource = document.querySelector('.further-source');
-		if (!furtherSource) {
-			return;
-		}
-
-		var originalCode = furtherSource.innerHTML || '';
-
-		if (originalCode.indexOf('&') !== -1 || originalCode.indexOf('<') !== -1) {
-			var tempDiv = document.createElement('div');
-			tempDiv.innerHTML = originalCode;
-			originalCode = tempDiv.textContent || tempDiv.innerText || originalCode;
-		} else {
-			originalCode = furtherSource.textContent || originalCode;
-		}
-
-		var languageMatch = furtherSource.className.match(/language-(\w+)/);
-		var lang = languageMatch ? languageMatch[1] : '';
-
-		var formattedCode = formatCode(originalCode, lang);
-		formattedCode = formattedCode.replace(/^\s*\n+/, '').replace(/\n+\s*$/, '');
-		furtherSource.textContent = formattedCode;
-		initFurtherAceBack(formattedCode, lang);
-	}
-
-	// Função para destruir editores Ace existentes
-	function destroyAceEditor(editor) {
-		if (editor && editor.destroy) {
-			try {
-				editor.destroy();
-			} catch (e) {
-				console.warn('Error destroying Ace editor:', e);
-			}
-		}
-	}
-
-	// Limpar editores anteriores antes de criar novos
-	function cleanupAceEditorsBack() {
-		if (window.hintAceBack) {
-			destroyAceEditor(window.hintAceBack);
-			window.hintAceBack = null;
-		}
-		if (window.furtherAceBack) {
-			destroyAceEditor(window.furtherAceBack);
-			window.furtherAceBack = null;
-		}
-	}
-
-	// Ajusta a altura do Ace para caber exatamente o conteúdo
-	function adjustEditorHeight(editor, forcedRows) {
-		if (!editor || !editor.container || !editor.renderer) return;
-
-		var rows = forcedRows || (editor.session ? editor.session.getLength() : 1);
-		if (!rows || rows < 1) rows = 1;
-
-		editor.setOption('minLines', rows);
-		editor.setOption('maxLines', rows);
-
-		setTimeout(function() {
-			editor.renderer.onResize(true);
-			editor.resize(true);
-
-			var rowHeight = editor.renderer.lineHeight || 16;
-			var totalHeight = rowHeight * rows;
-			var padding = 24;
-			totalHeight += padding;
-
-			editor.container.style.height = totalHeight + 'px';
-			editor.container.style.minHeight = totalHeight + 'px';
-			editor.container.style.maxHeight = totalHeight + 'px';
-
-			var shell = editor.container.closest('.hint-editor-shell, .further-editor-shell');
-			if (shell) {
-				shell.style.height = 'auto';
-				shell.style.minHeight = 'auto';
-				shell.style.maxHeight = 'none';
-			}
-
-			setTimeout(function() {
-				editor.resize(true);
-			}, 10);
-		}, 50);
-	}
-
-	// Inicializar Ace para o hint (Back)
-	function initHintAceBack(formattedCode, language, retryCount) {
-		retryCount = retryCount || 0;
-		var maxRetries = 10;
-
-		var hintEditorEl = document.getElementById('hint-editor-back');
-		if (!hintEditorEl) {
-			if (retryCount < maxRetries) {
-				setTimeout(function() { initHintAceBack(formattedCode, language, retryCount + 1); }, 100);
-			}
-			return;
-		}
-
-		if (window.hintAceBack) {
-			destroyAceEditor(window.hintAceBack);
-			window.hintAceBack = null;
-		}
-
-		hintEditorEl.innerHTML = '';
-
-		var fixedLines = 6;
-
-		var createAceInstance = function() {
-			var element = document.getElementById('hint-editor-back');
-			if (!element) {
-				console.warn('Hint editor element disappeared before initialization');
-				return;
-			}
-
-			try {
-				var editor = ace.edit('hint-editor-back');
-				window.hintAceBack = editor;
-
-				editor.setTheme("ace/theme/vscode");
-				editor.session.setMode(getAceMode(language) || 'ace/mode/python');
-				editor.setValue(formattedCode || '', -1);
-				editor.setOptions({
-					showPrintMargin: false,
-					wrap: true,
-					fontSize: 16,
-					fontFamily: "JetBrains, monospace",
-					minLines: fixedLines,
-					maxLines: fixedLines,
-					highlightActiveLine: false,
-					useSoftTabs: true,
-					tabSize: 4
-				});
-				if (editor.renderer && editor.container) {
-					editor.container.style.lineHeight = '1.6';
-				}
-				editor.session.setScrollTop(0);
-				editor.renderer.scrollToLine(0, false, false);
-				editor.gotoLine(1, 0, true);
-				adjustEditorHeight(editor, fixedLines);
-			} catch (e) {
-				console.error('Error creating hint Ace editor:', e);
-			}
-		};
-
-		loadAceDependencies(language)
-			.then(createAceInstance)
-			.catch(() => console.error('Failed to load Ace for hint editor'));
-	}
-
-	// Inicializar Ace para o Further Description (Back)
-	function initFurtherAceBack(formattedCode, language) {
-		var editorEl = document.getElementById('further-editor-back');
-		if (!editorEl) {
-			return;
-		}
-
-		if (window.furtherAceBack) {
-			destroyAceEditor(window.furtherAceBack);
-			window.furtherAceBack = null;
-		}
-
-		editorEl.innerHTML = '';
-
-		var fixedLines = 6;
-
-		var createAceInstance = function() {
-			var element = document.getElementById('further-editor-back');
-			if (!element) {
-				console.warn('Further editor element disappeared before initialization');
-				return;
-			}
-
-			try {
-				var editor = ace.edit('further-editor-back');
-				window.furtherAceBack = editor;
-
-				editor.setTheme("ace/theme/vscode");
-				editor.session.setMode('ace/mode/text');
-				editor.setValue(formattedCode || '', -1);
-				editor.setOptions({
-					showPrintMargin: false,
-					showGutter: false,
-					wrap: true,
-					readOnly: true,
-					highlightActiveLine: false,
-					highlightGutterLine: false,
-					fontSize: 16,
-					fontFamily: "JetBrains, monospace",
-					minLines: fixedLines,
-					maxLines: fixedLines,
-					useSoftTabs: true,
-					tabSize: 4
-				});
-				editor.renderer.setShowGutter(false);
-				if (editor.renderer && editor.container) {
-					editor.container.style.lineHeight = '1.6';
-				}
-				editor.session.setScrollTop(0);
-				editor.renderer.scrollToLine(0, false, false);
-				editor.gotoLine(1, 0, true);
-				adjustEditorHeight(editor, fixedLines);
-			} catch (e) {
-				console.error('Error creating further Ace editor:', e);
-			}
-		};
-
-		loadAceDependencies(language)
-			.then(createAceInstance)
-			.catch(() => console.error('Failed to load Ace for further description'));
-	}
-
-	// Função para reinicializar editores quando o cartão muda
-	function reinitializeEditorsBack() {
-		cleanupAceEditorsBack();
-
-		setTimeout(function() {
-			processHintCodeBack();
-			processFurtherCodeBack();
-		}, 100);
-	}
-
-	// Aguardar DOM estar pronto e processar o código
-	if (document.readyState === 'loading') {
-		document.addEventListener('DOMContentLoaded', function() {
-			reinitializeEditorsBack();
-		});
-	} else {
-		reinitializeEditorsBack();
-	}
-
-	// Listener para eventos do Anki
-	if (typeof anki !== 'undefined' && anki.hook) {
-		anki.hook('showAnswer', function() {
-			setTimeout(reinitializeEditorsBack, 100);
-		});
-		anki.hook('showQuestion', function() {
-			setTimeout(reinitializeEditorsBack, 100);
-		});
-	}
-
-	// MutationObserver como fallback
-	if (typeof MutationObserver !== 'undefined') {
-		var observer = new MutationObserver(function(mutations) {
-			var shouldReinit = false;
-			mutations.forEach(function(mutation) {
-				if (mutation.addedNodes.length > 0) {
-					for (var i = 0; i < mutation.addedNodes.length; i++) {
-						var node = mutation.addedNodes[i];
-						if (node.nodeType === 1) {
-							if (node.querySelector && (
-								node.querySelector('#hint-editor-back') ||
-								node.querySelector('#further-editor-back') ||
-								node.id === 'hint-editor-back' ||
-								node.id === 'further-editor-back'
-							)) {
-								shouldReinit = true;
-								break;
-							}
-						}
-					}
-				}
-			});
-
-			if (shouldReinit) {
-				clearTimeout(window._reinitTimeoutBack);
-				window._reinitTimeoutBack = setTimeout(reinitializeEditorsBack, 200);
-			}
-		});
-
-		if (document.body) {
-			observer.observe(document.body, {
-				childList: true,
-				subtree: true
-			});
-		} else {
-			if (document.readyState === 'loading') {
-				document.addEventListener('DOMContentLoaded', function() {
-					if (document.body) {
-						observer.observe(document.body, {
-							childList: true,
-							subtree: true
-						});
-					}
-				});
-			}
-		}
-	}
-
-	/*Call diff version of Diff_match_patch.js with memoization*/
-	// Show loading indicator for diff calculation (may take time for large code)
-	var diffLoadingIndicator = null;
-	if (field) {
-		diffLoadingIndicator = showLoading(field, 'Comparing solutions...', 'small');
-	}
-
-	// Use setTimeout to allow loading indicator to render first
-	setTimeout(function() {
-		var diffHtml = calculateDiffWithCache(sampleAnswerContentUnescaped, fieldContent);
-
-		// Hide loading indicator
-		if (diffLoadingIndicator) {
-			hideLoading(diffLoadingIndicator);
-			diffLoadingIndicator = null;
-		}
-
-		field.innerHTML = diffHtml;
-
-		setTimeout(function () {
-			field.classList.add('outline');
-		}, 1);
-	}, 0);
-
-	/* ============================================
-	   VIRTUAL SCROLLING - Performance Optimization
-	   ============================================
-	   Implements virtual scrolling for long code blocks (>1000 lines)
-	   to improve rendering performance by only processing visible content.
-	   ============================================ */
-	function applyVirtualScrollingToElement(element, elementName) {
-		if (!element) return;
-
-		// Count lines in the element
-		var elementText = element.textContent || element.innerText || '';
-		var lineCount = elementText.split('\n').length;
-
-		// Apply virtual scrolling optimization only for code with >1000 lines
-		if (lineCount > 1000) {
-			console.log('Applying virtual scrolling for ' + elementName + ' (' + lineCount + ' lines)');
-
-			// Add class to enable CSS optimizations
-			element.classList.add('virtual-scroll-enabled');
-
-			// Use CSS content-visibility for automatic virtual scrolling
-			// This allows browser to skip rendering of off-screen content
-			element.style.contentVisibility = 'auto';
-
-			// Optimize scroll performance
-			element.style.containIntrinsicSize = 'auto 500px';
-
-			// Add Intersection Observer for progressive enhancement
-			if ('IntersectionObserver' in window) {
-				var observer = new IntersectionObserver(function(entries) {
-					entries.forEach(function(entry) {
-						if (entry.isIntersecting) {
-							// Ensure smooth rendering when in viewport
-							entry.target.style.contentVisibility = 'auto';
-						}
-					});
-				}, {
-					rootMargin: '200px' // Start loading 200px before entering viewport
-				});
-
-				observer.observe(element);
-			}
-		}
-	}
-
-	function initializeVirtualScrolling() {
-		// Apply virtual scrolling to suggested solution code block
-		var answerPre = document.getElementById("field2");
-		var answerCode = document.getElementById("answerText");
-
-		if (answerPre && answerCode) {
-			applyVirtualScrollingToElement(answerPre, 'suggested solution code block');
-		}
-
-		// Apply virtual scrolling to comparison field (user solution vs suggested)
-		var comparisonField = document.getElementById("field1");
-		if (comparisonField) {
-			applyVirtualScrollingToElement(comparisonField, 'comparison field');
-		}
-	}
-
-	// Initialize virtual scrolling after content is processed
-	// Delay to ensure Prism/Shiki highlighting is complete
-	setTimeout(initializeVirtualScrolling, 500);
-</script>
-
-<!-- <link rel="stylesheet" href="_prism.min.css" id="light_theme"> -->
-<!-- <link rel="stylesheet" href="_prism-funky.min.css" id="dark_theme"> -->
-
-<!-- Prism.js themes - VSCode Dark+ theme -->
-<!-- Light theme: Fallback to default prism theme -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" id="light_theme">
-<!-- Dark theme: VSCode Dark+ theme (official VSCode dark theme for Prism.js) -->
-<!-- <link rel="stylesheet" href="https://raw.githubusercontent.com/PrismJS/prism-themes/refs/heads/master/themes/prism-atom-dark.css" id="dark_theme"> -->
-<link rel="stylesheet" href="_prism-vsc-dark-plus.css" id="dark_theme">
-
-
-
-<script>
-	/*Darkmode switcher. Done via JS to support both prefers-color-scheme of ankiweb.net and class changes of desktop app*/
-	var script_name;
-	var darkModePreference = window.matchMedia("(prefers-color-scheme: dark)");
-	console.log(window.matchMedia("(prefers-color-scheme: dark)").matches);
-	var darkModePreferred = false;
-
-	function determineDarkMode() {
-		if (darkModePreference.matches == true || document.body.classList.contains('night_mode') == true) {
-			darkModePreferred = true;
-		}
-		else {
-			darkModePreferred = false;
-		}
-	}
-
-	function switchStylesheet() {
-		if (darkModePreferred == true) {
-			enableStylesheet("dark_theme");
-			disableStylesheet("light_theme");
-		}
-		else {
-			enableStylesheet("light_theme");
-			disableStylesheet("dark_theme");
-		}
-	}
-
-	function enableStylesheet(styleSheetID) {
-		document.getElementById(styleSheetID).disabled = false;
-	}
-
-	function disableStylesheet(styleSheetID) {
-		document.getElementById(styleSheetID).disabled = true;
-	}
-
-	darkModePreference.addEventListener("change", function (e) {
-		applyStylesheet();
-	});
-
-	function onClassChange(node, callback) {
-		let lastClassString = node.classList.toString();
-
-		const mutationObserver = new MutationObserver((mutationList) => {
-			for (const item of mutationList) {
-				if (item.attributeName === "class") {
-					const classString = node.classList.toString();
-					if (classString !== lastClassString) {
-						callback(mutationObserver);
-						lastClassString = classString;
-						break;
-					}
-				}
-			}
-		});
-
-		mutationObserver.observe(node, { attributes: true });
-
-		return mutationObserver;
-	}
-
-	onClassChange(document.body, applyStylesheet);
-
-	function applyStylesheet() {
-		determineDarkMode();
-		switchStylesheet();
-	}
-
-	applyStylesheet();
-</script>
-
-<script>
-  // Split hierarchical tags
-  var tagsContainerEl = document.querySelectorAll('.prettify-tags > *')
-  if (tagsContainerEl.length > 0) {
-    var tags = []
-    tagsContainerEl.forEach((tagEl) => {
-      tagEl.classList.add('prettify-tag')
-      tags.push(tagEl.innerHTML)
-      tags.forEach((tag) => {
-        var childTag = tag.split('::').filter(Boolean)
-        tagEl.innerHTML = childTag[childTag.length - 1].trim()
-      })
-    })
-  } else {
-    tagsContainerEl = document.querySelector('.prettify-tags')
-    var tags = tagsContainerEl.innerHTML.split(' ').filter(Boolean)
-    var html = ''
-    tags.forEach((tag) => {
-      var childTag = tag.split('::').filter(Boolean)
-      html +=
-        "<span class='prettify-tag'>" +
-        childTag[childTag.length - 1] +
-        '</span>'
-    })
-    tagsContainerEl.innerHTML = html
+// ============================================
+//   CONFIGURAÇÃO
+//   ============================================
+
+// Tag configuration
+var TagConfig = {
+  levelsToShow: 1  // 0=full, 1=last part, 2=last 2 parts
+};
+
+// ============================================
+//   LANGUAGE MAPPING
+//   ============================================
+
+var LanguageMap = {
+  // Scripting languages
+  'python': 'python',
+  'py': 'python',
+  'javascript': 'javascript',
+  'js': 'javascript',
+  'typescript': 'typescript',
+  'ts': 'typescript',
+  'ruby': 'ruby',
+  'php': 'php',
+  'perl': 'perl',
+
+  // Compiled languages
+  'java': 'java',
+  'c': 'c_cpp',
+  'cpp': 'c_cpp',
+  'c++': 'c_cpp',
+  'c#': 'csharp',
+  'csharp': 'csharp',
+  'go': 'golang',
+  'golang': 'golang',
+  'rust': 'rust',
+  'swift': 'swift',
+  'kotlin': 'kotlin',
+  'scala': 'scala',
+
+  // Functional languages
+  'haskell': 'haskell',
+  'erlang': 'erlang',
+  'elixir': 'elixir',
+  'clojure': 'clojure',
+  'f#': 'fsharp',
+  'fsharp': 'fsharp',
+
+  // Markup & Data
+  'html': 'html',
+  'xml': 'xml',
+  'json': 'json',
+  'yaml': 'yaml',
+  'yml': 'yaml',
+  'toml': 'toml',
+  'markdown': 'markdown',
+  'md': 'markdown',
+
+  // Styles
+  'css': 'css',
+  'scss': 'scss',
+  'sass': 'sass',
+  'less': 'less',
+
+  // Configuration & Shells
+  'bash': 'sh',
+  'shell': 'sh',
+  'powershell': 'powershell',
+  'dockerfile': 'dockerfile',
+  'docker': 'dockerfile',
+
+  // Databases
+  'sql': 'sql',
+  'mysql': 'sql',
+  'postgresql': 'sql',
+  'sqlite': 'sql',
+  'mongodb': 'javascript',
+
+  // Other
+  'r': 'r',
+  'lua': 'lua',
+  'matlab': 'matlab',
+  'groovy': 'groovy',
+  'dart': 'dart'
+};
+
+// ============================================
+//   UTILITY FUNCTIONS
+//   ============================================
+
+var Utils = {
+  getAceMode: function(language) {
+    var langLower = (language || '').toLowerCase().trim();
+    return LanguageMap[langLower] || 'text';
+  },
+
+  getTheme: function() {
+    var body = document.body;
+    if (body && (body.classList.contains('night_mode') ||
+                 document.documentElement.classList.contains('night_mode'))) {
+      return 'ace/theme/github_dark';
+    }
+    return 'ace/theme/github_light_default';
+  },
+
+  escapeHtml: function(text) {
+    var div = document.createElement('div');
+    div.textContent = text;
+    return div.innerHTML;
   }
+};
+
+// ============================================
+//   EDITOR CONFIGURATION
+//   ============================================
+
+// Editor configuration (base)
+var EditorConfig = {
+  options: {
+    readOnly: true,
+    showPrintMargin: false,
+    highlightActiveLine: false,
+    behavioursEnabled: false,
+    fontSize: '16px',
+    fontFamily: 'JetBrains Mono, monospace'
+  },
+  scroll: {
+    top: 1,
+    bottom: 1,
+    left: 0,
+    right: 0
+  },
+  resize: {
+    minHeight: 336,
+    maxHeight: 336,
+    lineHeight: 28
+  }
+};
+
+// ============================================
+//   EDITOR CONFIGURATOR
+//   ============================================
+
+// Editor configuration functions
+var EditorConfigurator = {
+  configure: function(editor, language, customConfig) {
+    if (!editor) return;
+
+    var config = customConfig || EditorConfig;  // Usa customConfig ou o padrão
+
+    this.applyOptions(editor, config.options);
+    this.applyTheme(editor);
+    this.applySyntax(editor, language);
+    this.applyScrollMargin(editor, config.scroll);
+  },
+
+  applyOptions: function(editor, options) {
+    editor.setOptions(options);
+  },
+
+  applyTheme: function(editor) {
+    editor.setTheme(Utils.getTheme());
+  },
+
+  applySyntax: function(editor, language) {
+    var mode = Utils.getAceMode(language);
+    editor.session.setMode('ace/mode/' + mode);
+  },
+
+  applyScrollMargin: function(editor, scrollConfig) {
+    editor.renderer.setScrollMargin(
+      scrollConfig.top,
+      scrollConfig.bottom,
+      scrollConfig.left,
+      scrollConfig.right
+    );
+  }
+};
+
+// ============================================
+//   EDITOR RESIZER
+//   ============================================
+
+// Editor resize function
+var EditorResizer = {
+  resize: function(editor, customConfig) {
+    if (!editor) return;
+
+    var config = customConfig || EditorConfig;  // Usa customConfig ou o padrão
+    var session = editor.getSession();
+    var lineCount = session.getLength();
+
+    var newHeight = Math.max(
+      config.resize.minHeight,
+      Math.min(config.resize.maxHeight, lineCount * config.resize.lineHeight)
+    );
+
+    editor.container.style.height = newHeight + 'px';
+    editor.resize();
+  }
+};
+
+// ============================================
+//   TAG SPLITTING
+//   Processa tags hierárquicas e exibe apenas partes relevantes
+//   ============================================
+(function() {
+  var tagsContainer = document.querySelector('.tags');
+
+  if (!tagsContainer) {
+    return;
+  }
+
+  var tagText = tagsContainer.textContent || tagsContainer.innerText;
+  tagText = tagText.trim();
+
+  if (!tagText) {
+    return;
+  }
+
+  var tags = tagText.split(/\s+/).filter(Boolean);
+
+  if (tags.length === 0) {
+    return;
+  }
+
+  var html = '';
+  tags.forEach(function(tag) {
+    var displayName = tag;
+    var parts = tag.split('::');
+
+    if (TagConfig.levelsToShow > 0 && parts.length > TagConfig.levelsToShow) {
+      displayName = parts.slice(-TagConfig.levelsToShow).join('::');
+    }
+
+    html += '<span class="tag">' + displayName + '</span>';
+  });
+
+  tagsContainer.innerHTML = html;
+})();
+
+// ============================================
+//   JSDIFF - Diff Generation
+//   ============================================
+
+var DiffGenerator = {
+  /**
+   * Escape HTML special characters to prevent XSS
+   * @param {string} text - Text to escape
+   * @returns {string} Escaped text
+   */
+  escapeHtml: function(text) {
+    var div = document.createElement('div');
+    div.textContent = text;
+    return div.innerHTML;
+  },
+
+  /**
+   * Generate HTML with diff highlighting using jsdiff
+   * @param {string} expected - The correct/expected code
+   * @param {string} actual - The user's input code
+   * @returns {string} HTML string with diff highlighting
+   */
+  generateDiffHtml: function(expected, actual) {
+    // Handle empty inputs
+    if (!actual || actual.trim() === '') {
+      return '<span class="diff-missed">' + this.escapeHtml(expected) + '</span>';
+    }
+
+    if (!expected || expected.trim() === '') {
+      return '<span class="diff-extra">' + this.escapeHtml(actual) + '</span>';
+    }
+
+    // Use jsdiff to compute character-level diff
+    var diff = Diff.diffChars(expected, actual);
+    var html = '';
+
+    diff.forEach(function(part) {
+      // Determine CSS class based on diff type
+      var className = part.added ? 'diff-extra' :    // User typed extra characters
+                      part.removed ? 'diff-missed' : // User missed these characters
+                      'diff-correct';                // Correct match
+
+      // Escape HTML and preserve line breaks
+      var escapedValue = DiffGenerator.escapeHtml(part.value);
+
+      html += '<span class="' + className + '">' + escapedValue + '</span>';
+    });
+
+    return html;
+  }
+};
+
+// ============================================
+//   ACE EDITOR FOR BACK (COMPARISON)
+//   ============================================
+
+(function() {
+  'use strict';
+
+  var correctSolutionElement = document.getElementById('correct-solution');
+  var diffResultElement = document.getElementById('diff-result');
+
+  if (!correctSolutionElement) {
+    return;
+  }
+
+  // Load user's input from sessionStorage
+  var userInput = sessionStorage.getItem('input_transfer_front');
+
+  // Clear to avoid carrying over to next card
+  sessionStorage.removeItem('input_transfer_front');
+
+  // Get correct code from the element (before Ace Editor transforms it)
+  var correctCode = correctSolutionElement.textContent || correctSolutionElement.innerText || '';
+
+  // Get language for Ace Editor
+  var language = '{{Language}}' || 'text';
+
+  // ============================================
+  //   GENERATE DIFF RESULT
+  // ============================================
+  if (diffResultElement) {
+    try {
+      var diffHtml = DiffGenerator.generateDiffHtml(correctCode, userInput || '');
+      diffResultElement.innerHTML = diffHtml;
+    } catch (error) {
+      diffResultElement.innerHTML = '<span class="diff-error">Failed to generate diff comparison.</span>';
+    }
+  }
+
+  // Initialize Ace Editor (Correct Solution)
+  try {
+    var editorCorrect = ace.edit('correct-solution');
+    EditorConfigurator.configure(editorCorrect, language);
+    editorCorrect.setOption('readOnly', true);
+    EditorResizer.resize(editorCorrect);
+
+    var originalTheme = Utils.getTheme();
+    window.addEventListener('resize', function() {
+      EditorResizer.resize(editorCorrect);
+      var newTheme = Utils.getTheme();
+      if (newTheme !== originalTheme) {
+        EditorConfigurator.applyTheme(editorCorrect);
+        originalTheme = newTheme;
+      }
+    });
+  } catch (error) {
+    // Fallback: keep raw code visible
+  }
+})();
 </script>

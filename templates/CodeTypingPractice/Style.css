@@ -1,3159 +1,1165 @@
 /* ============================================
-   BASE VALUES - Property Definitions
+   BASE VALUES - CSS Variables (Tailwind Neutral Theme)
    ============================================ */
 :root {
-	--letter_spacing: 0px;
+  /* Typography */
+  --font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  --monospace-font-family: "JetBrains Mono", "Courier New", monospace;
+  --font-size: 18px;
+  --font-size-small: 14px;
+  --font-size-smaller: 10px;
 
-	/* Animation & Feedback Colors */
-	@property --correct_insertion_color {
-		syntax: "<color>";
-		inherits: true;
-		initial-value: hsl(106, 100%, 25%);
-	}
+  /* =========================================
+     NEUTRAL COLOR PALETTE (Tailwind CSS v4)
+     ========================================= */
+  --neutral-50: #fafafa;
+  --neutral-100: #f5f5f5;
+  --neutral-200: #e5e5e5;
+  --neutral-300: #dedede;
+  --neutral-400: #b4b4b4;
+  --neutral-500: #8e8e8e;
+  --neutral-600: #6e6e6e;
+  --neutral-700: #5e5e5e;
+  --neutral-800: #464646;
+  --neutral-900: #353535;
+  --neutral-950: #242424;
 
-	@property --incorrect_omission_color {
-		syntax: "<color>";
-		inherits: true;
-		initial-value: hsl(211, 100%, 40%);
-	}
+  /* Colors - Light Mode */
+  --text-color: var(--neutral-900);          /* #353535 - Darkest neutral */
+  --text-muted: var(--neutral-500);          /* #8e8e8e - Neutral medium */
+  --background-color: var(--neutral-50);     /* #fafafa - Lightest neutral */
+  --background-alt: var(--neutral-100);      /* #f5f5f5 - Very light */
+  --border-color: var(--neutral-200);        /* #e5e5e5 - Light gray */
+  --border-color-alt: var(--neutral-300);    /* #dedede - Medium light */
+  --primary-color: var(--neutral-600);       /* #6e6e6e - Neutral dark */
+  --hint-color: var(--neutral-700);          /* #5e5e5e - Neutral darker */
+   --code-background: var(--neutral-100);     /* #f5f5f5 - Light for code */
 
-	@property --incorrect_insertion_color {
-		syntax: "<color>";
-		inherits: true;
-		initial-value: hsl(3, 100%, 30%);
-	}
+   /* Spacing */
+  --card-max-width: 880px;
+  --border-radius: 8px;
 
-	@property --text_shadow_color {
-		syntax: "<color>";
-		inherits: true;
-		initial-value: grey;
-	}
+  /* =========================================
+     LANGUAGE BADGE COLORS
+     ========================================= */
+  --lang-default: #6e6e6e;              /* Gray - default */
+  --lang-python: #3776ab;               /* Blue - Python */
+  --lang-javascript: #f7df1e;           /* Yellow - JavaScript */
+  --lang-typescript: #3178c6;           /* Blue - TypeScript */
+  --lang-java: #b07219;                 /* Orange - Java */
+  --lang-c: #00599c;                    /* Blue - C */
+  --lang-cpp: #00599c;                  /* Blue - C++ */
+  --lang-go: #00add8;                   /* Cyan - Go */
+  --lang-rust: #dea584;                 /* Orange - Rust */
+  --lang-ruby: #cc342d;                /* Red - Ruby */
+  --lang-php: #777bb4;                 /* Purple - PHP */
+  --lang-html: #e34f26;                /* Orange - HTML */
+  --lang-css: #1572b6;                 /* Blue - CSS */
+  --lang-sql: #e48e00;                 /* Yellow - SQL */
+  --lang-json: #f5f5f5;                 /* Gray - JSON */
+  --lang-bash: #4eaa25;                /* Green - Bash */
+  --lang-shell: #89e051;               /* Green - Shell */
+  --lang-yaml: #cb171e;                /* Red - YAML */
+  --lang-xml: #0060ac;                 /* Blue - XML */
+  --lang-markdown: #083fa1;           /* Blue - Markdown */
+  --lang-docker: #2496ed;             /* Blue - Docker */
+}
 
-	@property --selection_background_color {
-		syntax: "<color>";
-		inherits: true;
-		initial-value: hsl(52, 100%, 44%);
-	}
-
-	@property --safe_color {
-		syntax: "<color>";
-		inherits: true;
-		initial-value: green;
-	}
-
-	@property --hint_color {
-		syntax: "<color>";
-		inherits: true;
-		initial-value: brown;
-	}
-
-	/* Textfield Colors */
-	@property --textfield_background_color {
-		syntax: "<color>";
-		inherits: true;
-		initial-value: inherit;
-	}
-
-	@property --textfield_color {
-		syntax: "<color>";
-		inherits: true;
-		initial-value: black;
-	}
-
-	/* Background Colors */
-	@property --background_color {
-		syntax: "<color>";
-		inherits: true;
-		initial-value: white;
-	}
-
-	/* Prettify Theme Colors - Text */
-	@property --text-fg {
-		syntax: "<color>";
-		inherits: true;
-		initial-value: #333333e6;
-	}
-
-	@property --text-fg-faint {
-		syntax: "<color>";
-		inherits: true;
-		initial-value: #333333cc;
-	}
-
-	@property --text-bg-selected {
-		syntax: "<color>";
-		inherits: true;
-		initial-value: #3333331a;
-	}
-
-	/* Prettify Theme Colors - Card */
-	@property --card-bg {
-		syntax: "<color>";
-		inherits: true;
-		initial-value: #2b2d32;
-	}
-
-	@property --card-shell-bg {
-		syntax: "<color>";
-		inherits: true;
-		initial-value: #2C2C2C;
-	}
-
-	@property --card-border {
-		syntax: "<color>";
-		inherits: true;
-		initial-value: #f7f7f7;
-	}
-
-	@property --card-box-shadow {
-		syntax: "<color>";
-		inherits: true;
-		initial-value: #06070866;
-	}
-
-	@property --divider {
-		syntax: "<color>";
-		inherits: true;
-		initial-value: #3f4249;
-	}
-
-	/* Prettify Theme Colors - Tags */
-	@property --tag-fg {
-		syntax: "<color>";
-		inherits: true;
-		initial-value: #333333cc;
-	}
-
-	@property --tag-bg {
-		syntax: "<color>";
-		inherits: true;
-		initial-value: #3333330f;
-	}
-
-	@property --tag-fg-active {
-		syntax: "<color>";
-		inherits: true;
-		initial-value: #333333;
-	}
-
-	@property --tag-bg-active {
-		syntax: "<color>";
-		inherits: true;
-		initial-value: #3333331a;
-	}
-
-	/* Prettify Theme Colors - Cloze */
-	@property --cloze-fg {
-		syntax: "<color>";
-		inherits: true;
-		initial-value: #348ccb;
-	}
-
-	@property --cloze-bg {
-		syntax: "<color>";
-		inherits: true;
-		initial-value: transparent;
-	}
-
-	/* Prettify Theme Colors - Links */
-	@property --link-fg {
-		syntax: "<color>";
-		inherits: true;
-		initial-value: #2a70a2;
-	}
-
-	@property --link-fg-active {
-		syntax: "<color>";
-		inherits: true;
-		initial-value: #2f7eb6;
-	}
-
-	@property --link-bg-active {
-		syntax: "<color>";
-		inherits: true;
-		initial-value: transparent;
-	}
-
-	/* Prettify Theme Colors - Text Emphasis */
-	@property --italic-fg {
-		syntax: "<color>";
-		inherits: true;
-		initial-value: var(--text-fg);
-	}
-
-	@property --bold-italic-fg {
-		syntax: "<color>";
-		inherits: true;
-		initial-value: var(--text-fg);
-	}
-
-	@property --underline-fg {
-		syntax: "<color>";
-		inherits: true;
-		initial-value: var(--text-fg);
-	}
-
-	@property --random-color {
-		syntax: "<color>";
-		inherits: true;
-		initial-value: var(--cloze-fg);
-	}
-
-	/* Border & Spacing */
-	@property --border_width_thin {
-		syntax: "<length>";
-		inherits: true;
-		initial-value: 0.01rem;
-	}
-
-	@property --border_width_mid {
-		syntax: "<length>";
-		inherits: true;
-		initial-value: 0.1rem;
-	}
-
-	@property --border_width_thick {
-		syntax: "<length>";
-		inherits: true;
-		initial-value: 0.5rem;
-	}
-
-	@property --border_radius_large {
-		syntax: "<length>";
-		inherits: true;
-		initial-value: 0.5rem;
-	}
-
-	@property --summary_height {
-		syntax: "<length>";
-		inherits: true;
-		initial-value: 2.5rem;
-	}
-
-	/* ============================================
-	   DEFAULT VALUES - Light Mode
-	   ============================================ */
-
-	/* Animation & Feedback Colors */
-	/* Contrast ratios verified for all feedback colors on white background */
-	--background_color: white;
-	--correct_insertion_color: hsl(120, 75%, 75%);
-	--incorrect_omission_color: hsl(211, 75%, 65%);
-	--incorrect_insertion_color: hsl(3, 75%, 64%);
-	--text_shadow_color: grey;
-	--selection_background_color: hsl(52, 100%, 46%);
-	--safe_color: #008000;
-	--hint_color: #8b4513;
-
-	/* Textfield Colors */
-	--textfield_color: black;
-	--textfield_background_color: inherit;
-
-	/* Border & Spacing */
-	--border_width_thin: 0.01rem;
-	--border_width_mid: 0.1rem;
-	--border_width_thick: 0.5rem;
-	--border_radius_large: 0.5rem;
-	--summary_height: 2.5rem;
-
-	/* Typography */
-	--card-max-width: 50em;
-	--card-text-align: left;
-	--font-size-regular: 18px;
-	--font-size-small: 16px;
-	--font-size-smallest: 12px;
-	--font-family: "Inter",
-	"Space Grotesk",
-	-apple-system,
-	system-ui,
-	BlinkMacSystemFont,
-	"Segoe UI",
-	Roboto,
-	Helvetica,
-	Arial,
-	sans-serif;
-	--monospace-font-family: "JetBrains",
-	-apple-system,
-	system-ui,
-	"Ubuntu Mono",
-	SFMono-Regular,
-	Menlo,
-	Monaco,
-	Consolas,
-	"Liberation Mono",
-	"Courier New",
-	monospace;
-	--font_size_code: 1em;
-	--line_height_code: 1.1;
-
-	/* Images */
-	--img-width: 40%;
-	--img-brightness: 0.75;
-	--img-filter: none;
-
-	/* Utility Colors */
-	--color-3: #4a90e2;
-
-	/* Prettify Theme Colors - Text */
-	/* Contrast ratios verified: text-fg (#333333) on white = 12.6:1, text-fg-faint (#595959) on white = 7:1 */
-	--text-fg: #333333;
-	--text-fg-faint: #595959;
-	--text-bg-selected: #3333331a;
-
-	/* Prettify Theme Colors - Card */
-	--card-bg: #2b2d32;
-	--card-shell-bg: #2C2C2C;
-	--card-border: #f7f7f7;
-	--card-box-shadow: #06070866;
-	--divider: #3f4249;
-
-	/* Prettify Theme Colors - Tags */
-	/* Contrast ratios verified: tag-fg (#4a4a4a) on tag-bg = 10.5:1, tag-fg-active (#333333) on tag-bg-active = 12.6:1 */
-	--tag-fg: #4a4a4a;
-	--tag-bg: #3333330f;
-	--tag-fg-active: #333333;
-	--tag-bg-active: #3333331a;
-
-	/* Prettify Theme Colors - Cloze */
-	/* Contrast ratio verified: cloze-fg (#0066b3) on white = 7.2:1 */
-	--cloze-fg: #0066b3;
-	--cloze-bg: transparent;
-
-	/* Prettify Theme Colors - Links */
-	/* Contrast ratios verified: link-fg (#005f87) on white = 7.7:1, link-fg-active (#006fa8) on white = 6.9:1 */
-	--link-fg: #005f87;
-	--link-fg-active: #006fa8;
-	--link-bg-active: transparent;
-
-	/* Prettify Theme Colors - Text Emphasis */
-	--italic-fg: var(--text-fg);
-	--bold-italic-fg: var(--text-fg);
-	--underline-fg: var(--text-fg);
-	--random-color: var(--cloze-fg);
+/* =========================================
+   DARK MODE (Neutral Theme)
+   ========================================= */
+:root.night_mode,
+.night_mode {
+  /* Colors - Dark Mode */
+  --text-color: var(--neutral-50);           /* #fafafa - Lightest */
+  --text-muted: var(--neutral-400);          /* #b4b4b4 - Neutral light */
+  --background-color: var(--neutral-950);    /* #242424 - Darkest */
+  --background-alt: var(--neutral-900);      /* #353535 - Very dark */
+  --border-color: var(--neutral-800);        /* #464646 - Dark gray */
+  --border-color-alt: var(--neutral-700);    /* #5e5e5e - Medium dark */
+  --primary-color: var(--neutral-400);       /* #b4b4b4 - Neutral light */
+  --hint-color: var(--neutral-300);          /* #dedede - Medium light */
+  --code-background: var(--neutral-900);     /* #353535 - Dark for code */
 }
 
 /* ============================================
-   DARK MODE - Night Mode Overrides
+   BASE STYLES
    ============================================ */
-:root.night-mode,
-:root[data-bs-theme="dark"],
-:root[data-darkreader-scheme="dark"],
-.night_mode,
-.card.night_mode {
-	/* Background Colors */
-	--background_color: #2C2C2C;
-
-	/* Animation & Feedback Colors */
-	/* Contrast ratios verified for all feedback colors on dark background */
-	--correct_insertion_color: hsl(106, 100%, 25%);
-	--incorrect_omission_color: hsl(211, 100%, 40%);
-	--incorrect_insertion_color: hsl(3, 100%, 30%);
-	--text_shadow_color: black;
-	--selection_background_color: hsl(52, 100%, 38%);
-	--safe_color: #90ee90;
-	--hint_color: #f5c971;
-
-	/* Textfield Colors */
-	--textfield_color: white;
-	/* --textfield_background_color: #0d1117; */
-	--textfield_background_color: #1E1E1E;
-
-
-	/* Prettify Theme Colors - Text */
-	/* Contrast ratios verified: text-fg (#e8eaed) on #2C2C2C = 13.2:1, text-fg-faint (#b0b5bc) on #2C2C2C = 5.6:1 */
-	--text-fg: #e8eaed;
-	--text-fg-faint: #b0b5bc;
-	--text-bg-selected: #ffffff1f;
-
-	/* Prettify Theme Colors - Card */
-	--card-bg: #2b2d32;
-	--card-shell-bg: #2C2C2C;
-	--card-border: #3a3c42;
-	--card-box-shadow: #06070866;
-	--divider: #3f4249;
-
-	/* Prettify Theme Colors - Tags */
-	--tag-fg: #ffffffb3;
-	--tag-bg: #ffffff14;
-	--tag-fg-active: #ffffff;
-	--tag-bg-active: #ffffff1f;
-
-	/* Prettify Theme Colors - Cloze */
-	--cloze-fg: #99ebff;
-	--cloze-bg: transparent;
-
-	/* Prettify Theme Colors - Links */
-	/* Contrast ratios verified: link-fg (#6db8e8) on #2C2C2C = 5.2:1, link-fg-active (#7fc5f0) on #2C2C2C = 6.1:1 */
-	--link-fg: #6db8e8;
-	--link-fg-active: #7fc5f0;
-	--link-bg-active: transparent;
-
-	/* Prettify Theme Colors - Text Emphasis */
-	--italic-fg: var(--text-fg);
-	--bold-italic-fg: var(--text-fg);
-	--underline-fg: var(--text-fg);
-	--random-color: var(--cloze-fg);
+.card {
+  font-family: var(--font-family);
+  font-size: var(--font-size);
+  padding: var(--card-padding);
+  max-width: var(--card-max-width);
+  margin: 0 auto;
+  border-radius: var(--border-radius);
+  line-height: 1.5;
 }
 
 /* ============================================
-   LIGHT MODE - Explicit Light Overrides
-   ============================================ */
-:root:not(.night-mode),
-:root[data-bs-theme="light"],
-:root[data-darkreader-scheme="light"] {
-	/* Background Colors */
-	--background_color: #ffffff;
+     ACE EDITOR STYLES
+     ============================================ */
 
-	/* Prettify Theme Colors - Card */
-	--card-shell-bg: #ffffff;
-	--card-bg: #ffffff;
-	--card-border: #e5e7eb;
-	--card-box-shadow: #0000001a;
-	--divider: #e5e7eb;
-
-	/* Prettify Theme Colors - Text */
-	/* Contrast ratios verified: text-fg (#333333) on white = 12.6:1, text-fg-faint (#595959) on white = 7:1 */
-	--text-fg: #333333;
-	--text-fg-faint: #595959;
-	--text-bg-selected: #3333331a;
-
-	/* Prettify Theme Colors - Text Emphasis */
-	--italic-fg: var(--text-fg);
-	--bold-italic-fg: var(--text-fg);
-	--underline-fg: var(--text-fg);
-
-	/* Prettify Theme Colors - Cloze */
-	/* Contrast ratio verified: cloze-fg (#0066b3) on white = 7.2:1 */
-	--cloze-fg: #0066b3;
-	--cloze-bg: transparent;
-
-	/* Prettify Theme Colors - Links */
-	/* Contrast ratios verified: link-fg (#005f87) on white = 7.7:1, link-fg-active (#006fa8) on white = 6.9:1 */
-	--link-fg: #005f87;
-	--link-fg-active: #006fa8;
-	--link-bg-active: transparent;
-
-	/* Prettify Theme Colors - Tags */
-	/* Contrast ratios verified: tag-fg (#4a4a4a) on tag-bg = 10.5:1, tag-fg-active (#333333) on tag-bg-active = 12.6:1 */
-	--tag-fg: #4a4a4a;
-	--tag-bg: #3333330f;
-	--tag-fg-active: #333333;
-	--tag-bg-active: #3333331a;
+.ace-editor-container {
+  position: relative;
+  border-radius: 4px;
+  overflow: hidden;
 }
 
-
-/* ============================================
-   SYSTEM PREFERENCE - Dark Mode
-   ============================================ */
-@media (prefers-color-scheme: dark) {
-	:root {
-		/* Background Colors */
-		--background_color: #2C2C2C;
-
-		/* Animation & Feedback Colors */
-		/* Contrast ratios verified for all feedback colors on dark background */
-		--correct_insertion_color: hsl(106, 100%, 25%);
-		--incorrect_omission_color: hsl(211, 100%, 40%);
-		--incorrect_insertion_color: hsl(3, 100%, 30%);
-		--text_shadow_color: black;
-		--selection_background_color: hsl(52, 100%, 38%);
-		--safe_color: #90ee90;
-		--hint_color: #f5c971;
-
-		/* Textfield Colors */
-		--textfield_color: white;
-		/* --textfield_background_color: #0d1117; */
-		--textfield_background_color: #1E1E1E;
-
-		/* Prettify Theme Colors - Text */
-		/* Contrast ratios verified: text-fg (#e8eaed) on #2C2C2C = 13.2:1, text-fg-faint (#b0b5bc) on #2C2C2C = 5.6:1 */
-		--text-fg: #e8eaed;
-		--text-fg-faint: #b0b5bc;
-		--text-bg-selected: #ffffff1f;
-
-		/* Prettify Theme Colors - Card */
-		--card-bg: #2e2f31;
-		--card-border: #ffffff0a;
-		--card-box-shadow: #0000001f;
-		--divider: #ffffff1f;
-
-		/* Prettify Theme Colors - Tags */
-		--tag-fg: #ffffffb3;
-		--tag-bg: #ffffff14;
-		--tag-fg-active: #ffffff;
-		--tag-bg-active: #ffffff1f;
-
-		/* Prettify Theme Colors - Cloze */
-		--cloze-fg: #99ebff;
-		--cloze-bg: transparent;
-
-		/* Prettify Theme Colors - Links */
-		/* Contrast ratios verified: link-fg (#6db8e8) on #2C2C2C = 5.2:1, link-fg-active (#7fc5f0) on #2C2C2C = 6.1:1 */
-		--link-fg: #6db8e8;
-		--link-fg-active: #7fc5f0;
-		--link-bg-active: transparent;
-
-		/* Prettify Theme Colors - Text Emphasis */
-		--italic-fg: var(--text-fg);
-		--bold-italic-fg: var(--text-fg);
-		--underline-fg: var(--text-fg);
-		--random-color: var(--cloze-fg);
-	}
-
-	html {
-		background: #242426;
-	}
-
-	.count {
-		&.new {
-			color: rgb(51, 125, 255);
-			;
-		}
-
-		&.learn {
-			color: rgb(255, 97, 97);
-		}
-
-		&.review {
-			color: rgb(97, 255, 97);
-		}
-	}
-
-	nav.navbar .navbar-nav .nav-item a.nav-link {
-		color: lightgray;
-
-		&:hover {
-			color: grey;
-		}
-	}
-
-	body {
-		color: var(--text-fg);
-
-		& .navbar-brand {
-			color: var(--text-fg);
-
-			&:hover {
-				color: grey;
-			}
-		}
-	}
-
-	body {
-		color: var(--text-fg);
-		background-color: var(--card-shell-bg);
-	}
-
-	div#ansarea.svelte-192a69y {
-		background-color: transparent;
-	}
-
-
-
-	nav,
-	#ansarea-pad,
-	#ansarea {
-		/*background-color: hsla(215, 100%, 33%, 0.5);*/
-		background-color: transparent;
-	}
-
-	button {
-		/* Button text color ensures contrast on dark backgrounds */
-		color: #e8eaed;
-		border-color: #e8eaed;
-		/* Contrast ratio: #e8eaed on dark background = minimum 13:1 */
-	}
+.ace-editor-container .ace_editor {
+  font-size: var(--font-size-small);
+  line-height: 1.5;
 }
 
-/*increase contrast*/
-
-@media (prefers-contrast: less) {
-	.card {
-		font-weight: 200;
-	}
+/* Light mode default theme adjustments */
+.card .ace_editor {
+  border: 1px solid var(--border-color);
+  /* background-color: var(--code-background); */
 }
 
-@media (prefers-contrast: more) {
-	.card {
-		font-weight: 700;
-	}
-
-	.correct,
-	.deleted,
-	.inserted {
-		text-shadow: 1px 1px var(--text_shadow_color);
-	}
-
-	.back #field1 {
-		text-shadow: 1px 1px var(--text_shadow_color);
-		text-align: left;
-	}
+/* Dark mode theme adjustments */
+.night_mode .ace_editor {
+  border: 1px solid var(--border-color);
 }
 
-/*reduce motion*/
-
-@media (prefers-reduced-motion: no-preference) {
-	:root {
-		--animation_duration: 0.7s;
-		--font_size_start: 0%;
-		--font_size_end: var(--font_size_code);
-	}
-}
-
-/*Needs to be improved!!*/
-@media (prefers-reduced-motion: reduce) {
-
-	.correct,
-	.deleted,
-	.inserted {
-		animation: none !important;
-	}
-
-	html {
-		scroll-behavior: auto !important;
-	}
-}
-
-/*screen width*/
-
-
-@font-face {
-	font-family: InterVariable;
-	font-style: normal;
-	font-weight: 100 900;
-	font-display: swap;
-	src: url("_InterVariable.woff2") format("woff2");
-}
-
-@font-face {
-	font-family: "Inter";
-	src: local("Inter-Regular"), url("_Inter-Regular.ttf") format("truetype");
-	font-style: normal;
-	font-weight: 400;
-	font-display: swap;
-}
-
-@font-face {
-	font-family: "Inter";
-	src: local("Inter-Bold"), url("_Inter-Bold.ttf") format("truetype");
-	font-style: normal;
-	font-weight: 700;
-	font-display: swap;
-}
-
-@font-face {
-	font-family: "Inter";
-	src: local("Inter-Italic"), url("_Inter-Italic.ttf") format("truetype");
-	font-style: italic;
-	font-weight: 400;
-	font-display: swap;
-}
-
-@font-face {
-	font-family: "Inter";
-	src: local("Inter-BoldItalic"), url("_Inter-BoldItalic.ttf") format("truetype");
-	font-style: italic;
-	font-weight: 700;
-	font-display: swap;
-}
-
-@font-face {
-	font-family: "Ubuntu";
-	src: url("_Ubuntu.ttf") format("truetype");
-	font-style: normal;
-	font-weight: 400;
-	font-display: swap;
-}
-
-@font-face {
-	font-family: "JetBrains";
-	src: url("_JetBrains.ttf") format("truetype");
-	font-style: normal;
-	font-weight: 400;
-	font-display: swap;
-}
-
-/*
-@font-face {
-	font-family: InclusiveSans-Regular;
-	src: url("_InclusiveSans-Regular.ttf");
+/* Mobile responsive adjustments */
+@media (max-width: 600px) {
+  .ace-editor-container .ace_editor {
+    font-size: 13px;
   }
-*/
-
-/* ============================================
-   ACCESSIBILITY - Screen Reader Only
-   ============================================ */
-.sr-only {
-	position: absolute;
-	width: 1px;
-	height: 1px;
-	padding: 0;
-	margin: -1px;
-	overflow: hidden;
-	clip: rect(0, 0, 0, 0);
-	white-space: nowrap;
-	border-width: 0;
 }
 
-.sr-only:focus {
-	position: static;
-	width: auto;
-	height: auto;
-	padding: inherit;
-	margin: inherit;
-	overflow: visible;
-	clip: auto;
-	white-space: normal;
+/* Ace Editor para digitação */
+#ace-editor-type {
+  min-height: 200px;
 }
 
-/*html element selectors*/
-
-a,
-a:visited {
-	text-decoration: none;
-	color: var(--link-fg);
-	border-radius: 0.25em;
-	padding: 0 0.1em;
-	transition: all 0.1s;
-}
-
-a:hover,
-a:active {
-	text-decoration: underline;
-	color: var(--link-fg-active);
-	background-color: var(--link-bg-active);
-}
-
-b,
-strong {
-	color: var(--random-color);
-}
-
-i,
-em {
-	color: var(--italic-fg);
-}
-
-b>i,
-i>b {
-	color: var(--bold-italic-fg);
-}
-
-u {
-	color: var(--underline-fg);
-}
-
-body .btn {
-	border-width: 0.1rem;
-}
-
-.buttons {
-	font-size: 1.3rem;
-	background-color: inherit;
-
-	/*Should be working anyways, but there seems to be a bug in anki desktop*/
-	cursor: pointer;
-
-	border: var(--border_width_mid) solid grey !important;
-	border-radius: var(--border_radius_large) !important;
-
-	/* Ensure button text has sufficient contrast */
-	color: var(--text-fg);
-	/* Contrast ratio: text-fg on inherit background = minimum 4.5:1 */
-}
-
-/*textarea, .back #field1*/
-code,
-.field {
-	font-family: var(--monospace-font-family);
-}
-
-del,
-ins {
-	text-decoration: none;
-}
-
-details {
-	font-size: 90%;
-	text-align: left;
-	margin: 1rem 20px;
-
-	& p {
-		margin-top: 0px;
-		padding-top: 0.2rem;
-		padding-bottom: 0.2rem;
-	}
+/* Legacy code block styling (preserved for backward compatibility) */
+.code {
+  font-family: var(--monospace-font-family);
+  background-color: var(--code-background);
+  padding: 15px;
+  border-radius: 4px;
+  overflow-x: auto;
+  white-space: pre-wrap;
+  color: var(--text-color);
 }
 
 /* ============================================
-   HTML ELEMENTS - Base Styles
+   HEADERS & TITLES
    ============================================ */
-
-div {
-	padding: 0;
-}
-
-/* Remove padding dos divs dentro do editor de código */
-.editor-shell>div,
-.ace-shell>div,
-.editor-shell .ace-shell,
-.ace-shell .ace_editor {
-	padding: 0.2rem 0.2rem;
-}
-
-header {
-	position: relative;
-	margin-left: 20px;
-	margin-right: 20px;
+h1, h2, h3 {
+  margin: 0.1rem 0;
+  font-weight: 600;
 }
 
 h1 {
-	font-size: 110%;
-	margin: 0px;
+  font-size: 1.2em;
+  color: var(--primary-color);
 }
 
 h2 {
-	font-size: 100%;
-	margin: 0.5rem 20px;
-	padding-top: 0rem;
-}
-
-/* Remover margens laterais do "Your Solution" */
-h2#heading1 {
-	margin-left: 0;
-	margin-right: 0;
+  font-size: 1em;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: var(--text-color);
+  opacity: 0.8;
 }
 
 h3 {
-	font-size: 100%;
-	margin: 0.1rem;
-}
-
-/* Centralizar títulos "Hint" e "Further Description (Output)" no accordion */
-#hint-accordion-content .grid_item_a>h3.heading,
-#hint-accordion-content .grid_item_b>h3.heading {
-	text-align: center;
-}
-
-img {
-	border-radius: 0.25em;
-	display: block;
-	margin: 1em auto;
-	max-width: 90%;
-	width: 100%;
-	transition: transform 0.3s ease, box-shadow 0.3s ease, filter 0.3s ease, background-color 0.3s ease;
-	background-color: transparent;
-	cursor: zoom-in;
-	filter: var(--img-filter);
-}
-
-.night_mode img {
-	filter: invert(0);
-	opacity: 0.95;
-}
-
-img.zoomed {
-	position: fixed;
-	top: 50%;
-	left: 50%;
-	transform: translate(-50%, -50%);
-	max-width: 90%;
-	max-height: 90vh;
-	object-fit: contain;
-	z-index: 100;
-	box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
-	background-color: #fff;
-	cursor: zoom-out;
-}
-
-body:has(img.zoomed)::before {
-	content: '';
-	position: fixed;
-	top: 0;
-	left: 0;
-	width: 100vw;
-	height: 100vh;
-	background-color: rgba(0, 0, 0, 0.75);
-	z-index: 99;
-}
-
-img+br {
-	display: none;
-}
-
-p {
-	padding: 0.1rem;
-	border: 0.1rem;
-	margin: auto;
-}
-
-summary {
-	text-align: center;
-	margin-left: 0.2rem;
-	width: 4rem;
-	height: var(--summary_height);
-}
-
-summary span {
-	line-height: var(--summary_height);
-}
-
-textarea::placeholder {
-	/* Placeholder text uses same color as input text for maximum contrast */
-	/* Contrast ratio: same as input text, ensuring 4.5:1 minimum */
-	color: inherit;
-	opacity: 0.7;
-}
-
-/*class selectors*/
-.back #field1 {
-	& ::selection {
-		background-color: var(--selection_background_color);
-	}
-}
-
-.card {
-	container: card / inline-size;
-	font-family: var(--font-family);
-	font-size: var(--font-size-small);
-	color: var(--text-fg);
-	background-color: var(--card-shell-bg);
-	text-align: var(--card-text-align);
-	max-width: var(--card-max-width);
-	margin: 0.5em auto;
-	/* padding: 0.3em; */
-	border-radius: 0.5em;
-	scrollbar-width: none;
-	cursor: default;
-}
-
-.card::selection {
-	background-color: var(--text-bg-selected);
-}
-
-.card.night_mode {
-	background-color: var(--card-shell-bg);
-	color: var(--text-fg);
-}
-
-.card.night_mode #button1 {
-	color: var(--text-fg);
-	border-color: var(--text-fg);
-	background-color: transparent;
-}
-
-.card.night_mode #button1:hover,
-.card.night_mode #button1:active {
-	border-color: var(--text-fg);
-	background-color: transparent !important;
-	box-shadow: none;
-}
-
-@media (min-width: 601px) {
-	.card {
-		font-size: var(--font-size-regular);
-		/* padding: 0.5em; */
-	}
-
-	img {
-		max-width: var(--img-width);
-		width: auto;
-	}
-
-	summary {
-		width: 4.5rem;
-	}
-
-	.prettify-field {
-		margin: 0.3em 20px 0.8em 20px;
-	}
-
-	.prettify-deck {
-		margin: 2em 20px;
-	}
-
-	.prettify-tags {
-		margin: 0 20px;
-	}
-
-	.field {
-		border-width: 0.2rem;
-		border-radius: 0.2rem;
-		padding: 1.25rem;
-	}
+  font-size: 0.9em;
+  color: var(--text-color);
 }
 
 /* ============================================
-   PRETTIFY COMPONENTS - Flashcard
+   FIELDS
    ============================================ */
-.prettify-flashcard {
-	background-color: var(--card-bg);
-	border-radius: 0.5em;
-	border: 2px solid var(--card-border);
-	box-shadow: var(--card-box-shadow) 0px 7px 14px 0px, var(--card-box-shadow) 0px 3px 6px 0px;
-	color: var(--text-fg);
-	font-family: var(--font-family);
-	font-size: var(--font-size-regular);
-	line-height: 1.5;
-	margin: 0.5em auto;
-	max-width: var(--card-max-width);
-	text-align: var(--card-text-align);
-	word-wrap: break-word;
-	letter-spacing: 0.1px;
+.field {
+  padding: 1px;
 }
 
-.prettify-flashcard::selection {
-	background-color: var(--text-bg-selected);
+.field-description {
+  font-size: 1.1em;
+  line-height: 1.6;
 }
 
-.prettify-flashcard::-webkit-scrollbar {
-	display: none;
+.field-code {
+  font-size: var(--font-size-small);
 }
 
 /* ============================================
-   PRETTIFY COMPONENTS - Fields
+   CONDITIONAL SECTIONS
    ============================================ */
-.prettify-field {
-	margin: 0.2em 20px 0.5em 20px;
-	text-align: justify;
-	text-justify: inter-word;
+.conditional-section {
+  margin: 15px 0;
+  border: 1px solid var(--border-color);
+  border-radius: 4px;
+  background-color: var(--background-alt);
 }
 
-.prettify-field--front {
-	padding: 0 0.8em;
+.night_mode .conditional-section {
+  background-color: var(--background-alt);
 }
 
-.prettify-field--back {
-	color: var(--text-fg-faint);
-	font-size: var(--font-size-small);
-	margin: 0.6em 20px 1.6em 20px;
-}
-
-.prettify-field--front,
-.prettify-field--back {
-	min-height: auto;
-	max-height: auto;
-	overflow: auto;
-}
-
-.prettify-field::-webkit-scrollbar {
-	display: none;
+.hint-section {
+  border-left: 3px solid var(--hint-color);
+  background-color: var(--background-color);
 }
 
 /* ============================================
-   PRETTIFY COMPONENTS - Deck
-   ============================================ */
-.prettify-deck {
-	margin: 0 20px;
-	display: flex;
-	color: var(--text-fg-faint);
-	font-size: var(--font-size-regular);
-	white-space: nowrap;
+    ACCORDION STYLES (details/summary)
+    ============================================ */
+
+/* Details element when used as accordion */
+details.conditional-section {
+  border: 1px solid var(--border-color);
+  border-radius: 4px;
+  background-color: var(--background-alt);
+  margin: 8px 0;
+  overflow: hidden;
 }
 
-.prettify-subdeck {
-	text-decoration: underline;
-	text-overflow: ellipsis;
-	overflow: hidden;
+/* Night mode accordion */
+.night_mode details.conditional-section {
+  background-color: var(--background-alt);
+}
+
+/* Summary element (clickable header) */
+details.conditional-section > summary {
+  list-style: none;
+  padding: 12px 15px;
+  cursor: pointer;
+  user-select: none;
+  font-weight: 600;
+  text-transform: uppercase;
+  font-size: 13px;
+  letter-spacing: 0.5px;
+  color: var(--text-color);
+  transition: background-color 0.2s ease;
+  position: relative;
+  padding-right: 40px;
+}
+
+/* Remove default marker */
+details.conditional-section > summary::-webkit-details-marker {
+  display: none;
+}
+
+details.conditional-section > summary::marker {
+  display: none;
+}
+
+/* Hover effect on summary */
+details.conditional-section > summary:hover {
+  background-color: var(--border-color);
+}
+
+/* Night mode hover */
+.night_mode details.conditional-section > summary:hover {
+  background-color: var(--border-color);
+}
+
+/* Custom arrow - closed state */
+details.conditional-section > summary::after {
+  content: '▼';
+  position: absolute;
+  right: 15px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 10px;
+  color: var(--text-muted);
+  transition: transform 0.2s ease;
+}
+
+/* Open state - arrow rotates */
+details.conditional-section[open] > summary::after {
+  transform: translateY(-50%) rotate(180deg);
+}
+
+/* Content wrapper */
+.conditional-content {
+  padding: 8px;
+  border-top: 1px dashed var(--border-color);
+  animation: fadeIn 0.3s ease;
+}
+
+/* Night mode border top */
+.night_mode .conditional-content {
+  border-top-color: var(--border-color);
+}
+
+/* Fade in animation */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-5px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Hint content inside accordion */
+.conditional-content .field-hint {
+  margin: 0;
+  padding: 0;
+}
+
+.conditional-content .field-further {
+  margin: 15px 0 0 0;
+  padding: 0;
+}
+
+/* Hint section title */
+.conditional-content h3 {
+  margin: 0 0 10px 0;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--hint-color);
+}
+
+/* Code block inside hint */
+.conditional-content code {
+  display: block;
+  background-color: var(--code-background);
+  border-radius: 4px;
+  font-family: var(--monospace-font-family);
+  font-size: 13px;
+  color: var(--text-color);
+  white-space: pre-wrap;
+  overflow-x: auto;
 }
 
 /* ============================================
-   PRETTIFY COMPONENTS - Tags
+   ANSWER DIVIDER
    ============================================ */
-.prettify-tags {
-	margin: 0em 20px;
-	display: flex;
-	flex-flow: row wrap;
-	font-size: var(--font-size-smallest);
-	justify-content: flex-end;
+hr#answer {
+  border: none;
+  /* border-top: 2px solid var(--border-color); */
+  margin: 20px 0;
 }
 
-.mobile .prettify-tags {
-	margin: 0em 20px;
+/* ============================================
+    LANGUAGE BADGE
+    ============================================ */
+
+/* Language Badge Container */
+.language-badge {
+  display: block;
+  text-align: center;
+  margin: 8px auto 16px auto;
 }
 
-.prettify-tag {
-	all: initial;
-	background-color: var(--tag-bg);
-	border-radius: 0em 0em 0.6em 0.6em;
-	color: var(--tag-fg);
-	display: inline;
-	font-size: var(--font-size-smallest);
-	font-family: var(--monospace-font-family);
-	margin: 0 0.5em 0.5em 0;
-	padding: 0.30em 0.8em;
-	transition: all 0.25s;
-	word-break: break-word;
+/* Language Badge - Minimalist Pill */
+.language-text {
+  display: inline-block;
+  padding: 6px 16px;
+  background-color: var(--lang-default);
+  color: #ffffff;
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  border-radius: 50px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  transition: all 0.2s ease;
 }
 
-.prettify-tag:before {
-	content: ' ';
+/* Night mode adjustment for shadow */
+.night_mode .language-text {
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
 }
 
-.prettify-tag:hover {
-	background-color: var(--tag-bg-active);
-	color: var(--tag-fg-active);
-	cursor: pointer;
+/* Hover effect */
+.language-text:hover {
+  transform: scale(1.02);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
 }
 
-.prettify-divider {
-	background-color: transparent;
-	border: none;
-	border-bottom: 2px dashed var(--divider);
-	margin: 1em 20px;
-	padding: 0;
+/* Night mode hover */
+.night_mode .language-text:hover {
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
 }
 
-.prettify-divider--answer {
-	border-bottom: 2px dashed var(--divider);
+/* Language-specific colors (via data-attribute) */
+.language-text[data-lang="python"] { background-color: var(--lang-python); }
+.language-text[data-lang="javascript"] { background-color: var(--lang-javascript); }
+.language-text[data-lang="js"] { background-color: var(--lang-javascript); }
+.language-text[data-lang="typescript"] { background-color: var(--lang-typescript); }
+.language-text[data-lang="ts"] { background-color: var(--lang-typescript); }
+.language-text[data-lang="java"] { background-color: var(--lang-java); }
+.language-text[data-lang="c"] { background-color: var(--lang-c); }
+.language-text[data-lang="cpp"] { background-color: var(--lang-cpp); }
+.language-text[data-lang="c++"] { background-color: var(--lang-cpp); }
+.language-text[data-lang="go"] { background-color: var(--lang-go); }
+.language-text[data-lang="rust"] { background-color: var(--lang-rust); }
+.language-text[data-lang="ruby"] { background-color: var(--lang-ruby); }
+.language-text[data-lang="php"] { background-color: var(--lang-php); }
+.language-text[data-lang="html"] { background-color: var(--lang-html); }
+.language-text[data-lang="css"] { background-color: var(--lang-css); }
+.language-text[data-lang="sql"] { background-color: var(--lang-sql); }
+.language-text[data-lang="json"] { background-color: var(--lang-json); color: #333333; }
+.language-text[data-lang="bash"] { background-color: var(--lang-bash); }
+.language-text[data-lang="shell"] { background-color: var(--lang-shell); }
+.language-text[data-lang="yaml"] { background-color: var(--lang-yaml); }
+.language-text[data-lang="xml"] { background-color: var(--lang-xml); }
+.language-text[data-lang="markdown"] { background-color: var(--lang-markdown); }
+.language-text[data-lang="docker"] { background-color: var(--lang-docker); }
+
+/* ============================================
+    TAGS
+    ============================================ */
+.tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  justify-content: flex-end;
+  padding-right: 12px;
 }
 
-.prettify-field--front.overflown,
-.prettify-field--back.overflown {
-	border-bottom: 2px solid var(--card-border);
-	border-radius: 0.5em;
+.tag {
+  background-color: var(--border-color);
+  border-radius: 0px 0px 10px 10px;
+  padding: 4px 10px;
+  font-size: var(--font-size-smaller);
+  font-family: var(--monospace-font-family);
+  color: var(--text-color);
+  border: 1px solid var(--border-color-alt);
+  transition: all 0.2s ease;
 }
 
-.prettify-flashcard::-webkit-scrollbar,
-.prettify-field::-webkit-scrollbar {
-	display: none;
+.night_mode .tag {
+  background-color: var(--border-color);
+  border-color: var(--border-color-alt);
 }
 
-.cloze {
-	background-color: var(--cloze-bg);
-	color: var(--random-color);
+.tag:hover {
+  background-color: var(--border-color-alt);
+  border-color: var(--text-muted);
+  cursor: pointer;
+  transform: translateY(-1px);
 }
 
-/* --------------------- TAGS */
-.prettify-tags {
-	margin: 0em 20px;
-	display: flex;
-	flex-flow: row wrap;
-	font-size: var(--font-size-smallest);
-	justify-content: flex-end;
+.night_mode .tag:hover {
+  background-color: var(--border-color-alt);
+  border-color: var(--text-muted);
 }
 
-.mobile .prettify-tags {
-	margin: 0em 20px;
+/* ============================================
+    SIDE-BY-SIDE LAYOUT (Card 1 Back)
+    ============================================ */
+
+/* Grid container for Description + Further Description */
+.fields-grid {
+  display: grid;
+  gap: 10px;
+  margin: 20px 0;
 }
 
-.prettify-tag {
-	all: initial;
-	background-color: var(--tag-bg);
-	border-radius: 0em 0em 0.6em 0.6em;
-	/* border: 1px dashed var(--tag-border); */
-	color: var(--tag-fg);
-	display: inline;
-	font-size: var(--font-size-smallest);
-	font-family: var(--monospace-font-family);
-	margin: 0 0.5em 0.5em 0;
-	padding: 0.30em 0.8em;
-	transition: all 0.25s;
-	word-break: break-word;
+/* Default: Single column (mobile/tablet) */
+.fields-grid {
+  grid-template-columns: 1fr;
 }
 
-.prettify-tag:before {
-	content: ' ';
+/* Two columns - Desktop (min 769px) */
+@media (min-width: 769px) {
+  .fields-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  /* Single item - full width */
+  .fields-grid--single {
+    grid-template-columns: 1fr;
+  }
 }
 
-.prettify-tag:hover {
-	background-color: var(--tag-bg-active);
-	color: var(--tag-fg-active);
-	cursor: pointer;
+/* Individual field containers */
+.fields-grid .field-grid-item {
+  border: 1px solid var(--border-color);
+  border-radius: 4px;
+  background-color: var(--background-alt);
+  padding: 8px;
+  min-height: 100px;
+  transition: transform 0.2s ease, background-color 0.2s ease;
 }
 
-
-table {
-	border-collapse: separate;
-	border-spacing: 0;
-	margin: 0 auto;
-	max-width: 100%;
+/* Night mode adjustments for grid items */
+.night_mode .fields-grid .field-grid-item {
+  background-color: var(--background-alt);
 }
 
-table thead {
-	background-color: var(--card-border);
+/* Hover effect on grid items */
+.fields-grid .field-grid-item:hover {
+  transform: translateY(-2px);
+  background-color: var(--background-color);
 }
 
-table tr:nth-of-type(even) {
-	background-color: var(--card-border);
+/* Night mode hover */
+.night_mode .fields-grid .field-grid-item:hover {
+  background-color: var(--background-color);
 }
 
-table tr:first-child th:first-child {
-	border-top-left-radius: 0.5em;
+/* Fade-in animation on load */
+@keyframes slideInUp {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
-table tr:first-child th:last-child {
-	border-top-right-radius: 0.5em;
+.fields-grid .field-grid-item {
+  animation: slideInUp 0.3s ease forwards;
 }
 
-table tr:last-child td:first-child {
-	border-bottom-left-radius: 0.5em;
+/* Smooth layout transition for responsive */
+.fields-grid {
+  transition: grid-template-columns 0.3s ease;
 }
 
-table tr:last-child td:last-child {
-	border-bottom-right-radius: 0.5em;
+/* Grid headers styling */
+.fields-grid h2 {
+  font-size: 0.9em;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: var(--primary-color);
 }
 
-table th {
-	border-bottom: solid 1px var(--text-bg-selected);
-	border-left: solid 1px var(--text-bg-selected);
-	border-top: solid 1px var(--text-bg-selected);
-	padding: 0.5em;
+/* Further Description header - slightly muted */
+.fields-grid h3 {
+  font-size: 0.85em;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: var(--text-muted);
 }
 
-table th:last-child {
-	border-right: solid 1px var(--text-bg-selected);
+/* ============================================
+     FOOTER
+     ============================================ */
+.footer {
+  padding: 8px;
+  border-top: 1px solid var(--border-color);
+  font-size: var(--font-size-small);
+  color: var(--text-muted);
+  background-color: var(--background-color);
 }
 
-table td {
-	border-bottom: solid 1px var(--text-bg-selected);
-	border-left: solid 1px var(--text-bg-selected);
-	padding: 0.5em;
+/* Container do Source */
+.footer-source {
+  margin-bottom: 12px;
+  color: var(--text-muted);
 }
 
-table td:last-of-type {
-	border-right: solid 1px var(--text-bg-selected);
+/* Container dos links */
+.footer-links {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
 }
 
-footer {
-	font-size: var(--font-size-smallest);
-	text-align: center;
-	border-radius: 1em 1em 0 0;
-	border: 0.1rem solid var(--card-border);
-	border-bottom: none;
-	margin: 0 20px;
-	padding: 8px;
-	background-color: var(--card-border);
+/* Label "Learn More:" */
+.footer-links-label {
+  color: var(--text-muted);
+  font-weight: 500;
 }
 
-footer>a {
-	text-decoration: none;
+/* Links individuais */
+.footer-link {
+  color: var(--primary-color);
+  text-decoration: none;
 }
 
-footer>a:after {
-	content: "·";
-	color: var(--link-fg);
-	display: inline-block;
-	width: 12px;
+.footer-link:hover {
+  color: var(--text-color);
+  text-decoration: underline;
 }
 
-footer>a:last-child:after {
-	content: "";
-	width: 0;
+/* Separador | */
+.footer-link-separator {
+  color: var(--text-muted);
+  margin: 0 4px;
 }
 
-#typeans {
-	display: block;
-	width: 80%;
-	max-height: 600px;
-	padding: 10px;
-	margin: 0 auto;
-	border: 1px solid var(--color-3);
-	border-radius: 6px;
-	background-color: var(--card-bg);
-	font-family: var(--monospace-font-family);
-	font-size: var(--font-size-small);
-	color: var(--text-fg);
-	box-sizing: border-box;
-	transition: border-color 0.3s, box-shadow 0.3s, background-color 0.3s;
-	text-align: left;
+/* Night mode adjustments */
+.night_mode .footer-link {
+  color: var(--primary-color);
 }
 
-#typeans:focus {
-	border-color: var(--color-3);
-	box-shadow: 0 0 8px rgba(74, 144, 226, 0.6);
-	outline: none;
-	background-color: var(--card-bg);
+.night_mode .footer-link:hover {
+  color: var(--text-color);
 }
 
-#typeans.centered {
-	text-align: center;
-	margin: 20px auto;
+/* ============================================
+    CARD 2 TYPE - CARD CONTENT
+    ============================================ */
+
+.card-content {
+  margin: 20px 0;
 }
 
-.typeGood {
-	font-weight: bold;
+/* ============================================
+    CARD 2 TYPE - HINT / FURTHER GRID
+    ============================================ */
+
+.hint-further-grid {
+  display: grid;
+  gap: 1%;
+  grid-template-columns: 1fr 1fr;
+  width: 98%;
+  margin: 0 auto;
 }
 
-.typeBad {
-	text-decoration: underline;
+/* Grid items */
+.hint-further-grid .grid-item {
+  width: 100%;
 }
 
-.typeMissed {
-	font-style: italic;
+/* Remove margin dos campos dentro do grid */
+.hint-further-grid .field {
+  margin: 0;
 }
 
-.centered {
-	text-align: center;
-	margin: 20px auto;
+/* Mobile: 1 coluna, 97% largura */
+@media (max-width: 768px) {
+  .hint-further-grid {
+    grid-template-columns: 1fr;
+    width: 97%;
+    gap: 0.5%;
+  }
 }
 
-#typearrow {
-	font-size: 24px;
-	text-align: center;
-	display: block;
+/* ============================================
+    CARD 2 TYPE - TYPING SECTION
+    ============================================ */
+
+.typing-section {
+  margin: 20px 0;
 }
+
+.field-typing {
+  width: 100%;
+  font-family: var(--monospace-font-family);
+  font-size: var(--font-size-small);
+  padding: 15px;
+  border: 1px solid var(--border-color);
+  border-radius: 4px;
+  background-color: var(--background-color);
+  color: var(--text-color);
+  line-height: 1.5;
+  resize: vertical;
+  min-height: 200px;
+}
+
+.night_mode .field-typing {
+  background-color: var(--background-color);
+  border-color: var(--border-color);
+}
+
+.typing-hint {
+  margin-top: 8px;
+  font-size: 13px;
+  color: var(--text-muted);
+  font-style: italic;
+}
+
+/* ============================================
+    CARD 2 TYPE - COMPARISON SECTION
+    ============================================ */
+
+.comparison-section {
+  margin: 20px 0;
+}
+
+/* Comparison grid (MESMO estilo do hint-further-grid) */
+.comparison-grid {
+  display: grid;
+  gap: 1%;
+  grid-template-columns: 1fr 1fr;
+  width: 98%;
+  margin: 0 auto;
+}
+
+/* Grid items */
+.comparison-grid .grid-item {
+  width: 100%;
+}
+
+/* Mobile: 1 coluna */
+@media (max-width: 768px) {
+  .comparison-grid {
+    grid-template-columns: 1fr;
+    width: 97%;
+    gap: 0.5%;
+  }
+}
+
+/* ============================================
+    CARD 2 TYPE - EDITOR SETTINGS PANEL (Compact)
+    ============================================ */
+
+/* Inline layout container */
+.settings-inline {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  padding: 10px 16px;
+  flex-wrap: wrap;
+}
+
+/* Toggle with label */
+.setting-toggle {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  user-select: none;
+}
+
+.setting-toggle .setting-label {
+  font-size: 13px;
+  color: var(--text-color);
+}
+
+/* Hide checkbox, show custom toggle */
+.setting-toggle input {
+  position: absolute;
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+/* Mini toggle slider */
+.toggle-slider-mini {
+  position: relative;
+  width: 36px;
+  height: 20px;
+  background-color: var(--border-color-alt);
+  border-radius: 20px;
+  transition: 0.25s;
+  flex-shrink: 0;
+}
+
+.toggle-slider-mini:before {
+  content: "";
+  position: absolute;
+  height: 14px;
+  width: 14px;
+  left: 3px;
+  top: 3px;
+  background-color: var(--background-color);
+  border-radius: 50%;
+  transition: 0.25s;
+}
+
+.setting-toggle input:checked + .toggle-slider-mini {
+  background-color: var(--primary-color);
+}
+
+.setting-toggle input:checked + .toggle-slider-mini:before {
+  transform: translateX(16px);
+}
+
+.night_mode .toggle-slider-mini:before {
+  background-color: var(--neutral-200);
+}
+
+/* Keybindings group */
+.setting-keybindings {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-left: auto;
+}
+
+/* Mini radio option */
+.radio-option-mini {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  cursor: pointer;
+  user-select: none;
+}
+
+.radio-option-mini input[type="radio"] {
+  appearance: none;
+  -webkit-appearance: none;
+  width: 14px;
+  height: 14px;
+  border: 2px solid var(--border-color-alt);
+  border-radius: 50%;
+  cursor: pointer;
+  transition: 0.2s;
+  position: relative;
+  margin: 0;
+}
+
+.radio-option-mini input[type="radio"]:checked {
+  border-color: var(--primary-color);
+}
+
+.radio-option-mini input[type="radio"]:checked::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 6px;
+  height: 6px;
+  background-color: var(--primary-color);
+  border-radius: 50%;
+}
+
+.radio-option-mini span {
+  font-size: 13px;
+  color: var(--text-color);
+}
+
+/* Mobile: stack vertically */
+@media (max-width: 500px) {
+  .settings-inline {
+    gap: 12px;
+  }
+
+  .setting-keybindings {
+    margin-left: 0;
+    width: 100%;
+    justify-content: flex-start;
+  }
+}
+
+/* ============================================
+    CARD 2 TYPE - INFO SECTION
+    ============================================ */
+
+.info-content {
+  padding: 12px;
+  border-top: 1px dashed var(--border-color);
+}
+
+.info-content h3 {
+  margin: 0 0 10px 0;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--primary-color);
+}
+
+.info-content p {
+  margin: 8px 0;
+  font-size: 14px;
+  color: var(--text-color);
+}
+
+.night_mode .info-content {
+  border-top-color: var(--border-color);
+}
+
+/* ============================================
+    CARD 2 TYPE - SOLUTION COMPARISON (jsdiff)
+    ============================================ */
+
+.solution-comparison {
+  margin: 20px 0;
+}
+
+.solution-comparison h2 {
+  margin-bottom: 12px;
+}
+
+/* Solution grid - 2 columns side by side */
+.solution-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+.solution-grid .grid-item {
+  display: flex;
+  flex-direction: column;
+}
+
+.solution-grid .grid-item h3 {
+  margin-bottom: 8px;
+  font-size: 0.9em;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: var(--primary-color);
+}
+
+/* Diff result container */
+.diff-result {
+  font-family: var(--monospace-font-family);
+  font-size: var(--font-size-small);
+  padding: 8px 12px;
+  background-color: var(--code-background);
+  border: 1px solid var(--border-color);
+  border-radius: 4px;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+  overflow-x: auto;
+  line-height: 1.6;
+  min-height: 200px;
+  max-height: 400px;
+  overflow-y: auto;
+  flex: 1;
+}
+
+.night_mode .diff-result {
+  background-color: var(--code-background);
+  border-color: var(--border-color);
+}
+
+/* Make Ace Editor match diff-result height */
+.solution-grid .ace-editor-container {
+  min-height: 200px;
+  flex: 1;
+}
+
+/* Diff highlighting classes */
+.diff-correct {
+  color: #00c853;
+}
+
+.diff-missed {
+  color: #2962ff;
+  text-decoration: line-through;
+  opacity: 0.8;
+}
+
+.diff-extra {
+  color: #d50000;
+  background-color: rgba(213, 0, 0, 0.1);
+  border-radius: 2px;
+}
+
+/* Night mode diff colors */
+.night_mode .diff-correct {
+  color: #90ee90;
+}
+
+.night_mode .diff-missed {
+  color: #5da3d5;
+}
+
+.night_mode .diff-extra {
+  color: #ff6b6b;
+  background-color: rgba(255, 107, 107, 0.15);
+}
+
+/* Diff error state */
+.diff-error {
+  color: var(--text-muted);
+  font-style: italic;
+}
+
+/* ============================================
+    RESPONSIVE DESIGN
+    ============================================ */
+@media (max-width: 600px) {
+  .card {
+    padding: 15px;
+    font-size: 16px;
+  }
+
+  .code {
+    padding: 10px;
+    font-size: 13px;
+  }
+
+  h1 {
+    font-size: 1.1em;
+  }
+
+  /* Language Badge - Mobile adjustments */
+  .language-badge {
+    margin: 6px auto 10px auto;
+  }
+
+  .language-text {
+    padding: 5px 14px;
+    font-size: 11px;
+  }
+
+  /* Tags - Mobile adjustments */
+  .tags {
+    gap: 6px;
+    padding-right: 8px;
+  }
+
+  .tag {
+    padding: 3px 8px;
+    font-size: 11px;
+  }
+
+  /* Accordion - Mobile adjustments */
+  details.conditional-section > summary {
+    padding: 10px 12px;
+    font-size: 12px;
+    padding-right: 35px;
+  }
+
+  .conditional-content {
+    padding: 12px;
+  }
+
+  .conditional-content code {
+    font-size: 12px;
+    padding: 10px;
+  }
+
+  /* Fields Grid - Mobile adjustments */
+  .fields-grid {
+    gap: 8px;
+  }
+
+  .fields-grid .field-grid-item {
+    padding: 12px;
+    min-height: 80px;
+  }
+
+  .fields-grid h2 {
+    font-size: 0.85em;
+  }
+
+  .fields-grid h3 {
+    font-size: 0.8em;
+  }
+}
+
+@media (min-width: 601px) and (max-width: 768px) {
+  /* Tablet adjustments */
+  .language-badge {
+    margin: 7px auto 13px auto;
+  }
+
+  .language-text {
+    padding: 5px 15px;
+    font-size: 11.5px;
+  }
+
+  .tags {
+    gap: 7px;
+  }
+}
+
+@media (min-width: 769px) and (max-width: 1024px) {
+  /* Small desktop adjustments */
+  .language-badge {
+    margin: 8px auto 14px auto;
+  }
+
+  .language-text {
+    padding: 6px 15px;
+    font-size: 12px;
+  }
+}
+
+@media (min-width: 1025px) {
+  /* Large desktop adjustments */
+  .language-badge {
+    margin: 8px auto 16px auto;
+  }
+}
+
+/* ============================================
+    CARD 2 TYPE RESPONSIVE DESIGN
+    ============================================ */
 
 @media (max-width: 600px) {
-	#typeans {
-		width: 90%;
-		font-size: var(--font-size-small);
-		padding: 10px;
-		max-height: 90%;
-	}
-
-	/* Dark mode for .field on mobile devices */
-	@media (prefers-color-scheme: dark) {
-		.field {
-			background-color: #0d1117;
-			color: white;
-			caret-color: white;
-		}
-
-		.card.night_mode .field {
-			background-color: #0d1117;
-			color: white;
-			caret-color: white;
-		}
-	}
-}
-
-.deck {
-	font-size: 65%;
-}
-
-.description {
-	text-align: left;
-	display: inline-block;
-	margin-left: 20px;
-	margin-right: 20px;
-}
-
-
-.description--hint {
-	display: flex;
-	justify-content: center;
-	margin: 0.4em auto;
-}
-
-/* Hint code display - Visual code editor style (read-only) */
-.hint-code-display {
-	user-select: text;
-	cursor: text;
-	pointer-events: auto;
-	/* Override any description--hint styles */
-	display: block !important;
-	margin: 0 !important;
-	justify-content: unset !important;
-	/* Ocultar barras de scroll */
-	scrollbar-width: none;
-	/* Firefox */
-	-ms-overflow-style: none;
-	/* IE and Edge */
-}
-
-.hint-code-display::-webkit-scrollbar {
-	display: none;
-	/* Chrome, Safari, Opera */
-}
-
-.hint-code-display code {
-	display: block;
-	width: 100%;
-	white-space: pre;
-	overflow-x: auto;
-	/* Remove any description--hint code styles */
-	display: block !important;
-	flex-direction: unset !important;
-	align-items: unset !important;
-	padding: 0 !important;
-	background-color: transparent !important;
-	border-radius: 0 !important;
-	font-size: inherit !important;
-	text-align: left !important;
-	/* Ocultar barras de scroll no code também */
-	scrollbar-width: none;
-	/* Firefox */
-	-ms-overflow-style: none;
-	/* IE and Edge */
-}
-
-.hint-code-display code::-webkit-scrollbar {
-	display: none;
-	/* Chrome, Safari, Opera */
-}
-
-.further-code-display {
-	user-select: text;
-	cursor: text;
-	pointer-events: auto;
-	display: block;
-	margin: 0;
-	justify-content: unset;
-	background-color: var(--textfield_background_color);
-	color: var(--textfield_color);
-	border: 0.1rem solid grey;
-	border-radius: 0.15rem;
-	padding: 0.8rem;
-	font-family: var(--monospace-font-family);
-	font-size: var(--font_size_code);
-	line-height: var(--line_height_code);
-	white-space: pre-wrap;
-	overflow: auto;
-	scrollbar-width: none;
-	-ms-overflow-style: none;
-}
-
-.further-code-display::-webkit-scrollbar {
-	display: none;
-}
-
-.further-code-display code {
-	display: block;
-	width: 100%;
-	white-space: pre-wrap;
-	overflow-x: auto;
-	background-color: transparent;
-	color: inherit;
-}
-
-.hint-editor-shell {
-	border: 1px solid var(--card-border);
-	border-radius: 0.2rem;
-	background-color: var(--textfield_background_color);
-	color: var(--textfield_color);
-	min-height: auto;
-	height: auto;
-	overflow: hidden;
-	/* padding: 0.5rem; */
-	display: flex;
-	flex-direction: column;
-}
-
-.hint-ace-shell {
-	width: 100%;
-	min-height: auto;
-	height: auto;
-	padding: 0;
-	margin: 0;
-	display: block;
-}
-
-/* Garantir que o Ace ocupe toda a altura do container (gutter e scroller) */
-.hint-ace-shell .ace_editor,
-.hint-ace-shell .ace_scroller,
-.hint-ace-shell .ace_content,
-.hint-ace-shell .ace_gutter {
-	height: 100% !important;
-}
-
-/* Padding mínimo do Ace Editor para melhor legibilidade */
-.hint-ace-shell .ace_editor {
-	padding: 0 !important;
-	margin: 0 !important;
-}
-
-.hint-ace-shell .ace_scroller {
-	padding: 0.25rem 0.5rem !important;
-	margin: 0 !important;
-}
-
-.further-editor-shell {
-	border: 1px solid var(--card-border);
-	border-radius: 0.2rem;
-	background-color: var(--textfield_background_color);
-	color: var(--textfield_color);
-	min-height: auto;
-	height: auto;
-	overflow: hidden;
-	/* padding: 0.5rem; */
-	display: flex;
-	flex-direction: column;
-}
-
-.further-ace-shell {
-	width: 100%;
-	min-height: auto;
-	height: auto;
-	padding: 0;
-	margin: 0;
-	display: block;
-}
-
-/* Garantir que o Ace ocupe toda a altura do container (gutter e scroller) */
-.further-ace-shell .ace_editor,
-.further-ace-shell .ace_scroller,
-.further-ace-shell .ace_content,
-.further-ace-shell .ace_gutter {
-	height: 100% !important;
-}
-
-/* Padding mínimo do Ace Editor para melhor legibilidade */
-.further-ace-shell .ace_editor {
-	padding: 0 !important;
-	margin: 0 !important;
-}
-
-.further-ace-shell .ace_scroller {
-	padding: 0.25rem 0.5rem !important;
-	margin: 0 !important;
-}
-
-/* Remover outline azul dos shells quando focados */
-.hint-editor-shell:focus,
-.hint-editor-shell:focus-within,
-.further-editor-shell:focus,
-.further-editor-shell:focus-within {
-	outline: none !important;
-	box-shadow: none !important;
-}
-
-/* Remover outline azul do Ace Editor */
-.hint-ace-shell .ace_editor:focus,
-.hint-ace-shell .ace_editor:focus-within,
-.further-ace-shell .ace_editor:focus,
-.further-ace-shell .ace_editor:focus-within {
-	outline: none !important;
-	box-shadow: none !important;
-}
-
-/* Remover outline de todos os elementos internos do Ace */
-.hint-ace-shell *:focus,
-.hint-ace-shell *:focus-within,
-.further-ace-shell *:focus,
-.further-ace-shell *:focus-within {
-	outline: none !important;
-}
-
-/* Ajuste de altura do container dos dois editores no acordeão */
-.hint-accordion .grid_container_2 {
-	min-height: auto;
-	align-items: stretch;
-}
-
-.description--hint .hint {
-	display: inline-block;
-	padding: 0.2em 5.5em;
-	border-radius: 0.4em;
-	background-color: var(--card-border);
-	color: var(--hint_color);
-	font-size: var(--font-size-smallest);
-	white-space: normal;
-	word-break: break-word;
-}
-
-.back .description--hint .hint {
-	display: block !important;
-}
-
-.back .description--hint code {
-	display: inline-block;
-	padding: 0.2em 5.5em;
-	border-radius: 0.4em;
-	background-color: var(--card-border);
-	color: var(--hint_color);
-	font-size: var(--font-size-smallest);
-	white-space: normal;
-	word-break: break-word;
-	text-align: center;
-}
-
-.description--hint a.hint {
-	/* text-transform: uppercase; */
-	text-decoration: none;
-	cursor: pointer;
-}
-
-.description--hint code {
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-	white-space: normal;
-}
-
-.description--hint a.hint::before {
-	content: "Click: ";
-}
-
-.description--note {
-	display: block;
-	font-size: var(--font-size-smallest);
-	margin: 0.25rem auto;
-	max-width: 90%;
-	text-align: left;
-}
-
-.description--note code {
-	display: block;
-	white-space: normal !important;
-	word-break: break-word;
-	overflow-wrap: anywhere;
-}
-
-details.further {
-	margin: 0.5em 0;
-}
-
-details.hint-accordion {
-	margin: 0.5rem 20px;
-}
-
-.description--further {
-	font-size: var(--font-size-small);
-	line-height: 1.5;
-	text-align: justify;
-	padding: 0.3em 0.6em;
-}
-
-details.further>summary,
-details.further>summary.buttons,
-details.hint-accordion>summary,
-details.hint-accordion>summary.buttons,
-details.info>summary,
-details.info>summary.buttons {
-	width: auto;
-	min-width: 8rem;
-	padding: 0 1.2rem;
-	display: inline-flex;
-	align-items: center;
-	justify-content: center;
-}
-
-details.further>summary.buttons::before,
-details.hint-accordion>summary.buttons::before,
-details.info>summary.buttons::before {
-	content: "\25B6";
-	margin-right: 0.6em;
-	font-size: 0.8em;
-	transition: transform 0.2s ease;
-}
-
-details.further[open]>summary.buttons::before,
-details.hint-accordion[open]>summary.buttons::before,
-details.info[open]>summary.buttons::before {
-	transform: rotate(90deg);
-}
-
-/* ============================================
-   MAIN SECTIONS CONTAINER - Container principal
-   ============================================
-   Envolve as três seções principais (acordeão superior,
-   Your Solution, e acordeão inferior) com a mesma borda
-   dos acordeões para criar uma caixa unificada.
-   ============================================ */
-.main-sections-container {
-	margin: 1rem 20px;
-	padding: 0;
-	display: flex;
-	flex-direction: column;
-	gap: 0;
-	/* Aplica a mesma borda dos acordeões */
-	border: var(--border_width_mid) dashed var(--card-border);
-	border-radius: var(--border_radius_large);
-	overflow: hidden;
-	background-color: inherit;
-}
-
-/* Remove bordas dos acordeões quando dentro do container */
-.main-sections-container>.accordion-group {
-	margin: 0;
-	border: none;
-	border-radius: 0;
-}
-
-.main-sections-container>.accordion-tab {
-	margin: 0;
-	border: none;
-	border-radius: 0;
-}
-
-/* Adiciona divisores entre as seções */
-/* .main-sections-container>.accordion-group:not(:last-child), */
-/* .main-sections-container>.accordion-tab:not(:last-child), */
-/* .main-sections-container>section[aria-labelledby="heading1"]:not(:last-child) { */
-/* 	border-bottom: var(--border_width_thin) solid var(--card-border); */
-/* } */
-
-/* Ajusta margens da seção Your Solution quando dentro do container */
-.main-sections-container>section[aria-labelledby="heading1"] {
-	margin: 0;
-	padding: 1rem;
-}
-
-.main-sections-container>section[aria-labelledby="heading1"] .grid_container {
-	margin-left: 0;
-	margin-right: 0;
-}
-
-/* Ajusta o padding dos labels dos acordeões quando dentro do container */
-.main-sections-container .accordion-label {
-	padding: 0.6rem 1.2rem;
-}
-
-/* ============================================
-   ACCORDION - Radio Button Style
-   ============================================
-   Pure CSS accordion using radio buttons.
-   Only one accordion can be open at a time.
-   Maintains template color scheme.
-   ============================================ */
-
-/* Accordion group container */
-.accordion-group {
-	margin: 1rem 20px;
-	border: var(--border_width_mid) solid var(--card-border);
-	border-radius: var(--border_radius_large);
-	overflow: hidden;
-	background-color: inherit;
-}
-
-/* Accordion wrapper - alternativa para garantir que acordeões sempre fiquem dentro da caixa */
-.accordion-wrapper {
-	margin: 1rem 20px;
-	border: var(--border_width_mid) solid var(--card-border);
-	border-radius: var(--border_radius_large);
-	overflow: hidden;
-	background-color: inherit;
-}
-
-/* Individual accordion tab */
-.accordion-tab {
-	position: relative;
-}
-
-/* Accordion tab standalone (sem bloco/group) - aplica estilos do group diretamente */
-.accordion-tab:not(.accordion-group > .accordion-tab):not(.accordion-wrapper > .accordion-tab) {
-	margin: 1rem 20px;
-	border: var(--border_width_mid) solid var(--card-border);
-	border-radius: var(--border_radius_large);
-	overflow: hidden;
-	background-color: inherit;
-}
-
-/* Remove estilos standalone quando accordion-tab está dentro do wrapper */
-.accordion-wrapper>.accordion-tab {
-	margin: 0;
-	border: none;
-	border-radius: 0;
-}
-
-/* Hide radio inputs */
-.accordion-input {
-	position: absolute;
-	opacity: 0;
-	z-index: -1;
-}
-
-/* Accordion label (clickable header) */
-.accordion-label {
-	display: flex;
-	justify-content: space-between;
-	align-items: center;
-	padding: 1rem 1.2rem;
-	color: var(--text-fg);
-	background-color: var(--textfield_background_color);
-	cursor: pointer;
-	transition: background-color 0.2s ease, color 0.2s ease;
-	font-size: var(--font-size-regular);
-	font-family: var(--font-family);
-	font-weight: normal;
-}
-
-/* Hover state for label */
-.accordion-label:hover {
-	background-color: var(--text-bg-selected);
-}
-
-/* Arrow indicator */
-.accordion-label::after {
-	content: "\276F";
-	/* ▶ (right-pointing triangle) */
-	width: 1em;
-	height: 1em;
-	text-align: center;
-	transform: rotate(90deg);
-	/* Points down ▼ */
-	transition: transform 0.35s ease;
-	color: var(--text-fg-faint);
-	font-size: 0.8em;
-}
-
-/* Arrow rotation when checked */
-.accordion-input:checked+.accordion-label::after {
-	transform: rotate(270deg);
-	/* Points up ▲ */
-	color: var(--text-fg);
-}
-
-/* Arrow bounce animation on hover (when not checked) */
-.accordion-input:not(:checked)+.accordion-label:hover::after {
-	animation: accordion-bounce 0.5s infinite;
-}
-
-@keyframes accordion-bounce {
-	25% {
-		transform: rotate(90deg) translate(0.15rem);
-	}
-
-	75% {
-		transform: rotate(90deg) translate(-0.15rem);
-	}
-}
-
-/* Accordion content (hidden by default) */
-.accordion-content {
-	max-height: 0;
-	overflow: hidden;
-	/* transition: max-height 0.35s ease; */
-	background-color: inherit;
-}
-
-/* Show content when radio is checked */
-.accordion-input:checked~.accordion-content {
-	max-height: 5000px;
-	/* Large enough for any content */
-}
-
-/* Styling for content padding - let child elements handle their own padding */
-.accordion-content {
-	padding: 0;
-}
-
-/* Ensure grid containers inside accordion have proper margins */
-.accordion-content .grid_container_2 {
-	margin-top: 0;
-	margin-bottom: 0;
-}
-
-/* Close button styling */
-.accordion-close {
-	display: flex;
-	justify-content: flex-end;
-	align-items: center;
-	padding: 0.5rem 1.2rem;
-	color: var(--text-fg-faint);
-	background-color: var(--card-bg);
-	cursor: pointer;
-	border-top: var(--border_width_thin) solid var(--card-border);
-	font-size: 0.875rem;
-	transition: background-color 0.2s ease, color 0.2s ease;
-}
-
-.accordion-close:hover {
-	background-color: var(--text-bg-selected);
-	color: var(--text-fg);
-}
-
-/* Dark mode adjustments */
-.night_mode .accordion-group,
-.card.night_mode .accordion-group {
-	border-color: var(--card-border);
-	background-color: inherit;
-}
-
-.night_mode .accordion-wrapper,
-.card.night_mode .accordion-wrapper {
-	border-color: var(--card-border);
-	background-color: inherit;
-}
-
-.night_mode .accordion-label,
-.card.night_mode .accordion-label {
-	color: var(--text-fg);
-	background-color: var(--textfield_background_color);
-	border-bottom-color: var(--card-border);
-}
-
-.night_mode .accordion-label:hover,
-.card.night_mode .accordion-label:hover {
-	background-color: var(--text-bg-selected);
-}
-
-.night_mode .accordion-content,
-.card.night_mode .accordion-content {
-	background-color: inherit;
-}
-
-.night_mode .accordion-close,
-.card.night_mode .accordion-close {
-	color: var(--text-fg-faint);
-	background-color: var(--card-bg);
-	border-top-color: var(--card-border);
-}
-
-.night_mode .accordion-close:hover,
-.card.night_mode .accordion-close:hover {
-	color: var(--text-fg);
-	background-color: var(--text-bg-selected);
-}
-
-/* Remove old details-based accordion styles for hint-accordion */
-details.hint-accordion {
-	margin: 0;
-}
-
-pre,
-code {
-	white-space: pre !important;
-}
-
-/*
-@container (max-width: 300px){
-	.field{
-		padding: 0.5rem !important;
-	}
-}
-*/
-
-/* Field (Textarea) - Detailed Styles */
-.field {
-	container-type: size;
-	/* Container query for responsive adjustments */
-
-	text-align: left;
-	color: var(--textfield_color);
-	background-color: var(--textfield_background_color);
-	caret-color: var(--textfield_color);
-	font-size: var(--font_size_code);
-	border-width: 0.1rem;
-	border-color: grey;
-	border-style: solid;
-	border-radius: 0.15rem;
-
-	min-block-size: 40vh;
-	padding: 1rem !important;
-	margin: 0px;
-	line-height: var(--line_height_code);
-	white-space: pre !important;
-	/* Preserve whitespace for code */
-
-	&::-webkit-scrollbar {
-		display: block;
-		background-color: transparent !important;
-	}
-
-	&::-webkit-scrollbar-thumb {
-		background-color: hsla(0, 0%, 50%, 0.4) !important;
-		border-radius: 0.1rem !important;
-		width: 1rem !important;
-		height: 1rem !important;
-		/*transition: all 5s;*/
-	}
-
-	&::-webkit-scrollbar-thumb:active {
-		background-color: grey !important;
-	}
-
-	&::-webkit-scrollbar-corner {
-		background-color: var(--background_color);
-	}
-
-	/*Purpose: scrollbar-track is transparent and code can be viewed 'through it'; not possible with opacity: 0 etc.*/
-
-	scrollbar-color: hsla(0, 0%, 50%, 0.4) transparent;
-	overflow: auto;
-}
-
-/* Mobile dark mode specific rules for .field */
-@media (prefers-color-scheme: dark) {
-
-	.mobile .field,
-	.card.mobile .field,
-	.card.night_mode .field {
-		background-color: var(--textfield_background_color);
-		color: var(--textfield_color);
-		caret-color: var(--textfield_color);
-	}
-}
-
-/* Force dark mode for .field when night_mode is active on mobile */
-.card.mobile.night_mode .field,
-.card.night_mode.mobile .field {
-	background-color: #0d1117;
-	color: white;
-	caret-color: white;
-}
-
-/* ============================================
-   CODE EDITOR - Ace Editor Integration
-   ============================================ */
-
-/* Editor Shell Container */
-.editor-shell {
-	position: relative;
-	width: 100%;
-	box-sizing: border-box;
-	max-width: 100%;
-	overflow-x: hidden;
-}
-
-/* Ace Editor Shell */
-.ace-shell {
-	width: 100%;
-	min-block-size: 40vh;
-	font-family: var(--monospace-font-family);
-	font-size: var(--font_size_code);
-	line-height: var(--line_height_code);
-	border: 0.2rem solid grey;
-	border-radius: 0.15rem;
-	box-sizing: border-box;
-	max-width: 100%;
-	overflow-x: auto;
-	/* Background and text colors commented to allow Ace theme to work */
-	/* background-color: var(--textfield_background_color); */
-	/* color: var(--textfield_color); */
-}
-
-.ace_placeholder {
-	margin: 0 4px;
-}
-
-/* Field (Textarea) - Base Styles */
-.field {
-	box-sizing: border-box;
-	max-width: 100%;
-	overflow-x: auto;
-	word-wrap: break-word;
-	overflow-wrap: break-word;
-}
-
-/* Ace Editor Theme Integration */
-/* Let Ace theme (tomorrow-night, etc.) control all colors - no CSS interference */
-/* All color styling is handled by the Ace theme itself */
-
-
-/* These rules were commented out to allow Ace.js themes to work properly */
-/* Uncomment and customize if you want to override theme colors */
-/*
-.ace_editor {
-	background-color: var(--textfield_background_color) !important;
-	color: var(--textfield_color) !important;
-}
-
-.ace_gutter {
-	background-color: var(--textfield_background_color) !important;
-	color: var(--text-fg-faint) !important;
-	border-right: 1px solid var(--card-border);
-}
-
-.ace_gutter-active-line {
-	background-color: var(--text-bg-selected) !important;
-}
-
-.ace_cursor {
-	color: var(--textfield_color) !important;
-}
-
-.ace_selection {
-	background-color: var(--selection_background_color) !important;
-}
-
-.ace_marker-layer .ace_selected-word {
-	border: 1px solid var(--textfield_color);
-}
-*/
-
-/* Editor Fallback States */
-.editor-shell:not(.ace-ready) .ace-shell {
-	display: none;
-}
-
-.editor-shell:not(.ace-ready) .field {
-	display: block;
-}
-
-.editor-shell.ace-ready .field {
-	display: none;
-}
-
-/* Disable bracket matching highlight in Ace Editor */
-/* Solution from Stack Overflow: https://stackoverflow.com/questions/31820849/how-to-enable-or-disable-highlight-matching-tag */
-.ace_editor .ace_marker-layer .ace_bracket {
-	display: none !important;
-}
-
-/* ============================================
-   VISUAL LINTING - Syntax Error Markers
-   ============================================
-   Visual indicators for syntax errors and warnings
-   in the Ace Editor with gutter markers and underlines.
-   ============================================ */
-
-/* Error marker line (red underline) */
-.ace_editor .ace_marker-layer .ace_error-line {
-	background-color: rgba(255, 0, 0, 0.15) !important;
-	position: absolute;
-}
-
-/* Warning marker line (yellow underline) */
-.ace_editor .ace_marker-layer .ace_warning-line {
-	background-color: rgba(255, 200, 0, 0.15) !important;
-	position: absolute;
-}
-
-/* Error annotation underline (red wavy line) */
-.ace_editor .ace_text-layer .ace_error {
-	border-bottom: 2px wavy rgba(255, 0, 0, 0.7) !important;
-	background-color: rgba(255, 0, 0, 0.1) !important;
-}
-
-/* Warning annotation underline (yellow wavy line) */
-.ace_editor .ace_text-layer .ace_warning {
-	border-bottom: 2px wavy rgba(255, 165, 0, 0.7) !important;
-	background-color: rgba(255, 165, 0, 0.1) !important;
-}
-
-/* Info annotation underline (blue) */
-.ace_editor .ace_text-layer .ace_info {
-	border-bottom: 1px solid rgba(0, 150, 255, 0.6) !important;
-	background-color: rgba(0, 150, 255, 0.05) !important;
-}
-
-/* Gutter error icon */
-.ace_editor .ace_gutter-cell.ace_error {
-	background-color: rgba(255, 0, 0, 0.2) !important;
-	background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxNiIgaGVpZ2h0PSIxNiIgdmlld0JveD0iMCAwIDE2IDE2Ij48cGF0aCBmaWxsPSIjZmYwMDAwIiBkPSJNOCAxQTMuNSAzLjUgMCAwIDAgNC41IDQuNVY4QTMuNSAzLjUgMCAwIDAgOCAxMS41QTMuNSAzLjUgMCAwIDAgMTEuNSA4VjQuNUEzLjUgMy41IDAgMCAwIDggMXptMSAxMUg3VjEwSDlWMTJ6TTkgOUg3VjdoMlY5eiIvPjwvc3ZnPg==') !important;
-	background-repeat: no-repeat !important;
-	background-position: center !important;
-}
-
-/* Gutter warning icon */
-.ace_editor .ace_gutter-cell.ace_warning {
-	background-color: rgba(255, 165, 0, 0.2) !important;
-	background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxNiIgaGVpZ2h0PSIxNiIgdmlld0JveD0iMCAwIDE2IDE2Ij48cGF0aCBmaWxsPSIjZmZhNTAwIiBkPSJNOCAxQTMuNSAzLjUgMCAwIDAgNC41IDQuNVY4QTMuNSAzLjUgMCAwIDAgOCAxMS41QTMuNSAzLjUgMCAwIDAgMTEuNSA4VjQuNUEzLjUgMy41IDAgMCAwIDggMXptMSAxMUg3VjEwSDlWMTJ6TTkgOUg3VjdoMlY5eiIvPjwvc3ZnPg==') !important;
-	background-repeat: no-repeat !important;
-	background-position: center !important;
-}
-
-/* Tooltip for error messages on hover */
-.ace_editor .ace_error,
-.ace_editor .ace_warning,
-.ace_editor .ace_info {
-	cursor: help;
-	position: relative;
-}
-
-/* Annotation tooltip styling (shown when hovering over error) */
-.ace_editor .ace_annotation {
-	background-color: rgba(0, 0, 0, 0.9) !important;
-	color: #fff !important;
-	padding: 4px 8px !important;
-	border-radius: 3px !important;
-	font-size: 12px !important;
-	max-width: 300px !important;
-	box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3) !important;
-	z-index: 1000 !important;
-}
-
-.ace_editor .ace_annotation.ace_error-annotation {
-	border-left: 3px solid #ff0000 !important;
-}
-
-.ace_editor .ace_annotation.ace_warning-annotation {
-	border-left: 3px solid #ffa500 !important;
-}
-
-.ace_editor .ace_annotation.ace_info-annotation {
-	border-left: 3px solid #0096ff !important;
-}
-
-/* ============================================
-   HTML ELEMENTS - Form Elements
-   ============================================ */
-textarea {
-	transition: border-color 1s;
-}
-
-.helper {
-	text-transform: uppercase;
-	padding: 0.5 rem;
-	margin: 0.5 rem;
-}
-
-.hint {
-	font-size: 95%;
-	color: var(--hint_color);
-	text-align: center;
-	display: inline-block;
-}
-
-.logo {
-	width: 2rem;
-	height: auto;
-}
-
-.logo {
-	height: 1em;
-	width: auto;
-	padding: 0 0 0 0.5em;
-	border: 0;
-	margin: 0;
-	position: absolute;
-	top: 50%;
-	transform: translate(0, -50%);
-}
-
-.single_field {
-	max-width: 600px;
-	min-height: 36vh;
-	margin: 1rem auto;
-}
-
-.field.single_field,
-.single_field.field {
-	margin: 1rem auto;
-}
-
-.subdeck {
-	font-size: 70%;
-	margin: 1rem auto;
-	text-align: center;
-}
-
-::-webkit-scrollbar {
-	display: none;
-}
-
-
-
-/* ============================================
-   FOOTER - Layout e Alinhamento
-   ============================================ */
-#footer1,
-#footer2 {
-	display: flex;
-	flex-wrap: wrap;
-	align-items: center;
-	/* Centraliza verticalmente todos os itens */
-	gap: 0.75rem;
-	margin-top: 1rem;
-	margin-bottom: 1.6rem;
-	width: 100%;
-	justify-content: space-between;
-}
-
-/* Elementos do footer - garantir alinhamento consistente */
-#footer1>*,
-#footer2>* {
-	display: flex;
-	align-items: center;
-	/* Garante que elementos internos também estejam centralizados */
-}
-
-.keybind-selector {
-	margin-left: auto;
-	display: flex;
-	align-items: center;
-	gap: 0.5rem;
-}
-
-.keybind-label {
-	font-family: var(--font-family);
-	font-size: var(--font-size-small);
-	color: var(--text-fg);
-	white-space: nowrap;
-	display: flex;
-	align-items: center;
-}
-
-.keybind-dropdown {
-	font-family: var(--font-family);
-	font-size: 1.2rem;
-	padding: 0.4em 0.8em;
-	border: var(--border_width_mid) solid grey;
-	border-radius: var(--border_radius_large);
-	background-color: var(--card-bg);
-	color: var(--text-fg);
-	cursor: pointer;
-	transition: border-color 0.2s, background-color 0.2s;
-	line-height: 1.2;
-	height: auto;
-	box-sizing: border-box;
-	appearance: none;
-	-moz-appearance: none;
-	-webkit-appearance: none;
-	/* Contrast ratio: text-fg on card-bg = minimum 4.5:1 (verified in color definitions) */
-}
-
-.keybind-dropdown:hover {
-	border-color: var(--text-fg);
-	background-color: var(--text-bg-selected);
-}
-
-.keybind-dropdown:focus {
-	outline: none;
-	border-color: var(--link-fg);
-	box-shadow: 0 0 0 2px rgba(74, 144, 226, 0.3);
-}
-
-/* Autocomplete toggle styles */
-.autocomplete-toggle {
-	display: flex;
-	align-items: center;
-	margin-left: 0;
-	/* Remover margin-left para usar gap do footer */
-}
-
-.autocomplete-label {
-	display: flex;
-	align-items: center;
-	gap: 0.5rem;
-	cursor: pointer;
-	user-select: none;
-	font-size: 0.875rem;
-	color: var(--text-fg);
-	margin: 0;
-	/* Garantir que não tenha margens que desalinhem */
-}
-
-.autocomplete-checkbox {
-	width: 1.125rem;
-	height: 1.125rem;
-	cursor: pointer;
-	accent-color: var(--link-fg);
-}
-
-.autocomplete-checkbox:focus {
-	outline: var(--focus-outline-width) solid var(--focus-outline-color-light);
-	outline-offset: var(--focus-outline-offset);
-}
-
-.autocomplete-label-text {
-	color: var(--text-fg);
-}
-
-/* Dark mode adjustments */
-.night_mode .keybind-dropdown,
-.card.night_mode .keybind-dropdown {
-	background-color: var(--card-bg);
-	color: var(--text-fg);
-	border-color: var(--text-fg);
-}
-
-/* Dark mode for autocomplete toggle */
-.night_mode .autocomplete-label,
-.card.night_mode .autocomplete-label,
-:root.night-mode .autocomplete-label {
-	color: var(--text-fg);
-}
-
-.night_mode .autocomplete-checkbox:focus,
-.card.night_mode .autocomplete-checkbox:focus,
-:root.night-mode .autocomplete-checkbox:focus {
-	outline-color: var(--focus-outline-color-dark);
-}
-
-#button1 {
-	box-sizing: border-box;
-	margin-top: 0;
-	margin-bottom: 0;
-	margin-left: 0;
-	margin-right: 0;
-	/* Garantir que não tenha margem vertical e lateral */
-	display: inline-flex;
-	/* Usar inline-flex para melhor alinhamento */
-	align-items: center;
-	justify-content: center;
-
-	&:hover {
-		background-color: inherit;
-		box-shadow: none;
-		/*same as base border, otherwhise the textfield will shrink/expand when hovering and unhovering the button*/
-		border: var(--border_width_mid) solid grey;
-	}
-
-	&:active {
-		box-shadow: 1px;
-		border: var(--border_width_mid) solid grey;
-		background-color: inherit;
-	}
-}
-
-#button1:active {
-	box-shadow: 1px;
-}
-
-#button1[disabled],
-#button1[disabled]:hover {
-	background-color: rgb(33, 33, 33);
-	border-bottom-color: grey;
-	/* Disabled button text color adjusted for better contrast */
-	color: #888888;
-	/* Contrast ratio: #888888 on rgb(33, 33, 33) = 4.8:1 */
-}
-
-#save {
-	color: var(--safe_color);
-	opacity: 0;
-	transition: opacity 1s;
-	padding: 0;
-	/* Remover padding-left e usar padding geral */
-	margin: 0;
-	/* Remover margens que possam desalinhar */
-	display: inline-flex;
-	/* Para alinhamento consistente */
-	align-items: center;
-	transition-timing-function: cubic-bezier(0.1, 1, 0.2, 1);
-}
-
-#save.show {
-	opacity: 1;
-}
-
-/*P-RM6 START*/
-/*does not work for whatever reason*/
-::-webkit-scrollbar-thumb:hover {
-	cursor: grab !important;
-}
-
-/*P-RM6 END*/
-
-/*
-::-webkit-resizer{
-	background-color: red !important;
-	color: yellow !important;
-}
-*/
-
-/*P-RM8 START*/
-/*
-ins, del, .correct {
-	text-decoration-thickness: 0.15rem;
-	text-decoration-line: underline;
-}
-
-.correct {
-	text-decoration-style: solid;
-}
-
-ins {
-	text-decoration-style: wavy;
-}
-
-del {
-	text-decoration-style: dotted;
-}
-*/
-/*P-RM8 END*/
-
-/*P-RM9 START*/
-/*
-ins, del, .correct {
-	outline: 2px transparent;
-	transition: outline var(--animation_duration);
-	margin: 2px;
-
-	letter-spacing: var(--letter_spacing);
-
-	box-decoration-break: clone;
-	-webkit-box-decoration-break: clone;
-}
-
-textarea, .back #field1{
-	line-height: calc(100% + 4px);
-	letter-spacing: var(--letter_spacing);
-}
-
-ins {
-	outline-style: dashed;
-}
-
-del {
-	outline-style: dotted;
-}
-
-.correct {
-	outline-style: solid;
-}
-
-.correct:hover, ins:hover, del:hover{
-	outline-color: inherit;
-}
-
-.outline .correct, .outline ins, .outline del{
-	outline-color: inherit;
-}
-*/
-/*P-RM9 END*/
-
-/*P-RM10 START*/
-/*
-del, ins {
-	border: 5px dotted transparent;
-	padding: 5px;
-	margin: 5px;
-}
-*/
-/*P-RM10 END*/
-
-/* ============================================
-   ANIMATIONS - Diff Markup
-   ============================================ */
-.correct,
-.inserted {
-	animation: markup_diff;
-	animation-duration: var(--animation_duration);
-	animation-fill-mode: forwards;
-	animation-timing-function: ease-in-out;
-}
-
-.deleted {
-	animation: markup_diff, omission_incorrect;
-	animation-duration: var(--animation_duration);
-	animation-fill-mode: forwards;
-	animation-timing-function: ease-in-out;
-}
-
-.correct {
-	--animation-color: var(--correct_insertion_color);
-}
-
-.deleted {
-	--animation-color: var(--incorrect_omission_color);
-}
-
-.inserted {
-	--animation-color: var(--incorrect_insertion_color);
-}
-
-#tooltip {
-
-	& .correct,
-	& .inserted,
-	& .deleted {
-		animation-duration: 0s;
-	}
-
-	padding-top: 1rem;
-}
-
-/* Keyframe Animations */
-@keyframes markup_diff {
-	from {
-		background-color: transparent;
-	}
-
-	to {
-		background-color: var(--animation-color);
-	}
-}
-
-@keyframes omission_incorrect {
-	from {
-		font-size: var(--font_size_start);
-	}
-
-	to {
-		font-size: var(--font_size_end);
-	}
-}
-
-/* ============================================
-   LAYOUT - Grid Containers
-   ============================================ */
-.grid_container {
-	display: grid;
-	gap: 0.4vw;
-	grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-	min-height: auto;
-	margin-bottom: 0;
-	margin-left: 20px;
-	margin-right: 20px;
-	/* Note: height removed to prevent text box size changes when keyboard appears/disappears on mobile */
-}
-
-.grid_container_2 {
-	display: grid;
-	gap: 2vw;
-	grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-	margin-left: 20px;
-	margin-right: 20px;
-}
-
-/* Remover margens laterais do grid_container_2 dentro do acordeão de hint */
-.hint-accordion .grid_container_2 {
-	margin-left: 0;
-	margin-right: 0;
-}
-
-html:has(link[href="https://ankiuser.net/logo.png"]) {
-	& .grid_container {
-		min-height: 50vh;
-	}
-}
-
-.grid_item_1,
-.grid_item_2 {
-	display: flex;
-	flex-direction: column;
-	gap: 0.75rem;
-	max-height: 800px;
-}
-
-@container card (min-width: 38rem) {
-	.grid_container {
-		grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-	}
-
-	#footer2 {
-		font-size: 14px;
-	}
-
-	.grid_container_2 {
-		grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-	}
-}
-
-@container card (max-width: 38rem) {
-	#footer2 {
-		display: flex;
-		flex-wrap: wrap;
-		gap: 0.5rem;
-	}
-
-	details {
-		margin-top: 1rem;
-	}
-}
-
-
-
-/* Desktop Night Mode Override */
-:not(.mobile).card.night_mode {
-	background-color: #2C2C2C;
-}
-
-/*mobile*/
-.mobile {
-	& div {
-		padding: 0.02rem;
-	}
-
-	& h2 {
-		margin: 0.5rem;
-		padding-top: 0.5rem;
-	}
-
-	& h2#heading0 {
-		padding-top: 0rem;
-	}
-
-	& img {
-		width: 40vw;
-		height: auto;
-	}
-
-	& summary {
-		width: 4rem;
-	}
-
-	& .field {
-		border: 0.1rem solid grey;
-		border-radius: 0.15rem;
-		padding: 0.5rem !important;
-		line-height: var(--line_height_code);
-		color: var(--textfield_color);
-		background-color: var(--textfield_background_color);
-		caret-color: var(--textfield_color);
-	}
-
-	& table {
-		margin-top: 2vw;
-	}
-
-	& .card {
-		padding: 0rem;
-		font-size: 1.1rem;
-	}
-
-	& .card.night_mode {
-		background-color: var(--card-shell-bg);
-		color: var(--text-fg);
-	}
-
-	& .helper {
-		padding-top: 1rem;
-	}
-
-	/*markup*/
-	& .correct,
-	& .inserted,
-	& .deleted {
-		animation: markup_diff;
-		animation-duration: var(--animation_duration);
-		animation-fill-mode: forwards;
-		animation-timing-function: ease-in-out;
-	}
-
-	& .night_mode {
-		& button {
-			color: white;
-			background-color: transparent;
-			border-color: white;
-		}
-
-		& .field {
-			background-color: var(--textfield_background_color);
-			color: var(--textfield_color);
-			caret-color: var(--textfield_color);
-		}
-	}
-
-	/* Otimização de espaçamento para mobile - reduzir margins/paddings */
-	& .main-sections-container {
-		margin: 0.5rem 8px;
-	}
-
-	& .description {
-		margin-left: 8px;
-		margin-right: 8px;
-	}
-
-	& .prettify-field {
-		margin: 0.2em 8px 0.5em 8px;
-	}
-
-	& .prettify-tags {
-		margin: -0.8em 8px;
-	}
-
-	& .accordion-wrapper {
-		margin: 0.5rem 8px;
-	}
-
-	& .accordion-tab:not(.accordion-group > .accordion-tab):not(.accordion-wrapper > .accordion-tab) {
-		margin: 0.5rem 8px;
-	}
-
-	& .main-sections-container>section[aria-labelledby="heading1"] {
-		padding: 0.5rem;
-	}
-
-	& .main-sections-container .accordion-label {
-		padding: 0.75rem 0.8rem;
-	}
-
-	& .grid_container {
-		margin-left: 0;
-		margin-right: 0;
-	}
-
-	& .grid_container_2 {
-		margin-left: 0;
-		margin-right: 0;
-	}
-
-	& header {
-		margin-left: 8px;
-		margin-right: 8px;
-		margin-bottom: 0;
-		padding-bottom: 0;
-	}
-
-	& footer {
-		margin: 0 8px;
-	}
-
-	& .prettify-divider {
-		margin: 1em 8px;
-	}
-
-	& details.hint-accordion {
-		margin: 0.5rem 8px;
-	}
-
-	& .prettify-deck {
-		margin: 0 8px;
-	}
-
-	& h2:not(#heading0):not(#heading1) {
-		margin: 0.5rem 8px;
-	}
-}
-
-.token.tab:not(:empty),
-.token.cr,
-.token.lf,
-.token.space {
-	position: relative;
-}
-
-/* Hide whitespace indicators (dots, arrows, etc.) - COMMENTED OUT */
-/*
-.token.tab:not(:empty)::before,
-.token.cr::before,
-.token.lf::before,
-.token.space::before {
-	color: #808080;
-	opacity: 0.6;
-	position: absolute;
-}
-
-.token.tab:not(:empty)::before {
-	content: '\21E5';
-}
-
-.token.cr::before {
-	content: '\240D';
-}
-
-.token.crlf::before {
-	content: '\240D\240A';
-}
-
-.token.lf::before {
-	content: '\240A';
-}
-
-.token.space::before {
-	content: '\00B7';
-}
-*/
-
-.token.punctuation.brace-hover,
-.token.punctuation.brace-selected {
-	outline: solid 1px;
-}
-
-.rainbow-braces .token.punctuation.brace-level-1,
-.rainbow-braces .token.punctuation.brace-level-5,
-.rainbow-braces .token.punctuation.brace-level-9 {
-	color: #E50;
-	opacity: 1;
-}
-
-.rainbow-braces .token.punctuation.brace-level-2,
-.rainbow-braces .token.punctuation.brace-level-6,
-.rainbow-braces .token.punctuation.brace-level-10 {
-	color: #0B3;
-	opacity: 1;
-}
-
-.rainbow-braces .token.punctuation.brace-level-3,
-.rainbow-braces .token.punctuation.brace-level-7,
-.rainbow-braces .token.punctuation.brace-level-11 {
-	color: #26F;
-	opacity: 1;
-}
-
-.rainbow-braces .token.punctuation.brace-level-4,
-.rainbow-braces .token.punctuation.brace-level-8,
-.rainbow-braces .token.punctuation.brace-level-12 {
-	color: #E0E;
-	opacity: 1;
-}
-
-
-body code[class*=language-],
-body pre[class*=language-] {
-	font-family: var(--monospace-font-family);
-
-	text-align: left;
-	white-space: pre;
-	word-spacing: normal;
-	word-break: normal;
-	word-wrap: normal;
-	/*
-    -moz-tab-size: 4;
-    -o-tab-size: 4;
-    tab-size: 4;
-	*/
-	-moz-tab-size: 0;
-	-o-tab-size: 0;
-	tab-size: 0;
-	-webkit-hyphens: none;
-	-moz-hyphens: none;
-	-ms-hyphens: none;
-	hyphens: none;
-
-	/*line-height: 1.5;*/
-	line-height: var(--line_height_code);
-
-	/*font-size: 1em;*/
-	font-size: var(--font_size_code);
-}
-
-/*theme specific overrides*/
-body pre[class*=language-] {
-	padding: .4em .8em;
-	/*original value: margin: .5em 0;*/
-	margin: 0;
-}
-
-body code[class*=language-] {
-	box-shadow: none;
-}
-
-/*
-code:has(span){
-	opacity: 1;
-}*/
-
-code {
-	opacity: 1 !important;
-}
-
-/* Prism.js Theme Customization */
-/*
- * These rules were commented out to allow Prism.js CDN themes to work properly.
- * Uncomment and customize if you want to override theme colors.
- */
-
-/*
-pre[class*="language-"],
-code[class*="language-"] {
-	background-color: var(--textfield_background_color) !important;
-	color: var(--textfield_color) !important;
-}
-
-.token.comment,
-.token.prolog,
-.token.doctype,
-.token.cdata {
-	color: var(--text-fg-faint) !important;
-	font-style: italic;
-}
-
-.token.punctuation {
-	color: var(--text-fg) !important;
-}
-
-.token.property,
-.token.tag,
-.token.boolean,
-.token.number,
-.token.constant,
-.token.symbol,
-.token.deleted {
-	color: #f92672 !important;
-}
-
-.token.selector,
-.token.attr-name,
-.token.string,
-.token.char,
-.token.builtin,
-.token.inserted {
-	color: #a6e22e !important;
-}
-
-.token.operator,
-.token.entity,
-.token.url,
-.language-css .token.string,
-.style .token.string {
-	color: var(--text-fg) !important;
-}
-
-.token.atrule,
-.token.attr-value,
-.token.keyword {
-	color: #66d9ef !important;
-}
-
-.token.function,
-.token.class-name {
-	color: #e6db74 !important;
-}
-
-.token.regex,
-.token.important,
-.token.variable {
-	color: #fd971f !important;
-}
-
-.line-numbers .line-numbers-rows {
-	border-right: 1px solid var(--card-border) !important;
-}
-
-.line-numbers-rows > span:before {
-	color: var(--text-fg-faint) !important;
-}
-*/
-
-/* ============================================
-   VIRTUAL SCROLLING - Performance Optimization
-   ============================================
-   Optimizes rendering of long code blocks (>1000 lines)
-   using CSS content-visibility for better performance.
-   ============================================ */
-
-/* Virtual scrolling container for long code blocks */
-pre.virtual-scroll-enabled,
-code.virtual-scroll-enabled {
-	/* Enable content-visibility for automatic virtual scrolling */
-	/* Browser will skip rendering of off-screen content */
-	content-visibility: auto;
-
-	/* Set intrinsic size to help browser calculate layout */
-	contain-intrinsic-size: auto 500px;
-
-	/* Improve scroll performance */
-	will-change: scroll-position;
-
-	/* Smooth scrolling behavior */
-	scroll-behavior: smooth;
-}
-
-/* Ensure proper display for virtual scroll containers */
-pre.virtual-scroll-enabled {
-	overflow: auto;
-	max-height: 80vh;
-	/* Limit max height for very long code */
-}
-
-/* Virtual scrolling for comparison field */
-.field.virtual-scroll-enabled {
-	content-visibility: auto;
-	contain-intrinsic-size: auto 500px;
-	will-change: scroll-position;
-	max-height: 80vh;
-	overflow: auto;
-}
-
-/* Optimize rendering of syntax highlighted tokens within virtual scroll */
-pre.virtual-scroll-enabled .token,
-.field.virtual-scroll-enabled * {
-	/* Optimize repainting during scroll */
-	transform: translateZ(0);
-	backface-visibility: hidden;
-}
-
-/* Performance hint for browsers */
-pre.virtual-scroll-enabled {
-	/* Indicate that layout changes are contained */
-	contain: layout style paint;
-}
-
-/* Reduce reflow/repaint during scrolling */
-@media (prefers-reduced-motion: no-preference) {
-	pre.virtual-scroll-enabled {
-		/* Hardware acceleration for smoother scrolling */
-		transform: translate3d(0, 0, 0);
-	}
-}
-
-/* ============================================
-   LOADING STATES - Visual Feedback
-   ============================================
-   Loading indicators for asynchronous operations
-   ============================================ */
-
-/* Loading indicator container */
-.loading-indicator {
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-	justify-content: center;
-	gap: 1rem;
-	padding: 2rem;
-	color: var(--text-fg-faint);
-	font-family: var(--font-family);
-	font-size: var(--font_size);
-	text-align: center;
-}
-
-/* Loading spinner - CSS animation */
-.loading-spinner {
-	border-style: solid;
-	border-color: var(--text-fg-faint);
-	border-top-color: var(--link-fg);
-	border-radius: 50%;
-	animation: spin 1s linear infinite;
-	will-change: transform;
-}
-
-/* Spinner sizes */
-.loading-spinner--small {
-	width: 1.5rem;
-	height: 1.5rem;
-	border-width: 0.2rem;
-}
-
-.loading-spinner--medium {
-	width: 2.5rem;
-	height: 2.5rem;
-	border-width: 0.3rem;
-}
-
-.loading-spinner--large {
-	width: 3.5rem;
-	height: 3.5rem;
-	border-width: 0.4rem;
-}
-
-/* Spinning animation */
-@keyframes spin {
-	0% {
-		transform: rotate(0deg);
-	}
-
-	100% {
-		transform: rotate(360deg);
-	}
-}
-
-/* Loading message */
-.loading-message {
-	font-size: 0.9em;
-	color: var(--text-fg-faint);
-}
-
-/* Respect prefers-reduced-motion */
-@media (prefers-reduced-motion: reduce) {
-	.loading-spinner {
-		animation: none;
-		border-top-color: var(--text-fg-faint);
-		/* Show static circle instead of spinning */
-	}
-
-	.loading-indicator {
-		/* Use pulsing opacity instead of spinning */
-		animation: pulse 1.5s ease-in-out infinite;
-	}
-
-	@keyframes pulse {
-
-		0%,
-		100% {
-			opacity: 1;
-		}
-
-		50% {
-			opacity: 0.5;
-		}
-	}
-}
-
-/* Dark mode adjustments */
-.night_mode .loading-indicator,
-.card.night_mode .loading-indicator,
-:root.night-mode .loading-indicator {
-	color: var(--text-fg-faint);
-}
-
-.night_mode .loading-spinner,
-.card.night_mode .loading-spinner,
-:root.night-mode .loading-spinner {
-	border-color: rgba(255, 255, 255, 0.2);
-	border-top-color: var(--link-fg);
-}
-
-/* Loading indicator when inside code blocks */
-pre .loading-indicator,
-code .loading-indicator {
-	background-color: rgba(0, 0, 0, 0.1);
-	border-radius: 0.25rem;
-}
-
-.night_mode pre .loading-indicator,
-.night_mode code .loading-indicator,
-.card.night_mode pre .loading-indicator,
-.card.night_mode code .loading-indicator {
-	background-color: rgba(255, 255, 255, 0.05);
-}
-
-/* Loading indicator when inside field */
-.field .loading-indicator {
-	min-height: 100px;
+  .card-content {
+    margin: 15px 0;
+  }
+
+  .typing-section,
+  .comparison-section,
+  .solution-section {
+    margin: 15px 0;
+  }
+
+  .comparison-grid {
+    grid-template-columns: 1fr;  /* Mobile: 1 coluna */
+    gap: 8px;
+  }
+
+  .field-typing {
+    padding: 12px;
+    font-size: 13px;
+    min-height: 150px;
+  }
+
+  .typing-hint {
+    font-size: 12px;
+  }
+
+  .field-comparison {
+    padding: 12px;
+    font-size: 12px;
+    min-height: 80px;
+  }
+
+  #correct-solution {
+    min-height: 150px;
+  }
+
+  .info-content {
+    padding: 12px;
+  }
+
+  .info-content h3 {
+    font-size: 13px;
+  }
+
+  .info-content p {
+    font-size: 13px;
+  }
+
+  /* Solution comparison mobile */
+  .solution-comparison {
+    margin: 15px 0;
+  }
+
+  .solution-grid {
+    grid-template-columns: 1fr;  /* 1 coluna no mobile */
+    gap: 12px;
+  }
+
+  .diff-result {
+    padding: 12px;
+    font-size: 12px;
+    min-height: 150px;
+    max-height: 300px;
+  }
+
+  .solution-grid .ace-editor-container {
+    min-height: 150px;
+  }
+}
+
+@media (min-width: 601px) and (max-width: 768px) {
+  .card-content {
+    margin: 18px 0;
+  }
+
+  .field-typing {
+    padding: 14px;
+    font-size: 14px;
+  }
+
+  /* Solution comparison tablet */
+  .solution-grid {
+    gap: 14px;
+  }
+
+  .diff-result {
+    font-size: 13px;
+    min-height: 180px;
+    max-height: 350px;
+  }
+
+  .solution-grid .ace-editor-container {
+    min-height: 180px;
+  }
 }

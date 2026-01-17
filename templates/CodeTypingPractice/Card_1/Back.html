@@ -1,16 +1,69 @@
+<!-- Card 1 - Back Template -->
+<!-- Shows front content + description + further details -->
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+
+<!-- Front Content -->
 {{FrontSide}}
 
-<hr/>
+<!-- Answer Divider -->
+<hr id="answer" />
 
-<!-- Code output -->
-<div>
-  <h2 style="text-transform: uppercase;">Output (Further Description)</h2>
-<div>
+<!-- Main Content -->
+<main class="card-content">
 
-{{#Further Description}}
-<pre>
-  <code class="language-{{Language}}">{{Further Description}}</code>
-</pre>
-{{/Further Description}}
+  <!-- Description + Further Description Grid -->
+  {{#Further Description}}
+  <div class="fields-grid">
+    <!-- Description -->
+    <div class="field-grid-item">
+      <h2>Description</h2>
+      <div class="field field-description">
+        {{Description}}
+      </div>
+    </div>
 
-<!-- <div class="description">{{Description}}</div> -->
+    <!-- Further Description -->
+    <div class="field-grid-item">
+      <h3>Further Description (Output)</h3>
+      <div class="field field-further">
+        {{Further Description}}
+      </div>
+    </div>
+  </div>
+  {{/Further Description}}
+
+  {{^Further Description}}
+  <!-- Description only (full width) -->
+  <div class="fields-grid fields-grid--single">
+    <div class="field-grid-item">
+      <h2>Description</h2>
+      <div class="field field-description">
+        {{Description}}
+      </div>
+    </div>
+  </div>
+  {{/Further Description}}
+
+  <!-- Source (Conditional) -->
+  {{#Source}}
+  <div class="footer">
+    <div class="footer-links">
+      <span class="footer-links-label">Learn More:</span>
+      <a href="https://www.youtube.com/results?search_query={{Source}}" target="_blank" class="footer-link" title="Search on YouTube">
+        YouTube
+      </a>
+      <span class="footer-link-separator">|</span>
+      <a href="https://stackoverflow.com/search?q={{Source}}" target="_blank" class="footer-link" title="Search on StackOverflow">
+        StackOverflow
+      </a>
+      <span class="footer-link-separator">|</span>
+      <a href="https://duckduckgo.com/?q={{Source}}" target="_blank" class="footer-link" title="Search on DuckDuckGo">
+        DuckDuckGo
+      </a>
+    </div>
+  </div>
+  {{/Source}}
+</main>

@@ -1,206 +1,351 @@
-<!-- <link rel="stylesheet" href="_mobile.css" media="screen and (max-width: 600px)" /> -->
+<!-- Card 1 - Front Template -->
+<!-- Simple code display with syntax highlighting -->
 
-<style>
-	code {
-		opacity: 0;
-		transition: opacity 0.1s;
-	}
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
 
-	body code[class*=language-],
-	body pre[class*=language-] {
-		-moz-tab-size: 0;
-		-o-tab-size: 0;
-		tab-size: 0;
-	}
-</style>
+<!-- Tags -->
+{{#Tags}}
+<div class="tags">
+  {{clickable:Tags}}
+</div>
+{{/Tags}}
 
-<div class="subdeck">
-	<h1>{{Subdeck}}</h1>
+<!-- Language Badge -->
+<div class="language-badge">
+  <span class="language-text" id="language-badge-text">{{Language}}</span>
 </div>
 
-<div class="helper">
-	<h2 style="text-transform: uppercase;">{{Language}} code</h2>
-</div>
 
-<div>
-	<!-- <pre class="field single_field line-numbers" id="card_2_code_field"> -->
-	<pre class="field single_field" id="card_2_code_field">
-		<code class="language-{{Language}} match-braces rainbow-braces" id="answerText">{{Code}}</code>
-	</pre>
-</div>
+<!-- Main Content -->
+<main class="card-content">
+  <!-- Code Display -->
+  <div class="field field-code">
+    <h2>Code</h2>
+    <div id="ace-editor" class="ace-editor-container">{{Code}}</div>
+  </div>
 
-{{#Hint}}
-<div>
-	<h2>DESCRIPTION (Hint)</h2>
-	<div class="description description--note">
-	   <code>{{Hint}}</code>
-	 </div>
-</div>
-{{/Hint}}
+  <!-- Hint (Conditional) -->
+  {{#Hint}}
+  <details class="conditional-section">
+    <summary>Hint</summary>
+    <div class="conditional-content">
+      <div class="field field-hint">
+        {{Hint}}
+      </div>
+    </div>
+  </details>
+  {{/Hint}}
+</main>
+
+<!-- ============================================
+     ACE EDITOR CDN (Load before initialization)
+     ============================================ -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.43.3/ace.js" charset="utf-8"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.43.3/theme-github_light_default.js" charset="utf-8"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.43.3/theme-github_dark.js" charset="utf-8"></script>
 
 <script>
-	var sampleAnswer = document.getElementById("answerText");
-	var sampleAnswerInitialContent = sampleAnswer.innerHTML;
-	var sampleAnswerContentModifiedWhitespace;
 
-	/*Replace some html characters; TODO -> extensive*/
+// ============================================
+//   CONFIGURATION
+//   ============================================
 
+// Tag configuration
+var TagConfig = {
+  levelsToShow: 1  // 0=full, 1=last part, 2=last 2 parts
+};
 
-	function modifyWhitespace() {
-		sampleAnswerContentModifiedWhitespace = sampleAnswerInitialContent
-			.replace(/(<br>)/gi, "\n")
-			.replace(/\&nbsp;/gi, ' ');
+// Editor configuration
+var EditorConfig = {
+  options: {
+    readOnly: true,
+    showPrintMargin: false,
+    highlightActiveLine: false,
+    behavioursEnabled: false,
+    fontSize: '16px',
+    fontFamily: 'JetBrains Mono, monospace'
+  },
+  scroll: {
+    top: 10,
+    bottom: 10,
+    left: 10,
+    right: 10
+  },
+  resize: {
+    minHeight: 100,
+    maxHeight: 400,
+    lineHeight: 28
+  }
+};
 
-		sampleAnswer.innerHTML = sampleAnswerContentModifiedWhitespace;
-	}
+// Language mapping
+var LanguageMap = {
+  // Scripting languages
+  'python': 'python',
+  'py': 'python',
+  'javascript': 'javascript',
+  'js': 'javascript',
+  'typescript': 'typescript',
+  'ts': 'typescript',
+  'ruby': 'ruby',
+  'php': 'php',
+  'perl': 'perl',
 
-	modifyWhitespace();
+  // Compiled languages
+  'java': 'java',
+  'c': 'c_cpp',
+  'cpp': 'c_cpp',
+  'c++': 'c_cpp',
+  'c#': 'csharp',
+  'csharp': 'csharp',
+  'go': 'golang',
+  'golang': 'golang',
+  'rust': 'rust',
+  'swift': 'swift',
+  'kotlin': 'kotlin',
+  'scala': 'scala',
 
-	/*Prevent Prism from auto highlighting*/
-	/*see https://prismjs.com/docs/Prism.html#.manual*/
+  // Functional languages
+  'haskell': 'haskell',
+  'erlang': 'erlang',
+  'elixir': 'elixir',
+  'clojure': 'clojure',
+  'f#': 'fsharp',
+  'fsharp': 'fsharp',
 
-	window.Prism = window.Prism || {};
-	Prism.manual = true;
+  // Markup & Data
+  'html': 'html',
+  'xml': 'xml',
+  'json': 'json',
+  'yaml': 'yaml',
+  'yml': 'yaml',
+  'toml': 'toml',
+  'markdown': 'markdown',
+  'md': 'markdown',
 
-	/*copied from https://stackoverflow.com/a/53744331/20453811 */
-	/*Definition*/
+  // Styles
+  'css': 'css',
+  'scss': 'scss',
+  'sass': 'sass',
+  'less': 'less',
 
-	function loadScript(scriptUrl) {
+  // Configuration & Shells
+  'bash': 'sh',
+  'shell': 'sh',
+  'powershell': 'powershell',
+  'dockerfile': 'dockerfile',
+  'docker': 'dockerfile',
 
-		const script = document.createElement('script');
-		script.src = scriptUrl;
-		document.body.appendChild(script);
+  // Databases
+  'sql': 'sql',
+  'mysql': 'sql',
+  'postgresql': 'sql',
+  'sqlite': 'sql',
+  'mongodb': 'javascript',
 
-		return new Promise((res, rej) => {
-			script.onload = res;
-			script.onerror = rej;
-		});
-	}
+  // Other
+  'r': 'r',
+  'lua': 'lua',
+  'matlab': 'matlab',
+  'groovy': 'groovy',
+  'dart': 'dart'
+};
 
-	/*use*/
-	/*
-	function showCode (){
-		sampleAnswer.classList.add('show');
-		console.log("code shown");
-	}
-	*/
+// ============================================
+//   TAG SPLITTING
+//   ============================================
+(function() {
+  var tagsContainer = document.querySelector('.tags');
 
-	/*use*/
-	/*loadScript('_prism.min_with_line_numbers_addon.js')*/
-	loadScript('_prism.min.js')
-		.then(() => {
-			console.log('Script loaded!');
-			Prism.plugins.autoloader.languages_path = '';
-			Prism.highlightElement(sampleAnswer);
-		})
-		.catch(() => {
-			console.error('Script loading failed! Handle this error');
-		});
+  if (!tagsContainer) {
+    return;
+  }
 
-	// Select the node that will be observed for mutations
-	var targetNode = sampleAnswer;
+  var tagText = tagsContainer.textContent || tagsContainer.innerText;
+  tagText = tagText.trim();
 
-	// Options for the observer (which mutations to observe)
-	var config = { attributes: true, childList: true, subtree: true };
+  if (!tagText) {
+    return;
+  }
 
-	// Callback function to execute when mutations are observed
-	var callback2 = (mutationList, observer) => {
-		for (const mutation of mutationList) {
-			if (mutation.type === "childList") {
-				console.log("A child node has been added or removed.");
-				console.log(sampleAnswer.childNodes);
-			} else if (mutation.type === "attributes") {
-				console.log(`The ${mutation.attributeName} attribute was modified.`);
-			}
-		}
-	};
+  var tags = tagText.split(/\s+/).filter(Boolean);
 
-	/*Create an observer instance linked to the callback function*/
-	var observer = new MutationObserver(callback2);
+  if (tags.length === 0) {
+    return;
+  }
 
-	/*Start observing the target node for configured mutations*/
-	observer.observe(targetNode, config);
+  var html = '';
+  tags.forEach(function(tag) {
+    var displayName = tag;
+    var parts = tag.split('::');
 
-	/*Later, you can stop observing*/
-	/*observer.disconnect();*/
+    if (TagConfig.levelsToShow > 0 && parts.length > TagConfig.levelsToShow) {
+      displayName = parts.slice(-TagConfig.levelsToShow).join('::');
+    }
 
-</script>
+    html += '<span class="tag">' + displayName + '</span>';
+  });
 
-<!-- <link rel="stylesheet" href="_prism.min.css" id="light_theme"> -->
-<!-- <link rel="stylesheet" href="_prism-funky.min.css" id="dark_theme"> -->
+  tagsContainer.innerHTML = html;
+})();
 
-<!-- Prism.js themes via CDN -->
-<!-- Light theme options: prism.css, prism-coy.css, prism-solarizedlight.css, prism-tomorrow.css -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" id="light_theme">
-<!-- Dark theme options: prism-dark.css, prism-okaidia.css, prism-twilight.css, prism-funky.css -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-okaidia.css" id="dark_theme">
+// ============================================
+//   LANGUAGE BADGE
+//   ============================================
+(function() {
+  var langBadge = document.getElementById('language-badge-text');
 
-<script>
-	/*Darkmode switcher. Done via JS to support both prefers-color-scheme of ankiweb.net and class changes of desktop app*/
-	var script_name;
-	var darkModePreference = window.matchMedia("(prefers-color-scheme: dark)");
-	var darkModePreferred = false;
+  if (!langBadge) {
+    return;
+  }
 
-	function determineDarkMode() {
-		if (darkModePreference.matches == true || document.body.classList.contains('night_mode') == true) {
-			darkModePreferred = true;
-		}
-		else {
-			darkModePreferred = false;
-		}
-	}
+  var langText = langBadge.textContent || langBadge.innerText;
+  langText = langText.trim().toLowerCase();
 
-	function switchStylesheet() {
-		if (darkModePreferred == true) {
-			enableStylesheet("dark_theme");
-			disableStylesheet("light_theme");
-		}
-		else {
-			enableStylesheet("light_theme");
-			disableStylesheet("dark_theme");
-		}
-	}
+  langBadge.setAttribute('data-lang', langText);
 
-	function enableStylesheet(styleSheetID) {
-		document.getElementById(styleSheetID).disabled = false;
-	}
+  var supportedLanguages = [
+    'python', 'javascript', 'js', 'typescript', 'ts',
+    'java', 'c', 'cpp', 'c++', 'go', 'rust', 'ruby',
+    'php', 'html', 'css', 'sql', 'json', 'bash', 'shell',
+    'yaml', 'xml', 'markdown', 'docker'
+  ];
 
-	function disableStylesheet(styleSheetID) {
-		document.getElementById(styleSheetID).disabled = true;
-	}
+  if (supportedLanguages.indexOf(langText) === -1) {
+    langBadge.setAttribute('data-lang', 'default');
+  }
+})();
 
+// ============================================
+//   ACE EDITOR
+//   ============================================
 
-	darkModePreference.addEventListener("change", function (e) {
-		applyStylesheet();
-	});
+// Utility functions
+var Utils = {
+  getAceMode: function(language) {
+    var langLower = (language || '').toLowerCase().trim();
+    return LanguageMap[langLower] || 'text';
+  },
 
-	function onClassChange(node, callback) {
-		let lastClassString = node.classList.toString();
+  getTheme: function() {
+    var body = document.body;
+    if (body && (body.classList.contains('night_mode') ||
+                 document.documentElement.classList.contains('night_mode'))) {
+      return 'ace/theme/github_dark';
+    }
+    return 'ace/theme/github_light_default';
+  },
 
-		const mutationObserver = new MutationObserver((mutationList) => {
-			for (const item of mutationList) {
-				if (item.attributeName === "class") {
-					const classString = node.classList.toString();
-					if (classString !== lastClassString) {
-						callback(mutationObserver);
-						lastClassString = classString;
-						break;
-					}
-				}
-			}
-		});
+  escapeHtml: function(text) {
+    var div = document.createElement('div');
+    div.textContent = text;
+    return div.innerHTML;
+  }
+};
 
-		mutationObserver.observe(node, { attributes: true });
+// Editor configuration functions
+var EditorConfigurator = {
+  configure: function(editor, language) {
+    if (!editor) return;
 
-		return mutationObserver;
-	}
+    this.applyOptions(editor);
+    this.applyTheme(editor);
+    this.applySyntax(editor, language);
+    this.applyScrollMargin(editor);
+  },
 
-	onClassChange(document.body, applyStylesheet);
+  applyOptions: function(editor) {
+    editor.setOptions(EditorConfig.options);
+  },
 
-	function applyStylesheet() {
-		determineDarkMode();
-		switchStylesheet();
-	}
+  applyTheme: function(editor) {
+    editor.setTheme(Utils.getTheme());
+  },
 
-	applyStylesheet();
+  applySyntax: function(editor, language) {
+    var mode = Utils.getAceMode(language);
+    editor.session.setMode('ace/mode/' + mode);
+  },
+
+  applyScrollMargin: function(editor) {
+    editor.renderer.setScrollMargin(
+      EditorConfig.scroll.top,
+      EditorConfig.scroll.bottom,
+      EditorConfig.scroll.left,
+      EditorConfig.scroll.right
+    );
+  }
+};
+
+// Editor resize function
+var EditorResizer = {
+  resize: function(editor) {
+    if (!editor) return;
+
+    var session = editor.getSession();
+    var lineCount = session.getLength();
+
+    var newHeight = Math.max(
+      EditorConfig.resize.minHeight,
+      Math.min(EditorConfig.resize.maxHeight, lineCount * EditorConfig.resize.lineHeight)
+    );
+
+    editor.container.style.height = newHeight + 'px';
+    editor.resize();
+  }
+};
+
+// Main initialization
+(function() {
+  'use strict';
+
+  var editorContainer = document.getElementById('ace-editor');
+
+  if (!editorContainer) {
+    return;
+  }
+
+  try {
+    // Get language
+    var languageElement = document.getElementById('language-badge-text');
+    var language = languageElement ?
+                   (languageElement.textContent || languageElement.innerText).trim() :
+                   'text';
+
+    // Initialize editor
+    var editor = ace.edit('ace-editor');
+
+    // Configure editor
+    EditorConfigurator.configure(editor, language);
+
+    // Auto-resize
+    EditorResizer.resize(editor);
+
+    // Re-check theme on resize
+    var originalTheme = Utils.getTheme();
+    window.addEventListener('resize', function() {
+      EditorResizer.resize(editor);
+
+      var newTheme = Utils.getTheme();
+      if (newTheme !== originalTheme) {
+        EditorConfigurator.applyTheme(editor);
+        originalTheme = newTheme;
+      }
+    });
+
+  } catch (error) {
+    console.error('Failed to initialize Ace editor:', error);
+
+    // Fallback
+    if (editorContainer) {
+      var codeContent = editorContainer.textContent || editorContainer.innerText;
+      editorContainer.innerHTML = '<pre style="font-family: monospace; padding: 15px; background: var(--code-background); border-radius: 4px;">' +
+                                  Utils.escapeHtml(codeContent) +
+                                  '</pre>';
+    }
+  }
+})();
+
 </script>
