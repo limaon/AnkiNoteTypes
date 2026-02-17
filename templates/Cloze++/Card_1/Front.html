@@ -29,28 +29,32 @@
     })
   } else {
     tagsContainerEl = document.querySelector('.prettify-tags')
-    var tags = tagsContainerEl.innerHTML.split(' ').filter(Boolean)
-    var html = ''
-    tags.forEach((tag) => {
-      var childTag = tag.split('::').filter(Boolean)
-      html +=
-        "<span class='prettify-tag'>" +
-        childTag[childTag.length - 1] +
-        '</span>'
-    })
-    tagsContainerEl.innerHTML = html
+    if (tagsContainerEl) {
+      var tags = tagsContainerEl.innerHTML.split(' ').filter(Boolean)
+      var html = ''
+      tags.forEach((tag) => {
+        var childTag = tag.split('::').filter(Boolean)
+        html +=
+          "<span class='prettify-tag'>" +
+          childTag[childTag.length - 1] +
+          '</span>'
+      })
+      tagsContainerEl.innerHTML = html
+    }
   }
 </script>
 
 <script>
   // Breadcrumbs to current deck
   var deckEl = document.querySelector('.prettify-deck')
-  var subDecks = deckEl.innerHTML.split('::').filter(Boolean)
-  html = []
-  subDecks.forEach((subDeck) => {
-    html.push("<span class='prettify-subdeck'>" + subDeck + '</span>')
-  })
-  deckEl.innerHTML = html.join('&nbsp;/&nbsp;')
+  if (deckEl) {
+    var subDecks = deckEl.innerHTML.split('::').filter(Boolean)
+    html = []
+    subDecks.forEach((subDeck) => {
+      html.push("<span class='prettify-subdeck'>" + subDeck + '</span>')
+    })
+    deckEl.innerHTML = html.join('&nbsp;/&nbsp;')
+  }
 </script>
 
 <script>
@@ -65,7 +69,8 @@
 </script>
 
 <script>
-MathJax.config.tex['macros'] = {
+if (typeof MathJax !== 'undefined' && MathJax.config && MathJax.config.tex) {
+  MathJax.config.tex['macros'] = {
     R: '{\\mathbb{R}}',
     Z: '{\\mathbb{Z}}',
     N: '{\\mathbb{N}}',
@@ -75,10 +80,13 @@ MathJax.config.tex['macros'] = {
     ang: '{\\angle}',
     norm: ['{\\lVert #1 \\rVert}', 1],
     abs: ['{\\lvert #1 \\rvert}', 1]
-};
+  };
+}
 if (typeof is_already_run == 'undefined') {
   is_already_run = true;
-  MathJax.startup.getComponents();
+  if (typeof MathJax !== 'undefined' && MathJax.startup) {
+    MathJax.startup.getComponents();
+  }
 }
 </script>
 

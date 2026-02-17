@@ -19,7 +19,7 @@
     <div class="prettify-divider prettify-divider--answer" id="answer"></div>
     <div class="typeans-container">
       <div class="terminal-line-anki">
-          <span class="terminal-prompt-anki">></span>
+          <span class="terminal-prompt-anki"></span>
           {{type:Answer}}
       </div>
     </div>
@@ -54,16 +54,18 @@
       })
   } else {
       tagsContainerEl = document.querySelector('.prettify-tags')
-      var tags = tagsContainerEl.innerHTML.split(' ').filter(Boolean)
-      var html = ''
-      tags.forEach((tag) => {
-          var childTag = tag.split('::').filter(Boolean)
-          html +=
-              "<span class='prettify-tag'>" +
-              childTag[childTag.length - 1] +
-              '</span>'
-      })
-      tagsContainerEl.innerHTML = html
+      if (tagsContainerEl) {
+          var tags = tagsContainerEl.innerHTML.split(' ').filter(Boolean)
+          var html = ''
+          tags.forEach((tag) => {
+              var childTag = tag.split('::').filter(Boolean)
+              html +=
+                  "<span class='prettify-tag'>" +
+                  childTag[childTag.length - 1] +
+                  '</span>'
+          })
+          tagsContainerEl.innerHTML = html
+      }
   }
 </script>
 
@@ -88,22 +90,6 @@
   document.documentElement.style.setProperty("--random-color", randomColor);
 </script>
 
-<script>
-  document.addEventListener('DOMContentLoaded', function () {
-      var inputEl = document.getElementById('typeans');
-      if (inputEl) {
-          inputEl.addEventListener('keypress', function (event) {
-              if (event.key === 'Enter') {
-                  event.preventDefault();
-                  this.classList.add('centered');
-              }
-          });
-      }
-  });
-</script>
-
-
-
 <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/highlight.min.js"></script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/default.min.css">
 <script>
@@ -119,19 +105,21 @@
 
 
 <script>
-MathJax.config.tex['macros'] = {
-  R: '{\\mathbb{R}}',
-  Z: '{\\mathbb{Z}}',
-  N: '{\\mathbb{N}}',
-  Q: '{\\mathbb{Q}}',
-  C: '{\\mathbb{C}}',
-  deg: '{^{\\circ}}',
-  ang: '{\\angle}',
-  norm: ['{\\lVert #1 \\rVert}', 1],
-  abs: ['{\\lvert #1 \\rvert}', 1]
-};
-if (typeof is_already_run == 'undefined') {
-is_already_run = true;
-MathJax.startup.getComponents();
+if (typeof MathJax !== 'undefined' && MathJax.config && MathJax.config.tex) {
+  MathJax.config.tex['macros'] = {
+    R: '{\\mathbb{R}}',
+    Z: '{\\mathbb{Z}}',
+    N: '{\\mathbb{N}}',
+    Q: '{\\mathbb{Q}}',
+    C: '{\\mathbb{C}}',
+    deg: '{^{\\circ}}',
+    ang: '{\\angle}',
+    norm: ['{\\lVert #1 \\rVert}', 1],
+    abs: ['{\\lvert #1 \\rvert}', 1]
+  };
+  if (typeof is_already_run == 'undefined') {
+    is_already_run = true;
+    MathJax.startup.getComponents();
+  }
 }
 </script>

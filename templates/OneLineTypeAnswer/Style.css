@@ -5,7 +5,7 @@
 	--font-size-regular: 20px;
 	--font-size-small: 14px;
 	--font-size-smallest: 12px;
-	--font-family: "Inter", "Space Grotesk", -apple-system, sytem-ui, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+	--font-family: "Inter", "Space Grotesk", -apple-system, system-ui, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
 	--nerd-font-family: "JetBrains";
 	--img-width: 40%;
 	--img-brightness: 0.75;
@@ -22,8 +22,65 @@
 }
 
 /* --------------------- COLORS */
+/* Light theme - variables in :root */
+:root {
+	--text-fg: #333333e6;
+	--text-fg-faint: #333333cc;
+	--text-bg-selected: #3333331a;
+	--card-bg: #ffffff;
+	--card-border: #f7f7f7;
+	--card-box-shadow: #3c42570f;
+	--divider: #3333331a;
+	--tag-fg: #333333cc;
+	--tag-bg: #3333330f;
+	--tag-fg-active: #333333;
+	--tag-bg-active: #3333331a;
+	--tag-border: transparent;
+	--cloze-fg: #348ccb;
+	--cloze-bg: transparent;
+	--link-fg: #2a70a2;
+	--link-bg: transparent;
+	--link-fg-active: #2f7eb6;
+	--link-bg-active: transparent;
+	--bold-fg: var(--text-fg);
+	--italic-fg: var(--text-fg);
+	--bold-italic-fg: var(--text-fg);
+	--underline-fg: var(--text-fg);
+	--random-color: var(--color-1);
+}
+
+/* Dark mode - ALL selectors for cross-platform support */
+:root.night-mode,
+:root[data-bs-theme="dark"],
+:root[data-darkreader-scheme="dark"],
+.night_mode,
+.card.night_mode,
+.nightMode {
+	--text-fg: #ffffffe6;
+	--text-fg-faint: #ffffffb3;
+	--text-bg-selected: #ffffff1f;
+	--card-bg: #2e2f31;
+	--card-border: #ffffff0a;
+	--card-box-shadow: #0000001f;
+	--divider: #ffffff1f;
+	--tag-fg: #ffffffb3;
+	--tag-bg: #ffffff14;
+	--tag-fg-active: #ffffff;
+	--tag-bg-active: #ffffff1f;
+	--tag-border: transparent;
+	--cloze-fg: #99ebff;
+	--cloze-bg: transparent;
+	--link-fg: #5da3d5;
+	--link-bg: transparent;
+	--link-fg-active: #71afda;
+	--link-bg-active: transparent;
+}
+
+/* --------------------- BACKGROUND */
+/* Light theme - ALSO in .card (for Anki compatibility) */
 .card {
-	/* Light theme */
+	cursor: default;
+	padding: 0.5em 0;
 	background-color: #cfd6d8;
 	--text-fg: #333333e6;
 	--text-fg-faint: #333333cc;
@@ -47,10 +104,11 @@
 	--italic-fg: var(--text-fg);
 	--bold-italic-fg: var(--text-fg);
 	--underline-fg: var(--text-fg);
+	--random-color: var(--color-1);
 }
 
+/* Dark mode - in .card.night_mode (for Anki compatibility) */
 .card.night_mode {
-	/* Dark theme */
 	background-color: #242426;
 	--text-fg: #ffffffe6;
 	--text-fg-faint: #ffffffb3;
@@ -70,16 +128,6 @@
 	--link-bg: transparent;
 	--link-fg-active: #71afda;
 	--link-bg-active: transparent;
-	--bold-fg: var(--text-fg);
-	--italic-fg: var(--text-fg);
-	--bold-italic-fg: var(--text-fg);
-	--underline-fg: var(--text-fg);
-}
-
-/* --------------------- BACKGROUND */
-.card {
-	cursor: default;
-	padding: 0.5em 0;
 }
 
 html:not(.mobile) .card {
@@ -113,11 +161,11 @@ html:not(.mobile) .card {
 
 /* --------------------- FIELDS */
 .prettify-field {
-	margin: 0.6em 1.6em;
+	margin: 0.8em;
 }
 
 .mobile .prettify-field {
-	margin: 0.4em 1.4em;
+	margin: 0.2em 0.5em 0.5em;
 }
 
 .prettify-field--back {
@@ -313,7 +361,7 @@ a:active {
 /* --------------------- FORMATTING */
 b,
 strong {
-	color: var(--random-color);
+	color: var(--random-color, var(--text-fg));
 }
 
 i,
@@ -367,7 +415,7 @@ footer>a:last-child:after {
 @font-face {
 	font-family: Inter;
 	/* src: local("Inter-Regular"), url("_Inter-Regular.woff2") format("woff2"); */
-	src: local("Inter-Regular"), url("_Inter-Regular.ttf") format("ttf");
+	src: local("Inter-Regular"), url("_Inter-Regular.ttf") format("truetype");
 	font-style: normal;
 	font-weight: normal;
 }
@@ -375,7 +423,7 @@ footer>a:last-child:after {
 @font-face {
 	font-family: Inter;
 	/* src: local("Inter-Bold"), url("_Inter-Bold.woff2") format("wofff2"); */
-	src: local("Inter-Bold"), url("_Inter-Bold.ttf") format("ttf");
+	src: local("Inter-Bold"), url("_Inter-Bold.ttf") format("truetype");
 	font-style: normal;
 	font-weight: bold;
 }
@@ -383,7 +431,7 @@ footer>a:last-child:after {
 @font-face {
 	font-family: Inter;
 	/* src: local("Inter-Italic"), url("_Inter-Italic.woff2") format("wofff2"); */
-	src: local("Inter-Italic"), url("_Inter-Italic.ttf") format("ttf");
+	src: local("Inter-Italic"), url("_Inter-Italic.ttf") format("truetype");
 	font-style: italic;
 	font-weight: normal;
 }
@@ -391,7 +439,7 @@ footer>a:last-child:after {
 @font-face {
 	font-family: Inter;
 	/* src: local("Inter-BoldItalic"), url("_Inter-BoldItalic.woff2") format("wofff2"); */
-	src: local("Inter-BoldItalic"), url("_Inter-BoldItalic.ttf") format("ttf");
+	src: local("Inter-BoldItalic"), url("_Inter-BoldItalic.ttf") format("truetype");
 	font-style: italic;
 	font-weight: bold;
 }

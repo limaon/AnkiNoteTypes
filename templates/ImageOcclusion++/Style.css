@@ -1,11 +1,11 @@
 /* --------------------- PREFERÊNCIAS */
 :root {
-	--card-max-width: 40em;
+	--card-max-width: 50em;
 	--card-text-align: left;
 	--font-size-regular: 20px;
 	--font-size-small: 16px;
 	--font-size-smallest: 12px;
-	--font-family: Liberation Sans, Tinos Nerd Font, "Space Grotesk", "Inter", -apple-system, sytem-ui, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+	--font-family: Liberation Sans, Tinos Nerd Font, "Space Grotesk", "Inter", -apple-system, system-ui, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
 	--nerd-font-family: "JetBrains";
 	--img-width: 80%;
 	--img-brightness: 0.75;
@@ -28,14 +28,14 @@
 /* --------------------- FLASHCARD */
 .prettify-flashcard {
 	background-color: var(--card-bg);
-	border-radius: 0.40em;
+	border-radius: 0.50em;
 	border: 2px solid var(--card-border);
 	box-shadow: var(--card-box-shadow) 0px 7px 14px 0px, var(--card-box-shadow) 0px 3px 6px 0px;
 	color: var(--text-fg);
 	font-family: var(--font-family);
 	font-size: var(--font-size-regular);
 	line-height: 1.5;
-	margin: 1em auto;
+	margin: 0.5em auto;
 	max-width: var(--card-max-width);
 	text-align: var(--card-text-align);
 	word-wrap: break-word;
@@ -44,7 +44,11 @@
 
 /* --------------------- CAMPOS */
 .prettify-field {
-	margin: 0.6em 1.60em;
+	margin: 0.8em;
+}
+
+.mobile .prettify-field {
+	margin: 0.2em 0.5em 0.5em;
 }
 
 .prettify-field--header {
@@ -206,9 +210,8 @@ a:active {
 }
 
 /* --------------------- CORES E BACKGROUND */
-.card {
-	/* Light theme */
-	background-color: #cfd6d8;
+/* Light theme - variables in :root */
+:root {
 	--text-fg: #333333e6;
 	--text-fg-faint: #333333cc;
 	--text-bg-selected: #3333331a;
@@ -231,11 +234,16 @@ a:active {
 	--italic-fg: var(--text-fg);
 	--bold-italic-fg: var(--text-fg);
 	--underline-fg: var(--text-fg);
+	--random-color: var(--color-1);
 }
 
-.card.night_mode {
-	/* Dark theme */
-	background-color: #242426;
+/* Dark mode - ALL selectors for cross-platform support */
+:root.night-mode,
+:root[data-bs-theme="dark"],
+:root[data-darkreader-scheme="dark"],
+.night_mode,
+.card.night_mode,
+.nightMode {
 	--text-fg: #ffffffe6;
 	--text-fg-faint: #ffffffb3;
 	--text-bg-selected: #ffffff1f;
@@ -254,10 +262,24 @@ a:active {
 	--link-bg: transparent;
 	--link-fg-active: #71afda;
 	--link-bg-active: transparent;
-	--bold-fg: var(--text-fg);
-	--italic-fg: var(--text-fg);
-	--bold-italic-fg: var(--text-fg);
-	--underline-fg: var(--text-fg);
+}
+
+/* Minimal .card styling */
+.card {
+	text-align: justify;
+	background-color: #cfd6d8;
+	cursor: default;
+	padding: 0.5em 0;
+}
+
+html:not(.mobile) .card {
+	padding: 0.5em;
+}
+
+:root.night-mode .card,
+.night_mode .card,
+.nightMode .card {
+	background-color: #242426;
 }
 
 /* --------------------- RESPONSIVIDADE */
@@ -281,7 +303,7 @@ a:active {
 @font-face {
 	font-family: Inter;
 	/* src: local("Inter-Regular"), url("_Inter-Regular.woff2") format("woff2"); */
-	src: local("Inter-Regular"), url("_Inter-Regular.ttf") format("ttf");
+	src: local("Inter-Regular"), url("_Inter-Regular.ttf") format("truetype");
 	font-style: normal;
 	font-weight: normal;
 }
@@ -289,7 +311,7 @@ a:active {
 @font-face {
 	font-family: Inter;
 	/* src: local("Inter-Bold"), url("_Inter-Bold.woff2") format("wofff2"); */
-	src: local("Inter-Bold"), url("_Inter-Bold.ttf") format("ttf");
+	src: local("Inter-Bold"), url("_Inter-Bold.ttf") format("truetype");
 	font-style: normal;
 	font-weight: bold;
 }
@@ -297,7 +319,7 @@ a:active {
 @font-face {
 	font-family: Inter;
 	/* src: local("Inter-Italic"), url("_Inter-Italic.woff2") format("wofff2"); */
-	src: local("Inter-Italic"), url("_Inter-Italic.ttf") format("ttf");
+	src: local("Inter-Italic"), url("_Inter-Italic.ttf") format("truetype");
 	font-style: italic;
 	font-weight: normal;
 }
@@ -305,7 +327,7 @@ a:active {
 @font-face {
 	font-family: Inter;
 	/* src: local("Inter-BoldItalic"), url("_Inter-BoldItalic.woff2") format("wofff2"); */
-	src: local("Inter-BoldItalic"), url("_Inter-BoldItalic.ttf") format("ttf");
+	src: local("Inter-BoldItalic"), url("_Inter-BoldItalic.ttf") format("truetype");
 	font-style: italic;
 	font-weight: bold;
 }
