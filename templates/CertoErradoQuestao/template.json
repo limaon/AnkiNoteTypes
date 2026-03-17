@@ -1,12 +1,6 @@
 {
-	"modelName": "CertoErradoQuestao",
-	"inOrderFields": [
-		"EnunciadoQuestao",
-		"Imagem",
-		"Anotacoes",
-		"Gabarito"
-	],
-	"cardTemplates": [
-		"Card 1"
-	]
+  "modelName": "CertoErradoQuestao",
+  "inOrderFields": ["EnunciadoQuestao", "Imagem", "Anotacoes", "Gabarito"],
+  "cardTemplates": ["Card 1"]
 }
+

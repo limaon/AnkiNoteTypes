@@ -1,12 +1,6 @@
 {
-	"modelName": "Cloze++",
-	"inOrderFields": [
-		"Text",
-		"Back Extra",
-		"Imagen",
-		"Keywords"
-	],
-	"cardTemplates": [
-		"Card 1"
-	]
+  "modelName": "Cloze++",
+  "inOrderFields": ["Text", "Imagen", "Back Extra", "Keywords"],
+  "cardTemplates": ["Card 1"]
 }
+
