@@ -9,25 +9,25 @@ This repository contains a set of professionally designed Anki note types that e
 ## Features
 
 All templates include:
-- ✨ Modern, clean design with customizable CSS variables
-- 🌓 Light and dark mode support
-- 🏷️ Hierarchical tags display
-- 🔍 Smart footer links for quick searches
-- 📱 Mobile-responsive design
-- 🎨 Consistent styling across all templates
+- Modern, clean design with customizable CSS variables
+- Light and dark mode support
+- Hierarchical tags display
+- Smart footer links for quick searches
+- Mobile-responsive design
+- Consistent styling across all templates
 
-## 🖥️ Local Preview (Development Environment)
+## Local Preview (Development Environment)
 
 This project includes a local preview environment that allows you to view and test templates directly in your browser, similar to Anki's preview functionality.
 
 ### Preview Features
 
-- 📋 **Dynamic template listing** - Automatically detects all available templates
-- 🔄 **Real-time rendering** - Update fields and see changes instantly
-- 🌙 **Dark/light mode** - Toggle between themes to test appearance
-- 📝 **Field editor** - Fill in fields dynamically
-- 🃏 **Card Type selection** - Choose between different card types (Front, Back, Both)
-- 🎯 **Sample data** - Load sample data with one click
+- **Dynamic template listing** - Automatically detects all available templates
+- **Real-time rendering** - Update fields and see changes instantly
+- **Dark/light mode** - Toggle between themes to test appearance
+- **Field editor** - Fill in fields dynamically
+- **Card Type selection** - Choose between different card types (Front, Back, Both)
+- **Sample data** - Load sample data with one click
 
 ### Supported Anki Syntax
 
@@ -50,66 +50,7 @@ The preview supports the following Anki template syntax:
 
 > **Note:** Fields with spaces in their names (e.g., `{{Further Description}}`) are fully supported.
 
-## 🚀 How to Test Locally
-
-### Prerequisites
-
-- [Node.js](https://nodejs.org/) (v14 or higher)
-- npm (included with Node.js)
-
-### Option 1: Using `http-server` (Recommended)
-
-```bash
-# Install http-server globally (one time only)
-npm install -g http-server
-
-# Navigate to the project folder
-cd /path/to/AnkiNoteTypes
-
-# Start the server
-http-server -p 8000
-
-# Open in browser
-# http://localhost:8000/preview/
-```
-
-### Option 2: Using `serve`
-
-```bash
-# Install serve globally (one time only)
-npm install -g serve
-
-# Navigate to the project folder
-cd /path/to/AnkiNoteTypes
-
-# Start the server
-serve -l 8000
-
-# Open in browser
-# http://localhost:8000/preview/
-```
-
-### Option 3: Using Python (Alternative)
-
-```bash
-# Navigate to the project folder
-cd /path/to/AnkiNoteTypes
-
-# Python 3
-python -m http.server 8000
-
-# Open in browser
-# http://localhost:8000/preview/
-```
-
-### Accessing the Preview
-
-After starting the server, access:
-
-- **Home page:** `http://localhost:8000/preview/`
-- **Specific template:** `http://localhost:8000/preview/viewer.html?template=TemplateName`
-
-## 📁 Project Structure
+## Project Structure
 
 ```
 AnkiNoteTypes/
@@ -134,7 +75,7 @@ AnkiNoteTypes/
     └── ...
 ```
 
-## 📦 Available Templates
+## Available Templates
 
 | Template | Description |
 |----------|-------------|
@@ -144,7 +85,7 @@ AnkiNoteTypes/
 | **MultiplaEscolhaQuestao** | Multiple choice questions (exam style) |
 | **OneLineTypeAnswer** | Single-line typed answer with terminal-style |
 
-## 📖 Usage
+## Usage
 
 Each template folder contains:
 - `template.json` - Template configuration file
@@ -154,16 +95,10 @@ Each template folder contains:
 
 Refer to each template's README.md for specific usage instructions and field descriptions.
 
-## ⚙️ Requirements
-
-- Anki 2.1+ (some templates may require Anki 2.1.50+)
-- Modern web browser (for AnkiWeb compatibility)
-- Node.js 14+ (for local preview)
-
-## 📄 License
+## License
 
 This collection is provided as-is for educational and personal use.
 
-## 🤝 Contributing
+## Contributing
 
 Contributions, suggestions, and improvements are welcome! Please feel free to open issues or submit pull requests.
