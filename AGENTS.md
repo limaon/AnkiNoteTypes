@@ -258,4 +258,7 @@ Q6: A | Q7: C | Q8: E | Q9: B | Q10: D
 ### Working with Typst documents
 
 Check if the `docs_typst` folder is present in the project root; if not, create it.
+
 Use the .typ extension with Typst + CeTZ for the "<THEME>" theme, include a short explanation, a didactic graph with axes/legends/highlights, and compile to PDF in `docs_typst`.
+
+Also in Typst + CeTZ use a centered didactic graph (#align(center)), with a gray grid (help-lines), axes with stealth arrows at both ends, small markings and labels (7pt), function in blue (segmented line), root in labeled red point, domain highlighted in orange on the x-axis and image highlighted in green on the y-axis, maintaining a clean and consistent layout.
