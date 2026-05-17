@@ -17,7 +17,7 @@ An enhanced version of the basic Anki note type with modern styling and addition
 - **Front** - The question or prompt (editable)
 - **Back** - The answer or response (editable)
 - **Imagen** - Optional image field
-- **Keywords** - Optional keywords used for generating search links in the footer
+- **Keywords** - Keywords separated by commas, ranging from the broadest to the most specific, to facilitate searches in other sources.
 
 ## Card Templates
 

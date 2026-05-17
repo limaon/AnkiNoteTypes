@@ -9,6 +9,7 @@ A specialized Anki note type designed for multiple choice question practice, com
   - Green for correct answers
   - Red for incorrect user selections
   - Visual indication of whether you got it right or wrong
+- **Dynamic answer shuffling** - Alternatives are randomly reordered each session, keeping the correct answer in a different position every time
 - **Answer validation** - Compares your selection with the correct answer stored in the Gabarito field
 - **Flexible alternatives** - Supports up to 5 alternatives (A through E), all optional
 - **Clean, modern design** with customizable CSS variables
@@ -46,5 +47,14 @@ A specialized Anki note type designed for multiple choice question practice, com
 6. When reviewing, select your answer before revealing the solution
 7. The back of the card will show whether you were correct with color-coded feedback
 
-Perfect for studying exam questions, especially for Brazilian public service exams (concursos públicos) and standardized tests.
+## Dynamic Answer Shuffling
 
+Each time you open a card in a new browser session, the alternatives are randomly shuffled while the correct answer remains logically consistent. For example:
+
+- First session: Answer is in position C
+- Second session: Same answer, but now in position E
+- Third session: Same answer, now in position A
+
+This prevents memorizing answer positions and encourages genuine learning.
+
+Perfect for studying exam questions, especially for Brazilian public service exams (concursos públicos) and standardized tests.

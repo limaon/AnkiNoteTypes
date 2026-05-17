@@ -20,7 +20,7 @@ An enhanced cloze deletion note type with modern styling and additional features
 - **Text** - The main text field with cloze deletions (use `{{c1::text}}`, `{{c2::text}}`, etc.)
 - **Back Extra** - Optional field for additional information shown on the back of the card
 - **Imagen** - Optional image field
-- **Keywords** - Optional keywords used for generating search links in the footer
+- **Keywords** - Keywords separated by commas, ranging from the broadest to the most specific, to facilitate searches in other sources.
 
 ## Card Templates
 

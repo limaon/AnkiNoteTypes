@@ -4,9 +4,7 @@
   {{/Tags}}
 
   <div class="prettify-field prettify-field--front">
-    <tts service="android">
-      {{edit:EnunciadoQuestao}}
-    </tts>
+    <tts service="android"> {{edit:EnunciadoQuestao}} </tts>
   </div>
 
   {{#Imagem}}
@@ -19,35 +17,56 @@
   <div class="alternativas-container">
     {{#Alternativa-A}}
     <label class="alternativa-item" data-letra="A">
-      <input type="radio" name="resposta-questao" value="A" class="alternativa-radio">
+      <input
+        type="radio"
+        name="resposta-questao"
+        value="A"
+        class="alternativa-radio"
+      />
       <span class="alternativa-letra">A</span>
       <span class="alternativa-texto">{{Alternativa-A}}</span>
     </label>
-    {{/Alternativa-A}}
-    {{#Alternativa-B}}
+    {{/Alternativa-A}} {{#Alternativa-B}}
     <label class="alternativa-item" data-letra="B">
-      <input type="radio" name="resposta-questao" value="B" class="alternativa-radio">
+      <input
+        type="radio"
+        name="resposta-questao"
+        value="B"
+        class="alternativa-radio"
+      />
       <span class="alternativa-letra">B</span>
       <span class="alternativa-texto">{{Alternativa-B}}</span>
     </label>
-    {{/Alternativa-B}}
-    {{#Alternativa-C}}
+    {{/Alternativa-B}} {{#Alternativa-C}}
     <label class="alternativa-item" data-letra="C">
-      <input type="radio" name="resposta-questao" value="C" class="alternativa-radio">
+      <input
+        type="radio"
+        name="resposta-questao"
+        value="C"
+        class="alternativa-radio"
+      />
       <span class="alternativa-letra">C</span>
       <span class="alternativa-texto">{{Alternativa-C}}</span>
     </label>
-    {{/Alternativa-C}}
-    {{#Alternativa-D}}
+    {{/Alternativa-C}} {{#Alternativa-D}}
     <label class="alternativa-item" data-letra="D">
-      <input type="radio" name="resposta-questao" value="D" class="alternativa-radio">
+      <input
+        type="radio"
+        name="resposta-questao"
+        value="D"
+        class="alternativa-radio"
+      />
       <span class="alternativa-letra">D</span>
       <span class="alternativa-texto">{{Alternativa-D}}</span>
     </label>
-    {{/Alternativa-D}}
-    {{#Alternativa-E}}
+    {{/Alternativa-D}} {{#Alternativa-E}}
     <label class="alternativa-item" data-letra="E">
-      <input type="radio" name="resposta-questao" value="E" class="alternativa-radio">
+      <input
+        type="radio"
+        name="resposta-questao"
+        value="E"
+        class="alternativa-radio"
+      />
       <span class="alternativa-letra">E</span>
       <span class="alternativa-texto">{{Alternativa-E}}</span>
     </label>
@@ -62,37 +81,37 @@
   {{/Anotacoes}}
 
   <!-- {{Gabarito}} -->
-
+  <!-- Elemento oculto com gabarito para acesso via JavaScript -->
+  <span data-gabarito="{{Gabarito}}" style="display: none"></span>
 </div>
 
 <script>
   // Split hierarchical tags
-  var tagsContainerEl = document.querySelectorAll('.prettify-tags > *')
+  var tagsContainerEl = document.querySelectorAll(".prettify-tags > *");
   if (tagsContainerEl.length > 0) {
-    var tags = []
+    var tags = [];
     tagsContainerEl.forEach((tagEl) => {
-      tagEl.classList.add('prettify-tag')
-      tags.push(tagEl.innerHTML)
+      tagEl.classList.add("prettify-tag");
+      tags.push(tagEl.innerHTML);
       tags.forEach((tag) => {
-        var childTag = tag.split('::').filter(Boolean)
-        tagEl.innerHTML = childTag[childTag.length - 1].trim()
-      })
-    })
+        var childTag = tag.split("::").filter(Boolean);
+        tagEl.innerHTML = childTag[childTag.length - 1].trim();
+      });
+    });
   } else {
-    tagsContainerEl = document.querySelector('.prettify-tags')
-    var tags = tagsContainerEl.innerHTML.split(' ').filter(Boolean)
-    var html = ''
+    tagsContainerEl = document.querySelector(".prettify-tags");
+    var tags = tagsContainerEl.innerHTML.split(" ").filter(Boolean);
+    var html = "";
     tags.forEach((tag) => {
-      var childTag = tag.split('::').filter(Boolean)
+      var childTag = tag.split("::").filter(Boolean);
       html +=
         "<span class='prettify-tag'>" +
         childTag[childTag.length - 1] +
-        '</span>'
-    })
-    tagsContainerEl.innerHTML = html
+        "</span>";
+    });
+    tagsContainerEl.innerHTML = html;
   }
 </script>
-
 
 <script>
   // Random colors for bold text;
@@ -102,71 +121,257 @@
 </script>
 
 <script>
-MathJax.config.tex['macros'] = {
-    R: '{\\mathbb{R}}',
-    Z: '{\\mathbb{Z}}',
-    N: '{\\mathbb{N}}',
-    Q: '{\\mathbb{Q}}',
-    C: '{\\mathbb{C}}',
-    deg: '{^{\\circ}}',
-    ang: '{\\angle}',
-    norm: ['{\\lVert #1 \\rVert}', 1],
-    abs: ['{\\lvert #1 \\rvert}', 1]
-};
-if (typeof is_already_run == 'undefined') {
-  is_already_run = true;
-  MathJax.startup.getComponents();
-}
+  MathJax.config.tex["macros"] = {
+    R: "{\\mathbb{R}}",
+    Z: "{\\mathbb{Z}}",
+    N: "{\\mathbb{N}}",
+    Q: "{\\mathbb{Q}}",
+    C: "{\\mathbb{C}}",
+    deg: "{^{\\circ}}",
+    ang: "{\\angle}",
+    norm: ["{\\lVert #1 \\rVert}", 1],
+    abs: ["{\\lvert #1 \\rvert}", 1],
+  };
+  if (typeof is_already_run == "undefined") {
+    is_already_run = true;
+    MathJax.startup.getComponents();
+  }
 </script>
 
+<script>
+  // ============================================================================
+  // SISTEMA DE GABARITO DINÂMICO - Front
+  // ============================================================================
+  // Este script embaralha as alternativas a cada visualização do card
+  // Mantém o mesmo embaralhamento enquanto navega entre frente/verso
+
+  (function () {
+    console.log("[FRONT] Iniciando sistema de gabarito dinâmico");
+
+    // Função auxiliar: embaralha array
+    function shuffleArray(arr) {
+      const array = [...arr];
+      for (let i = array.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [array[i], array[j]] = [array[j], array[i]];
+      }
+      return array;
+    }
+
+    // Obter gabarito original do campo
+    const gabaritoEl = document.querySelector("[data-gabarito]");
+    const gabaritoOriginal = gabaritoEl
+      ? gabaritoEl.getAttribute("data-gabarito").trim()
+      : null;
+
+    if (!gabaritoOriginal) {
+      console.warn("[FRONT] Gabarito não encontrado. Sistema desativado.");
+      return;
+    }
+
+    console.log("[FRONT] Gabarito original:", gabaritoOriginal);
+
+    // Coletar todas as alternativas originais
+    const alternativasOriginais = {};
+    const letras = ["A", "B", "C", "D", "E"];
+
+    letras.forEach((letra) => {
+      const item = document.querySelector(
+        `.alternativa-item[data-letra="${letra}"]`,
+      );
+      if (item) {
+        const texto =
+          item.querySelector(".alternativa-texto")?.textContent?.trim() || "";
+        alternativasOriginais[letra] = texto;
+      }
+    });
+
+    const letrasDisponíveis = letras.filter((l) => alternativasOriginais[l]);
+    console.log("[FRONT] Alternativas disponíveis:", letrasDisponíveis);
+
+    // Verificar se já existe embaralhamento na sessão
+    // Usar cardId único baseado no enunciado para diferenciar cards
+    const cardHash = Math.abs(
+      alternativasOriginais["A"].split("").reduce((a, b) => {
+        a = (a << 5) - a + b.charCodeAt(0);
+        return a & a;
+      }, 0),
+    ).toString(36);
+    const sessionKey = "gabarito-dinamico-" + cardHash;
+    let config = null;
+
+    const embaralhamentoArmazenado = sessionStorage.getItem(sessionKey);
+    if (embaralhamentoArmazenado) {
+      config = JSON.parse(embaralhamentoArmazenado);
+      console.log("[FRONT] Usando embaralhamento existente da sessão");
+    } else {
+      // Gerar novo embaralhamento
+      const letrasEmbaralhadas = shuffleArray(letrasDisponíveis);
+
+      config = {
+        original: gabaritoOriginal,
+        alternativas: alternativasOriginais,
+        letrasEmbaralhadas: letrasEmbaralhadas,
+      };
+
+      sessionStorage.setItem(sessionKey, JSON.stringify(config));
+      console.log("[FRONT] Novo embaralhamento criado");
+    }
+
+    console.log("[FRONT] Config de embaralhamento:", config);
+
+    // Encontrar o texto da resposta correta
+    let textoGabarito = null;
+
+    // Se gabarito é uma letra única (A, B, C, D, E)
+    if (/^[A-E]$/i.test(config.original.trim())) {
+      textoGabarito = config.alternativas[config.original.toUpperCase()];
+      console.log(
+        "[FRONT] Gabarito original é letra:",
+        config.original,
+        "| Texto:",
+        textoGabarito,
+      );
+    } else {
+      // Se gabarito é texto completo, usar diretamente
+      textoGabarito = config.original.trim();
+      console.log("[FRONT] Gabarito original é texto:", textoGabarito);
+    }
+
+    // Encontrar a nova posição da resposta correta
+    let gabaritoAtual = null;
+    config.letrasEmbaralhadas.forEach((novaLetra, index) => {
+      const textoNaNovaPos = config.alternativas[novaLetra];
+      if (
+        textoNaNovaPos &&
+        textoNaNovaPos.trim().toUpperCase() ===
+          textoGabarito.trim().toUpperCase()
+      ) {
+        gabaritoAtual = novaLetra;
+      }
+    });
+
+    if (!gabaritoAtual) {
+      console.warn(
+        "[FRONT] Não foi possível encontrar a resposta correta após embaralhamento",
+      );
+      return;
+    }
+
+    console.log(
+      "[FRONT] Gabarito após embaralhamento:",
+      gabaritoAtual,
+      "| Texto:",
+      textoGabarito,
+    );
+
+    // Atualizar o DOM com as alternativas embaralhadas
+    config.letrasEmbaralhadas.forEach((letraOriginal, indexEmbaralhado) => {
+      const letraNoDOM = letrasDisponíveis[indexEmbaralhado];
+      const item = document.querySelector(
+        `.alternativa-item[data-letra="${letraNoDOM}"]`,
+      );
+
+      if (item) {
+        const textoSpan = item.querySelector(".alternativa-texto");
+        if (textoSpan) {
+          textoSpan.textContent = config.alternativas[letraOriginal];
+          console.log(
+            `[FRONT] Alternativa ${letraNoDOM} agora tem: ${config.alternativas[letraOriginal].substring(0, 30)}...`,
+          );
+        }
+      }
+    });
+
+    // Salvar config para o Back.html usar
+    const backConfigKey = "gabarito-dinamico-config-" + cardHash;
+    sessionStorage.setItem(
+      backConfigKey,
+      JSON.stringify({
+        original: config.original,
+        gabarito: gabaritoAtual,
+        texto: textoGabarito,
+        alternativas: config.alternativas,
+        letrasEmbaralhadas: config.letrasEmbaralhadas,
+      }),
+    );
+
+    // Também salvar a chave para o Back encontrar
+    sessionStorage.setItem("gabarito-dinamico-card-hash", cardHash);
+
+    console.log("[FRONT] Gabarito dinâmico configurado com sucesso");
+  })();
+</script>
 
 <script>
-// Feedback visual ao selecionar alternativa e salvar no localStorage
-document.querySelectorAll('.alternativa-radio').forEach(radio => {
-  radio.addEventListener('change', function() {
-    // Remove classe de todas as alternativas
-    document.querySelectorAll('.alternativa-item').forEach(item => {
-      item.classList.remove('alternativa-selecionada');
+  // Feedback visual ao selecionar alternativa e salvar no localStorage
+  document.querySelectorAll(".alternativa-radio").forEach((radio) => {
+    radio.addEventListener("change", function () {
+      // Remove classe de todas as alternativas
+      document.querySelectorAll(".alternativa-item").forEach((item) => {
+        item.classList.remove("alternativa-selecionada");
+      });
+      // Adiciona classe na alternativa selecionada
+      if (this.checked) {
+        this.closest(".alternativa-item").classList.add(
+          "alternativa-selecionada",
+        );
+
+        // Salvar seleção no localStorage para passar para o Back quando "Show Answer" for clicado
+        // Usa uma chave única baseada no timestamp atual (será a mais recente)
+        const timestamp = Date.now();
+        const respostaSelecionada = this.value;
+        const storageKey = "anki-resposta-selecionada-" + timestamp;
+        localStorage.setItem(storageKey, respostaSelecionada);
+
+        // Também salvar uma referência à chave mais recente para facilitar a busca
+        localStorage.setItem("anki-resposta-mais-recente", storageKey);
+
+        // DEBUG: Log no console
+        console.log("[FRONT] Alternativa selecionada:", respostaSelecionada);
+        console.log("[FRONT] Timestamp:", timestamp);
+        console.log(
+          "[FRONT] Salvo no localStorage:",
+          storageKey,
+          "=",
+          respostaSelecionada,
+        );
+      }
     });
-    // Adiciona classe na alternativa selecionada
-    if (this.checked) {
-      this.closest('.alternativa-item').classList.add('alternativa-selecionada');
-
-      // Salvar seleção no localStorage para passar para o Back quando "Show Answer" for clicado
-      // Usa uma chave única baseada no timestamp atual (será a mais recente)
-      const timestamp = Date.now();
-      const respostaSelecionada = this.value;
-      const storageKey = 'anki-resposta-selecionada-' + timestamp;
-      localStorage.setItem(storageKey, respostaSelecionada);
-
-      // Também salvar uma referência à chave mais recente para facilitar a busca
-      localStorage.setItem('anki-resposta-mais-recente', storageKey);
-
-      // DEBUG: Log no console
-      console.log('🔵 [FRONT] Alternativa selecionada:', respostaSelecionada);
-      console.log('🔵 [FRONT] Timestamp:', timestamp);
-      console.log('🔵 [FRONT] Salvo no localStorage:', storageKey, '=', respostaSelecionada);
-    }
   });
-});
 </script>
 
 <script>
   // Zoom de imagens: clicar para ampliar, clicar novamente para desampliar
   // Usa event delegation para funcionar mesmo quando o DOM é atualizado (navegação entre cards)
   // Função global que funciona tanto no front quanto no back
-  (function() {
+  (function () {
     // Verifica se já existe um handler global (evita duplicação)
     if (!window.imageZoomHandler) {
-      window.imageZoomHandler = function(e) {
+      window.imageZoomHandler = function (e) {
         // Verifica se o clique foi em uma imagem dentro do flashcard
-        if (e.target && e.target.tagName === 'IMG' && e.target.closest('.prettify-flashcard')) {
-          e.target.classList.toggle('zoomed');
+        if (
+          e.target &&
+          e.target.tagName === "IMG" &&
+          e.target.closest(".prettify-flashcard")
+        ) {
+          e.target.classList.toggle("zoomed");
         }
       };
 
       // Anexa o listener com capture para garantir que funcione em todos os contextos
-      document.addEventListener('click', window.imageZoomHandler, true);
+      document.addEventListener("click", window.imageZoomHandler, true);
     }
   })();
 </script>
+
+<script>
+  var imagemDetails = document.querySelector(".imagem-container");
+  if (imagemDetails) {
+    imagemDetails.setAttribute("open", "");
+    setTimeout(function () {
+      imagemDetails.removeAttribute("open");
+    }, 1000);
+  }
+</script>
+

@@ -28,7 +28,7 @@ An advanced Anki note type designed for practicing code typing and memorization 
 - **Hint** - Optional field for code hints (displayed in collapsible section)
 - **Further Description** - Optional field for additional context or expected output
 - **Subdeck** - Optional field for organizing cards by subcategory
-- **Source** - Optional field for source links (currently commented out in templates)
+- **Source** - Keywords separated by commas, ranging from the broadest to the most specific, to facilitate searches in other sources.
 
 ## Card Templates
 
