@@ -33,7 +33,7 @@
   --anotacoes-label-fg: #6c757d;
   --anotacoes-label-hover-fg: #495057;
   --anotacoes-conteudo-fg: #495057;
-  --anotacoes-max-height: 250px;
+  --anotacoes-max-height: 110px;
   --imagem-bg: #f8f9fa;
   --imagem-border: #dee2e6;
   --imagem-label-fg: #6c757d;
@@ -135,11 +135,7 @@
 /* --------------------- BACKGROUND */
 .card {
   cursor: default;
-  padding: 0.5em 0;
-}
-
-html:not(.mobile) .card {
-  padding: 0.5em;
+  padding: 0.2em 0;
 }
 
 .card::-webkit-scrollbar {
@@ -158,7 +154,7 @@ html:not(.mobile) .card {
   font-family: var(--font-family);
   font-size: var(--font-size-regular);
   line-height: 1.5;
-  margin: 0.5em auto;
+  margin: 0 auto;
   max-width: var(--card-max-width);
   text-align: var(--card-text-align);
   word-wrap: break-word;
@@ -171,7 +167,7 @@ html:not(.mobile) .card {
 
 /* --------------------- FIELDS */
 .prettify-field {
-  margin: 0.8em 0.8em 0.8em 0.8em;
+  margin: 0.2em 0.8em 0.8em 0.8em;
   /*margin: 0.1em 1.20em 0.60em 1.20em;*/
   text-align: justify;
   text-justify: inter-word;

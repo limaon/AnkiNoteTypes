@@ -9,6 +9,7 @@ This repository contains a set of professionally designed Anki note types that e
 ## Features
 
 All templates include:
+
 - Modern, clean design with customizable CSS variables
 - Light and dark mode support
 - Hierarchical tags display
@@ -33,20 +34,20 @@ This project includes a local preview environment that allows you to view and te
 
 The preview supports the following Anki template syntax:
 
-| Syntax | Description |
-|--------|-------------|
-| `{{Field}}` | Simple field |
-| `{{#Field}}...{{/Field}}` | Positive conditional |
+| Syntax                    | Description                       |
+| ------------------------- | --------------------------------- |
+| `{{Field}}`               | Simple field                      |
+| `{{#Field}}...{{/Field}}` | Positive conditional              |
 | `{{^Field}}...{{/Field}}` | Inverse conditional (empty field) |
-| `{{edit:Field}}` | Editable field |
-| `{{type:Field}}` | Typing field |
-| `{{cloze:Field}}` | Cloze deletion |
-| `{{edit:cloze:Field}}` | Combination of edit and cloze |
-| `{{hint::Field}}` | Clickable hint |
-| `{{clickable:Field}}` | Clickable field |
-| `{{Card}}` | Card type name |
-| `{{Deck}}` | Deck name |
-| `{{Subdeck}}` | Subdeck name |
+| `{{edit:Field}}`          | Editable field                    |
+| `{{type:Field}}`          | Typing field                      |
+| `{{cloze:Field}}`         | Cloze deletion                    |
+| `{{edit:cloze:Field}}`    | Combination of edit and cloze     |
+| `{{hint::Field}}`         | Clickable hint                    |
+| `{{clickable:Field}}`     | Clickable field                   |
+| `{{Card}}`                | Card type name                    |
+| `{{Deck}}`                | Deck name                         |
+| `{{Subdeck}}`             | Subdeck name                      |
 
 > **Note:** Fields with spaces in their names (e.g., `{{Further Description}}`) are fully supported.
 
@@ -77,17 +78,18 @@ AnkiNoteTypes/
 
 ## Available Templates
 
-| Template | Description |
-|----------|-------------|
-| **Basic++** | Enhanced basic template with inline editing |
-| **Cloze++** | Cloze template with support for multiple deletions |
-| **CodeTypingPractice** | Practice code typing with syntax highlighting |
-| **MultiplaEscolhaQuestao** | Multiple choice questions (exam style) |
-| **OneLineTypeAnswer** | Single-line typed answer with terminal-style |
+| Template                   | Description                                        |
+| -------------------------- | -------------------------------------------------- |
+| **Basic++**                | Enhanced basic template with inline editing        |
+| **Cloze++**                | Cloze template with support for multiple deletions |
+| **CodeTypingPractice**     | Practice code typing with syntax highlighting      |
+| **MultiplaEscolhaQuestao** | Multiple choice questions (exam style)             |
+| **OneLineTypeAnswer**      | Single-line typed answer with terminal-style       |
 
 ## Usage
 
 Each template folder contains:
+
 - `template.json` - Template configuration file
 - `Card_1/` - Card template files (Front.html, Back.html)
 - `Style.css` - Styling file

@@ -5,51 +5,48 @@
   {{/Tags}}
 
   <div class="prettify-field prettify-field--front">
-    <tts service="android">
-      {{edit:Front}}
-    </tts>
+    <tts service="android"> {{edit:Front}} </tts>
   </div>
-
 </div>
 
 <script>
   // Split hierarchical tags
-  var tagsContainerEl = document.querySelectorAll('.prettify-tags > *')
+  var tagsContainerEl = document.querySelectorAll(".prettify-tags > *");
   if (tagsContainerEl.length > 0) {
-    var tags = []
+    var tags = [];
     tagsContainerEl.forEach((tagEl) => {
-      tagEl.classList.add('prettify-tag')
-      tags.push(tagEl.innerHTML)
+      tagEl.classList.add("prettify-tag");
+      tags.push(tagEl.innerHTML);
       tags.forEach((tag) => {
-        var childTag = tag.split('::').filter(Boolean)
-        tagEl.innerHTML = childTag[childTag.length - 1].trim()
-      })
-    })
+        var childTag = tag.split("::").filter(Boolean);
+        tagEl.innerHTML = childTag[childTag.length - 1].trim();
+      });
+    });
   } else {
-    tagsContainerEl = document.querySelector('.prettify-tags')
-    var tags = tagsContainerEl.innerHTML.split(' ').filter(Boolean)
-    var html = ''
+    tagsContainerEl = document.querySelector(".prettify-tags");
+    var tags = tagsContainerEl.innerHTML.split(" ").filter(Boolean);
+    var html = "";
     tags.forEach((tag) => {
-      var childTag = tag.split('::').filter(Boolean)
+      var childTag = tag.split("::").filter(Boolean);
       html +=
         "<span class='prettify-tag'>" +
         childTag[childTag.length - 1] +
-        '</span>'
-    })
-    tagsContainerEl.innerHTML = html
+        "</span>";
+    });
+    tagsContainerEl.innerHTML = html;
   }
 </script>
 
 <script>
   // Breadcrumbs to current deck
-  var deckEl = document.querySelector('.prettify-deck')
+  var deckEl = document.querySelector(".prettify-deck");
   if (deckEl) {
-    var subDecks = deckEl.innerHTML.split('::').filter(Boolean)
-    var html = []
+    var subDecks = deckEl.innerHTML.split("::").filter(Boolean);
+    var html = [];
     subDecks.forEach((subDeck) => {
-      html.push("<span class='prettify-subdeck'>" + subDeck + '</span>')
-    })
-    deckEl.innerHTML = html.join('&nbsp;/&nbsp;')
+      html.push("<span class='prettify-subdeck'>" + subDeck + "</span>");
+    });
+    deckEl.innerHTML = html.join("&nbsp;/&nbsp;");
   }
 </script>
 
@@ -61,61 +58,43 @@
 </script>
 
 <script>
-MathJax.config.tex['macros'] = {
-    R: '{\\mathbb{R}}',
-    Z: '{\\mathbb{Z}}',
-    N: '{\\mathbb{N}}',
-    Q: '{\\mathbb{Q}}',
-    C: '{\\mathbb{C}}',
-    deg: '{^{\\circ}}',
-    ang: '{\\angle}',
-    norm: ['{\\lVert #1 \\rVert}', 1],
-    abs: ['{\\lvert #1 \\rvert}', 1]
-};
-if (typeof is_already_run == 'undefined') {
-  is_already_run = true;
-  MathJax.startup.getComponents();
-}
-</script>
-
-
-<script>
-// Função para verificar se um elemento tem overflow
-function hasOverflow(element) {
-  return element.scrollHeight > element.clientHeight;
-}
-
-// Encontrar os elementos a serem monitorados
-const fields = document.querySelectorAll('.prettify-field--front, .prettify-field--back');
-
-// Função para adicionar/remover a classe overflown
-function checkOverflow() {
-  fields.forEach(field => {
-    field.classList.toggle('overflown', hasOverflow(field));
-  });
-}
-
-// Chamar a função inicialmente e em um intervalo para atualizar
-checkOverflow();
-setInterval(checkOverflow, 100);
+  MathJax.config.tex["macros"] = {
+    R: "{\\mathbb{R}}",
+    Z: "{\\mathbb{Z}}",
+    N: "{\\mathbb{N}}",
+    Q: "{\\mathbb{Q}}",
+    C: "{\\mathbb{C}}",
+    deg: "{^{\\circ}}",
+    ang: "{\\angle}",
+    norm: ["{\\lVert #1 \\rVert}", 1],
+    abs: ["{\\lvert #1 \\rvert}", 1],
+  };
+  if (typeof is_already_run == "undefined") {
+    is_already_run = true;
+    MathJax.startup.getComponents();
+  }
 </script>
 
 <script>
   // Zoom de imagens: clicar para ampliar, clicar novamente para desampliar
   // Usa event delegation para funcionar mesmo quando o DOM é atualizado (navegação entre cards)
   // Função global que funciona tanto no front quanto no back
-  (function() {
+  (function () {
     // Verifica se já existe um handler global (evita duplicação)
     if (!window.imageZoomHandler) {
-      window.imageZoomHandler = function(e) {
+      window.imageZoomHandler = function (e) {
         // Verifica se o clique foi em uma imagem dentro do flashcard
-        if (e.target && e.target.tagName === 'IMG' && e.target.closest('.prettify-flashcard')) {
-          e.target.classList.toggle('zoomed');
+        if (
+          e.target &&
+          e.target.tagName === "IMG" &&
+          e.target.closest(".prettify-flashcard")
+        ) {
+          e.target.classList.toggle("zoomed");
         }
       };
 
       // Anexa o listener com capture para garantir que funcione em todos os contextos
-      document.addEventListener('click', window.imageZoomHandler, true);
+      document.addEventListener("click", window.imageZoomHandler, true);
     }
   })();
 </script>
