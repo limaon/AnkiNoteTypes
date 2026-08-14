@@ -44,6 +44,16 @@
   --bold-italic-fg: var(--text-fg);
   --underline-fg: var(--text-fg);
   --random-color: var(--color-1);
+  /* Input field dimensions */
+  --input-width: 90%;
+  --input-max-height: 600px;
+  --input-padding: 4px 10px;
+  /* Terminal theme colors */
+  --terminal-bg: rgba(0, 0, 0, 0.9);
+  --terminal-text: #00ff00;
+  --terminal-border-color: var(--text-fg);
+  /* Typography */
+  --input-letter-spacing: 0.8px;
 }
 
 /* Dark mode - complete selectors for cross-platform support */
@@ -436,24 +446,24 @@ footer > a:last-child:after {
 
 #typeans {
   display: block;
-  width: 90%;
-  max-height: 600px;
-  padding: 4px 10px;
+  width: var(--input-width);
+  max-height: var(--input-max-height);
+  padding: var(--input-padding);
   margin: 0 auto;
-  border: 1px solid var(--text-fg);
-  background-color: rgba(0, 0, 0, 0.9);
+  border: 1px solid var(--terminal-border-color);
+  background-color: var(--terminal-bg);
   font-family: var(--monospace-font-family);
   font-size: var(--font-size-small);
-  letter-spacing: 0.8px;
+  letter-spacing: var(--input-letter-spacing);
   color: var(--text-fg);
-  caret-color: #00ff00;
+  caret-color: var(--terminal-text);
   box-sizing: border-box;
   text-align: left;
 }
 
 #typeans:focus {
   outline: none;
-  border-bottom-color: #00ff00;
+  border-bottom-color: var(--terminal-text);
   border-bottom-width: 1px;
 }
 
