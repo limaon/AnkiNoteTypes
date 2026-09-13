@@ -16,6 +16,10 @@
   <div
     id="image-occlusion-container"
     class="prettify-field prettify-field--image-occlusion"
+    tabindex="0"
+    role="button"
+    aria-label="Ampliar imagem"
+    aria-expanded="false"
   >
     {{Image}}
     <canvas id="image-occlusion-canvas"></canvas>
@@ -128,10 +132,50 @@
 </script>
 
 <script>
-  // Image zoom: click to enlarge, click again to close
-  // Uses event delegation to work even when DOM is updated (card navigation)
-  // Only applies to secondary images (outside #image-occlusion-container)
+  // Image zoom uses delegation so it survives Anki's card navigation updates.
   (function () {
+    function toggleImageOcclusionZoom(container) {
+      var isZoomed = container.classList.toggle("zoomed");
+      container.setAttribute("aria-expanded", String(isZoomed));
+    }
+
+    function closeImageOcclusionZoom() {
+      var container = document.querySelector(
+        "#image-occlusion-container.zoomed",
+      );
+      if (container) {
+        toggleImageOcclusionZoom(container);
+      }
+    }
+
+    if (!window.imageOcclusionZoomHandler) {
+      window.imageOcclusionZoomHandler = function (event) {
+        var image = event.target.closest("img");
+        var container = image && image.closest("#image-occlusion-container");
+        if (container) {
+          toggleImageOcclusionZoom(container);
+        }
+      };
+      document.addEventListener(
+        "click",
+        window.imageOcclusionZoomHandler,
+        true,
+      );
+    }
+
+    if (!window.imageOcclusionZoomKeyHandler) {
+      window.imageOcclusionZoomKeyHandler = function (event) {
+        var container = event.target.closest("#image-occlusion-container");
+        if (container && (event.key === "Enter" || event.key === " ")) {
+          event.preventDefault();
+          toggleImageOcclusionZoom(container);
+        } else if (event.key === "Escape") {
+          closeImageOcclusionZoom();
+        }
+      };
+      document.addEventListener("keydown", window.imageOcclusionZoomKeyHandler);
+    }
+
     if (!window.imageZoomHandler) {
       window.imageZoomHandler = function (e) {
         if (

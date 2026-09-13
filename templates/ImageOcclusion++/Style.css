@@ -174,6 +174,28 @@ a:active {
   margin: 1em auto;
   width: 70%;
   display: block;
+  cursor: zoom-in;
+}
+
+#image-occlusion-container:focus-visible {
+  outline: 2px solid var(--link-fg);
+  outline-offset: 0.25em;
+}
+
+#image-occlusion-container.zoomed {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  width: 90vw;
+  max-height: 90vh;
+  transform: translate(-50%, -50%);
+  z-index: 100;
+  cursor: zoom-out;
+}
+
+#image-occlusion-container.zoomed img {
+  max-height: 90vh;
+  object-fit: contain;
 }
 
 #image-occlusion-container img {
@@ -293,11 +315,6 @@ html:not(.mobile) .card {
   display: block;
   margin: 1em auto;
   max-width: 16% !important;
-  transition:
-    transform 0.3s ease,
-    box-shadow 0.3s ease,
-    filter 0.3s ease,
-    background-color 0.3s ease;
   background-color: transparent;
   cursor: zoom-in;
 }
@@ -324,7 +341,8 @@ html:not(.mobile) .card {
 
 /* Dark overlay when image is zoomed */
 body:has(
-    .prettify-flashcard img.zoomed:not(#image-occlusion-container img)
+    .prettify-flashcard img.zoomed:not(#image-occlusion-container img),
+    #image-occlusion-container.zoomed
   )::before {
   content: "";
   position: fixed;
@@ -363,6 +381,15 @@ html.mobile body:has(.prettify-flashcard img.zoomed)::before,
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
+}
+
+.mobile #image-occlusion-container.zoomed {
+  width: 95vw;
+  max-height: 95vh;
+}
+
+.mobile #image-occlusion-container.zoomed img {
+  max-height: 95vh;
 }
 
 /* --------------------- RESPONSIVENESS */
