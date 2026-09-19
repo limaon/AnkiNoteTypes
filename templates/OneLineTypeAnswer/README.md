@@ -5,7 +5,7 @@ A specialized Anki note type designed for one-line answer practice with typing f
 ## Features
 
 - **Type-to-answer functionality** - Type your answer directly in a terminal-style input field
-- **Terminal-style interface** - Command-line prompt styling for a familiar coding environment
+- **Terminal-style interface** - Displays the question as a task and provides a `user@anki:~$` command prompt
 - **Hint support** - Optional hints displayed as cloze deletions to guide your answer
 - **Clean, modern design** with customizable CSS variables
 - **Light and dark mode** support
@@ -14,7 +14,6 @@ A specialized Anki note type designed for one-line answer practice with typing f
 - **Syntax highlighting** - Powered by highlight.js for code snippets in hints
 - **Smart footer links** - automatically generates search links using the Keywords field
 - **Hierarchical tags** display with improved styling
-- **Enter key support** - Press Enter to center-align your typed answer
 
 ## Fields
 
@@ -34,7 +33,6 @@ A specialized Anki note type designed for one-line answer practice with typing f
 3. Optionally add a hint in the **TypeHint** field (will be displayed as a cloze deletion)
 4. Optionally add keywords in the **Keywords** field to generate search links in the footer
 5. When reviewing, type your answer in the terminal-style input field
-6. Press Enter to center-align your answer
 
 Perfect for practicing:
 - Command-line commands
@@ -42,4 +40,3 @@ Perfect for practicing:
 - Definitions or key terms
 - Programming syntax
 - Any single-line answers that benefit from active typing practice
-

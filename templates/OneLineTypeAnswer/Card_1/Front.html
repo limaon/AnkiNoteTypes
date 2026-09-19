@@ -7,7 +7,10 @@
   {{/Tags}}
 
   <div class="prettify-field prettify-field--front">
-    <tts service="android"> {{edit:Question}} </tts>
+    <div class="terminal-task-label">Tarefa</div>
+    <div class="terminal-task">
+      <tts service="android"> {{edit:Question}} </tts>
+    </div>
     {{#TypeHint}}
     <code>{{hint::TypeHint}}</code>
     {{/TypeHint}}
@@ -17,7 +20,7 @@
     <div class="prettify-divider prettify-divider--answer" id="answer"></div>
     <div class="typeans-container">
       <div class="terminal-line-anki">
-        <span class="terminal-prompt-anki"></span>
+        <span class="terminal-prompt-anki" aria-hidden="true">user@anki:~$</span>
         {{type:Answer}}
       </div>
     </div>

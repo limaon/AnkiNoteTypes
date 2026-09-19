@@ -444,18 +444,61 @@ footer > a:last-child:after {
   font-weight: normal;
 }
 
+.terminal-task-label {
+  color: var(--terminal-text);
+  font-family: var(--monospace-font-family);
+  font-size: var(--font-size-smallest);
+  font-weight: bold;
+  letter-spacing: 0.12em;
+  margin-bottom: 0.35em;
+  text-transform: uppercase;
+}
+
+.terminal-task {
+  border-left: 3px solid var(--terminal-text);
+  padding-left: 0.75em;
+}
+
+.typeans-container {
+  background-color: var(--terminal-bg);
+  border: 1px solid var(--terminal-border-color);
+  border-radius: 0.35em;
+  box-sizing: border-box;
+  margin: 0 auto;
+  max-width: var(--card-max-width);
+  padding: 0.75em;
+}
+
+.terminal-line-anki {
+  align-items: center;
+  display: flex;
+  gap: 0.6em;
+  min-width: 0;
+}
+
+.terminal-prompt-anki {
+  color: var(--terminal-text);
+  flex: 0 0 auto;
+  font-family: var(--monospace-font-family);
+  font-size: var(--font-size-small);
+  font-weight: bold;
+  white-space: nowrap;
+}
+
 #typeans {
   display: block;
-  width: var(--input-width);
+  flex: 1 1 auto;
+  min-width: 0;
+  width: 100%;
   max-height: var(--input-max-height);
   padding: var(--input-padding);
-  margin: 0 auto;
+  margin: 0;
   border: 1px solid var(--terminal-border-color);
   background-color: var(--terminal-bg);
   font-family: var(--monospace-font-family);
   font-size: var(--font-size-small);
   letter-spacing: var(--input-letter-spacing);
-  color: var(--text-fg);
+  color: var(--terminal-text);
   caret-color: var(--terminal-text);
   box-sizing: border-box;
   text-align: left;
@@ -501,8 +544,22 @@ footer > a:last-child:after {
 }
 
 @media (max-width: 600px) {
+  .typeans-container {
+    padding: 0.6em;
+  }
+
+  .terminal-line-anki {
+    align-items: stretch;
+    flex-wrap: wrap;
+    gap: 0.4em;
+  }
+
+  .terminal-prompt-anki {
+    width: 100%;
+  }
+
   #typeans {
-    width: 90%;
+    width: 100%;
     font-size: var(--font-size-small);
     padding: 10px;
     max-height: 90%;
