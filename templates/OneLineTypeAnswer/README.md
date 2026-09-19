@@ -5,7 +5,7 @@ A specialized Anki note type designed for one-line answer practice with typing f
 ## Features
 
 - **Type-to-answer functionality** - Type your answer directly in a terminal-style input field
-- **Terminal-style interface** - Displays the question as a task and provides a `user@anki:~$` command prompt
+- **Terminal-style interface** - Displays a concise shell-style prompt beside the answer field
 - **Hint support** - Optional hints displayed as cloze deletions to guide your answer
 - **Clean, modern design** with customizable CSS variables
 - **Light and dark mode** support

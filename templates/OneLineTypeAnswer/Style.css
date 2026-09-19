@@ -196,13 +196,15 @@
   all: initial;
   background-color: var(--tag-bg);
   border-radius: 0em 0em 0.6em 0.6em;
+  box-sizing: border-box;
   color: var(--tag-fg);
   display: inline;
   font-size: var(--font-size-smallest);
   font-family: var(--monospace-font-family);
+  line-height: 1.2;
   margin: 0 0.5em 0.5em 0;
   padding: 0.3em 0.8em;
-  transition: all 0.25s;
+  transition: none;
   word-break: break-word;
 }
 
@@ -444,29 +446,18 @@ footer > a:last-child:after {
   font-weight: normal;
 }
 
-.terminal-task-label {
-  color: var(--terminal-text);
-  font-family: var(--monospace-font-family);
-  font-size: var(--font-size-smallest);
-  font-weight: bold;
-  letter-spacing: 0.12em;
-  margin-bottom: 0.35em;
-  text-transform: uppercase;
-}
-
 .terminal-task {
-  border-left: 3px solid var(--terminal-text);
-  padding-left: 0.75em;
+  font-size: 1.1em;
 }
 
 .typeans-container {
   background-color: var(--terminal-bg);
-  border: 1px solid var(--terminal-border-color);
-  border-radius: 0.35em;
+  border-left: 3px solid var(--terminal-text);
+  border-radius: 0 0.25em 0.25em 0;
   box-sizing: border-box;
   margin: 0 auto;
   max-width: var(--card-max-width);
-  padding: 0.75em;
+  padding: 0.65em 0.85em;
 }
 
 .terminal-line-anki {
@@ -474,6 +465,22 @@ footer > a:last-child:after {
   display: flex;
   gap: 0.6em;
   min-width: 0;
+}
+
+.terminal-line-anki > center {
+  display: block;
+  flex: 1 1 0;
+  min-width: 0;
+  text-align: left;
+  width: 100%;
+}
+
+.terminal-line-anki:has(code#typeans) {
+  display: block;
+}
+
+.terminal-line-anki:has(code#typeans) .terminal-prompt-anki {
+  display: none;
 }
 
 .terminal-prompt-anki {
@@ -487,17 +494,18 @@ footer > a:last-child:after {
 
 #typeans {
   display: block;
-  flex: 1 1 auto;
+  flex: 1 1 0 !important;
   min-width: 0;
-  width: 100%;
+  width: 100% !important;
   max-height: var(--input-max-height);
-  padding: var(--input-padding);
+  padding: 0.2em 0.1em;
   margin: 0;
-  border: 1px solid var(--terminal-border-color);
-  background-color: var(--terminal-bg);
+  border: none;
+  border-radius: 0;
+  background-color: transparent;
   font-family: var(--monospace-font-family);
-  font-size: var(--font-size-small);
-  letter-spacing: var(--input-letter-spacing);
+  font-size: 16px;
+  letter-spacing: 0.2px;
   color: var(--terminal-text);
   caret-color: var(--terminal-text);
   box-sizing: border-box;
@@ -506,8 +514,6 @@ footer > a:last-child:after {
 
 #typeans:focus {
   outline: none;
-  border-bottom-color: var(--terminal-text);
-  border-bottom-width: 1px;
 }
 
 #typeans::placeholder {
@@ -521,15 +527,24 @@ footer > a:last-child:after {
 }
 
 .typeGood {
+  background-color: rgba(0, 255, 0, 0.2);
+  color: #b8ffbd;
   font-weight: bold;
+  padding: 0 0.1em;
 }
 
 .typeBad {
-  text-decoration: underline;
+  background-color: rgba(255, 82, 82, 0.35);
+  color: #ffd1d1;
+  padding: 0 0.1em;
+  text-decoration: line-through;
 }
 
 .typeMissed {
-  font-style: italic;
+  background-color: rgba(255, 193, 7, 0.28);
+  color: #ffe59a;
+  font-style: normal;
+  padding: 0 0.1em;
 }
 
 .centered {
@@ -538,9 +553,23 @@ footer > a:last-child:after {
 }
 
 #typearrow {
-  font-size: 24px;
-  text-align: center;
+  color: var(--terminal-text);
   display: block;
+  font-size: 1.1em;
+  margin: 0.35em 0;
+  opacity: 0.65;
+  text-align: left;
+}
+
+code#typeans {
+  background-color: transparent;
+  color: var(--terminal-text);
+  display: block;
+  line-height: 1.8;
+  overflow-x: auto;
+  padding: 0.2em 0;
+  text-align: left;
+  white-space: pre-wrap;
 }
 
 @media (max-width: 600px) {
@@ -561,7 +590,7 @@ footer > a:last-child:after {
   #typeans {
     width: 100%;
     font-size: var(--font-size-small);
-    padding: 10px;
+    padding: 0.4em 0.1em;
     max-height: 90%;
   }
 }
