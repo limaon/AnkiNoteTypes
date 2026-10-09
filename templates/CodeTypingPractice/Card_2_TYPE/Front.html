@@ -65,13 +65,13 @@
   </div>
 
   <!-- Editor Settings Section -->
-  <details class="conditional-section" id="editor-settings">
+  <details class="conditional-section" id="editor-settings" open>
     <summary>Editor Settings</summary>
     <div class="conditional-content settings-content settings-inline">
       <!-- Autocomplete Toggle -->
       <label class="setting-toggle">
         <span class="setting-label">Autocomplete</span>
-        <input type="checkbox" id="setting-autocomplete" checked>
+        <input type="checkbox" id="setting-autocomplete">
         <span class="toggle-slider-mini"></span>
       </label>
 
@@ -119,8 +119,7 @@
       ACE EDITOR CDN (Load before initialization)
       ============================================ -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.43.3/ace.js" charset="utf-8"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.43.3/theme-github_light_default.js" charset="utf-8"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.43.3/theme-github_dark.js" charset="utf-8"></script>
+<script src="_theme-vscode.js" charset="utf-8"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.43.3/ext-language_tools.js" charset="utf-8"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.43.3/keybinding-vim.js" charset="utf-8"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.43.3/keybinding-emacs.js" charset="utf-8"></script>
@@ -222,12 +221,7 @@ var Utils = {
   },
 
   getTheme: function() {
-    var body = document.body;
-    if (body && (body.classList.contains('night_mode') ||
-                 document.documentElement.classList.contains('night_mode'))) {
-      return 'ace/theme/github_dark';
-    }
-    return 'ace/theme/github_light_default';
+    return 'ace/theme/vscode';
   },
 
   escapeHtml: function(text) {
@@ -511,7 +505,7 @@ var EditorConfigTyping = {
       storageKey: 'ace_editor_settings',
 
       defaults: {
-        autocomplete: true,
+        autocomplete: false,
         indentGuides: false,
         keybinding: 'vim'
       },
