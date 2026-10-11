@@ -11,7 +11,13 @@
       <tts service="android"> {{edit:Question}} </tts>
     </div>
     {{#TypeHint}}
-    <code>{{hint::TypeHint}}</code>
+    <details class="typehint" open>
+      <summary class="typehint-toggle">
+        <span class="typehint-show">Show hint</span>
+        <span class="typehint-hide">Hide hint</span>
+      </summary>
+      <div class="typehint-content">{{TypeHint}}</div>
+    </details>
     {{/TypeHint}}
   </div>
 
@@ -19,9 +25,7 @@
     <div class="prettify-divider prettify-divider--answer" id="answer"></div>
     <div class="typeans-container">
       <div class="terminal-line-anki">
-        <span class="terminal-prompt-anki" aria-hidden="true"
-          >~ $</span
-        >
+        <span class="terminal-prompt-anki" aria-hidden="true">~ $</span>
         {{type:Answer}}
       </div>
     </div>
@@ -47,14 +51,9 @@
     >
     <!--<a href="https://www.phind.com/search?q={{Keywords}}" title="Search on Phind">Phind</a>-->
     <a
-      href="https://chatgpt.com/?temporary-chat=true&model=gpt-4o&q={{Keywords}}"
+      href="https://chatgpt.com/?temporary-chat=true&q={{Keywords}}"
       title="Search on ChatGPT"
-      >GPT-4o</a
-    >
-    <a
-      href="https://chatgpt.com/?temporary-chat=true&model=o1&q={{Keywords}}"
-      title="Search on ChatGPT"
-      >GPT-o1</a
+      >ChatGPT</a
     >
     <a
       href="https://you.com/search?q={{Keywords}}&fromSearchBar=true&tbm=youchat&chatMode=default"

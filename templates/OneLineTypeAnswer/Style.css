@@ -44,14 +44,11 @@
   --bold-italic-fg: var(--text-fg);
   --underline-fg: var(--text-fg);
   --random-color: var(--color-1);
-  /* Input field dimensions */
+  /* Input field appearance and dimensions */
+  --input-bg: #242426;
   --input-width: 90%;
   --input-max-height: 600px;
   --input-padding: 4px 10px;
-  /* Terminal theme colors */
-  --terminal-bg: rgba(0, 0, 0, 0.9);
-  --terminal-text: #00ff00;
-  --terminal-border-color: var(--text-fg);
   /* Typography */
   --input-letter-spacing: 0.8px;
 }
@@ -450,9 +447,86 @@ footer > a:last-child:after {
   font-size: 1.1em;
 }
 
+.typehint {
+  margin-top: 12px;
+  font-size: 14px;
+  text-align: left;
+}
+
+.typehint-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5em;
+  padding: 0.35em 0.7em;
+  border: 1px solid var(--divider);
+  border-radius: 0.4em;
+  background-color: var(--tag-bg);
+  color: var(--link-fg);
+  cursor: pointer;
+  list-style: none;
+}
+
+.typehint-toggle::-webkit-details-marker {
+  display: none;
+}
+
+.typehint-toggle::before {
+  content: "";
+  width: 0.4em;
+  height: 0.4em;
+  border-right: 2px solid currentColor;
+  border-bottom: 2px solid currentColor;
+  transform: rotate(-45deg);
+}
+
+.typehint[open] > .typehint-toggle::before {
+  transform: translateY(-0.1em) rotate(45deg);
+}
+
+.typehint-toggle:hover {
+  background-color: var(--tag-bg-active);
+  color: var(--link-fg-active);
+}
+
+.typehint-toggle:focus-visible {
+  outline: 2px solid var(--link-fg);
+  outline-offset: 3px;
+}
+
+.typehint-hide,
+.typehint[open] > .typehint-toggle .typehint-show {
+  display: none;
+}
+
+.typehint[open] > .typehint-toggle .typehint-hide {
+  display: inline;
+}
+
+.typehint-content {
+  margin-top: 0.7em;
+  padding: 0.7em 0.9em;
+  border-left: 3px solid var(--link-fg);
+  border-radius: 0 0.3em 0.3em 0;
+  background-color: var(--tag-bg);
+  color: var(--text-fg);
+  overflow-wrap: anywhere;
+}
+
+.typehint-content code,
+.typehint-content pre {
+  font-family: "JetBrains", monospace;
+}
+
+.typehint-content pre {
+  white-space: pre-wrap;
+}
+
 .typeans-container {
+  --terminal-bg: var(--input-bg);
+  --terminal-text: var(--text-fg);
+  --terminal-border-color: var(--link-fg);
   background-color: var(--terminal-bg);
-  border-left: 3px solid var(--terminal-text);
+  border-left: 3px solid var(--terminal-border-color);
   border-radius: 0 0.25em 0.25em 0;
   box-sizing: border-box;
   margin: 0 auto;
@@ -484,7 +558,7 @@ footer > a:last-child:after {
 }
 
 .terminal-prompt-anki {
-  color: var(--terminal-text);
+  color: var(--link-fg);
   flex: 0 0 auto;
   font-family: var(--monospace-font-family);
   font-size: var(--font-size-small);
@@ -507,7 +581,7 @@ footer > a:last-child:after {
   font-size: 16px;
   letter-spacing: 0.2px;
   color: var(--terminal-text);
-  caret-color: var(--terminal-text);
+  caret-color: var(--link-fg);
   box-sizing: border-box;
   text-align: left;
 }
@@ -553,7 +627,7 @@ footer > a:last-child:after {
 }
 
 #typearrow {
-  color: var(--terminal-text);
+  color: var(--link-fg);
   display: block;
   font-size: 1.1em;
   margin: 0.35em 0;
