@@ -4,25 +4,31 @@
 <!-- ============================================
      FONTS - JetBrains Mono
      ============================================ -->
-<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<link
+  href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&display=swap"
+  rel="stylesheet"
+/>
 
 <!-- ============================================
      ACE EDITOR CDN
      ============================================ -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.43.3/ace.js" charset="utf-8"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.43.3/theme-github_light_default.js" charset="utf-8"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.43.3/theme-github_dark.js" charset="utf-8"></script>
+<script
+  src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.43.3/ace.js"
+  charset="utf-8"
+></script>
+<script src="_theme-vscode.js" charset="utf-8"></script>
 
 <!-- ============================================
      JSDIFF CDN - Text differencing library
      ============================================ -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jsdiff/8.0.2/diff.min.js" charset="utf-8"></script>
+<script
+  src="https://cdnjs.cloudflare.com/ajax/libs/jsdiff/8.0.2/diff.min.js"
+  charset="utf-8"
+></script>
 
 <!-- Header Section -->
 {{#Tags}}
-<div class="tags">
-  {{clickable:Tags}}
-</div>
+<div class="tags">{{clickable:Tags}}</div>
 {{/Tags}}
 
 <!-- Main Content -->
@@ -66,20 +72,25 @@
 
   <!-- Solution Comparison Grid -->
   <div class="solution-comparison">
-    <div class="solution-grid">
+    <div class="solution-grid solution-grid--annotated">
       <!-- Your Solution (Diff highlighting) -->
-      <div class="grid-item">
-        <h3>Your Solution</h3>
-        <div id="diff-result" class="diff-result">
-          <!-- Resultado do diff será inserido via JavaScript -->
-        </div>
-      </div>
       <!-- Correct Answer (Ace Editor) -->
       <div class="grid-item">
         <h3>Correct Answer</h3>
         <div id="correct-solution" class="ace-editor-container">{{Code}}</div>
       </div>
     </div>
+    <p id="comparison-status" class="typing-hint" role="status"></p>
+    <details id="comparison-details" class="conditional-section" open hidden>
+      <summary>Comparison Details</summary>
+      <div class="conditional-content">
+        <p class="typing-hint">
+          Highlights indicate differences in your answer, not errors in the
+          correct code.
+        </p>
+        <ul id="comparison-notes" class="comparison-notes"></ul>
+      </div>
+    </details>
   </div>
 
   <!-- Info Section -->
@@ -89,10 +100,16 @@
       <h3>Submitting your answer</h3>
       <p>Your answer was saved automatically as you typed.</p>
 
-      <h3>Diff Markup Meaning</h3>
-      <p><span class="diff-correct">■ Correct</span> Characters you typed correctly</p>
-      <p><span class="diff-missed">■ Missed</span> Characters you forgot to type</p>
-      <p><span class="diff-extra">■ Extra</span> Characters you typed that don't belong</p>
+      <h3>Code Highlights</h3>
+      <p>
+        The editor always shows the correct code. Highlights indicate missing or
+        different text. Extra characters are indicated at their insertion
+        position.
+      </p>
+      <p>
+        Details appear below the editor. Without a typed answer, the code is
+        shown without correction marks.
+      </p>
     </div>
   </details>
 
@@ -101,374 +118,459 @@
   <div class="footer">
     <div class="footer-links">
       <span class="footer-links-label">Learn More:</span>
-      <a href="https://www.youtube.com/results?search_query={{Source}}" target="_blank" class="footer-link" title="Search on YouTube">
+      <a
+        href="https://www.youtube.com/results?search_query={{Source}}"
+        target="_blank"
+        class="footer-link"
+        title="Search on YouTube"
+      >
         YouTube
       </a>
       <span class="footer-link-separator">|</span>
-      <a href="https://stackoverflow.com/search?q={{Source}}" target="_blank" class="footer-link" title="Search on StackOverflow">
+      <a
+        href="https://stackoverflow.com/search?q={{Source}}"
+        target="_blank"
+        class="footer-link"
+        title="Search on StackOverflow"
+      >
         StackOverflow
       </a>
       <span class="footer-link-separator">|</span>
-      <a href="https://duckduckgo.com/?q={{Source}}" target="_blank" class="footer-link" title="Search on DuckDuckGo">
+      <a
+        href="https://duckduckgo.com/?q={{Source}}"
+        target="_blank"
+        class="footer-link"
+        title="Search on DuckDuckGo"
+      >
         DuckDuckGo
       </a>
     </div>
   </div>
   {{/Source}}
-
-
 </main>
 
-
 <script>
-// ============================================
-//   CONFIGURAÇÃO
-//   ============================================
+  // ============================================
+  //   CONFIGURAÇÃO
+  //   ============================================
 
-// Tag configuration
-var TagConfig = {
-  levelsToShow: 1  // 0=full, 1=last part, 2=last 2 parts
-};
+  // Tag configuration
+  var TagConfig = {
+    levelsToShow: 1, // 0=full, 1=last part, 2=last 2 parts
+  };
 
-// ============================================
-//   LANGUAGE MAPPING
-//   ============================================
+  // ============================================
+  //   LANGUAGE MAPPING
+  //   ============================================
 
-var LanguageMap = {
-  // Scripting languages
-  'python': 'python',
-  'py': 'python',
-  'javascript': 'javascript',
-  'js': 'javascript',
-  'typescript': 'typescript',
-  'ts': 'typescript',
-  'ruby': 'ruby',
-  'php': 'php',
-  'perl': 'perl',
+  var LanguageMap = {
+    // Scripting languages
+    python: "python",
+    py: "python",
+    javascript: "javascript",
+    js: "javascript",
+    typescript: "typescript",
+    ts: "typescript",
+    ruby: "ruby",
+    php: "php",
+    perl: "perl",
 
-  // Compiled languages
-  'java': 'java',
-  'c': 'c_cpp',
-  'cpp': 'c_cpp',
-  'c++': 'c_cpp',
-  'c#': 'csharp',
-  'csharp': 'csharp',
-  'go': 'golang',
-  'golang': 'golang',
-  'rust': 'rust',
-  'swift': 'swift',
-  'kotlin': 'kotlin',
-  'scala': 'scala',
+    // Compiled languages
+    java: "java",
+    c: "c_cpp",
+    cpp: "c_cpp",
+    "c++": "c_cpp",
+    "c#": "csharp",
+    csharp: "csharp",
+    go: "golang",
+    golang: "golang",
+    rust: "rust",
+    swift: "swift",
+    kotlin: "kotlin",
+    scala: "scala",
 
-  // Functional languages
-  'haskell': 'haskell',
-  'erlang': 'erlang',
-  'elixir': 'elixir',
-  'clojure': 'clojure',
-  'f#': 'fsharp',
-  'fsharp': 'fsharp',
+    // Functional languages
+    haskell: "haskell",
+    erlang: "erlang",
+    elixir: "elixir",
+    clojure: "clojure",
+    "f#": "fsharp",
+    fsharp: "fsharp",
 
-  // Markup & Data
-  'html': 'html',
-  'xml': 'xml',
-  'json': 'json',
-  'yaml': 'yaml',
-  'yml': 'yaml',
-  'toml': 'toml',
-  'markdown': 'markdown',
-  'md': 'markdown',
+    // Markup & Data
+    html: "html",
+    xml: "xml",
+    json: "json",
+    yaml: "yaml",
+    yml: "yaml",
+    toml: "toml",
+    markdown: "markdown",
+    md: "markdown",
 
-  // Styles
-  'css': 'css',
-  'scss': 'scss',
-  'sass': 'sass',
-  'less': 'less',
+    // Styles
+    css: "css",
+    scss: "scss",
+    sass: "sass",
+    less: "less",
 
-  // Configuration & Shells
-  'bash': 'sh',
-  'shell': 'sh',
-  'powershell': 'powershell',
-  'dockerfile': 'dockerfile',
-  'docker': 'dockerfile',
+    // Configuration & Shells
+    bash: "sh",
+    shell: "sh",
+    powershell: "powershell",
+    dockerfile: "dockerfile",
+    docker: "dockerfile",
 
-  // Databases
-  'sql': 'sql',
-  'mysql': 'sql',
-  'postgresql': 'sql',
-  'sqlite': 'sql',
-  'mongodb': 'javascript',
+    // Databases
+    sql: "sql",
+    mysql: "sql",
+    postgresql: "sql",
+    sqlite: "sql",
+    mongodb: "javascript",
 
-  // Other
-  'r': 'r',
-  'lua': 'lua',
-  'matlab': 'matlab',
-  'groovy': 'groovy',
-  'dart': 'dart'
-};
+    // Other
+    r: "r",
+    lua: "lua",
+    matlab: "matlab",
+    groovy: "groovy",
+    dart: "dart",
+  };
 
-// ============================================
-//   UTILITY FUNCTIONS
-//   ============================================
+  // ============================================
+  //   UTILITY FUNCTIONS
+  //   ============================================
 
-var Utils = {
-  getAceMode: function(language) {
-    var langLower = (language || '').toLowerCase().trim();
-    return LanguageMap[langLower] || 'text';
-  },
+  var Utils = {
+    getAceMode: function (language) {
+      var langLower = (language || "").toLowerCase().trim();
+      return LanguageMap[langLower] || "text";
+    },
 
-  getTheme: function() {
-    var body = document.body;
-    if (body && (body.classList.contains('night_mode') ||
-                 document.documentElement.classList.contains('night_mode'))) {
-      return 'ace/theme/github_dark';
-    }
-    return 'ace/theme/github_light_default';
-  },
+    getTheme: function () {
+      return "ace/theme/vscode";
+    },
 
-  escapeHtml: function(text) {
-    var div = document.createElement('div');
-    div.textContent = text;
-    return div.innerHTML;
-  }
-};
+    escapeHtml: function (text) {
+      var div = document.createElement("div");
+      div.textContent = text;
+      return div.innerHTML;
+    },
+  };
 
-// ============================================
-//   EDITOR CONFIGURATION
-//   ============================================
+  // ============================================
+  //   EDITOR CONFIGURATION
+  //   ============================================
 
-// Editor configuration (base)
-var EditorConfig = {
-  options: {
-    readOnly: true,
-    showPrintMargin: false,
-    highlightActiveLine: false,
-    behavioursEnabled: false,
-    fontSize: '16px',
-    fontFamily: 'JetBrains Mono, monospace'
-  },
-  scroll: {
-    top: 1,
-    bottom: 1,
-    left: 0,
-    right: 0
-  },
-  resize: {
-    minHeight: 336,
-    maxHeight: 336,
-    lineHeight: 28
-  }
-};
+  // Editor configuration (base)
+  var EditorConfig = {
+    options: {
+      readOnly: true,
+      showPrintMargin: false,
+      highlightActiveLine: false,
+      behavioursEnabled: false,
+      fontSize: "16px",
+      fontFamily: "JetBrains Mono, monospace",
+    },
+    scroll: {
+      top: 1,
+      bottom: 1,
+      left: 0,
+      right: 0,
+    },
+    resize: {
+      minHeight: 100,
+      maxHeight: 400,
+      lineHeight: 28,
+    },
+  };
 
-// ============================================
-//   EDITOR CONFIGURATOR
-//   ============================================
+  // ============================================
+  //   EDITOR CONFIGURATOR
+  //   ============================================
 
-// Editor configuration functions
-var EditorConfigurator = {
-  configure: function(editor, language, customConfig) {
-    if (!editor) return;
+  // Editor configuration functions
+  var EditorConfigurator = {
+    configure: function (editor, language, customConfig) {
+      if (!editor) return;
 
-    var config = customConfig || EditorConfig;  // Usa customConfig ou o padrão
+      var config = customConfig || EditorConfig; // Usa customConfig ou o padrão
 
-    this.applyOptions(editor, config.options);
-    this.applyTheme(editor);
-    this.applySyntax(editor, language);
-    this.applyScrollMargin(editor, config.scroll);
-  },
+      this.applyOptions(editor, config.options);
+      this.applyTheme(editor);
+      this.applySyntax(editor, language);
+      this.applyScrollMargin(editor, config.scroll);
+    },
 
-  applyOptions: function(editor, options) {
-    editor.setOptions(options);
-  },
+    applyOptions: function (editor, options) {
+      editor.setOptions(options);
+    },
 
-  applyTheme: function(editor) {
-    editor.setTheme(Utils.getTheme());
-  },
+    applyTheme: function (editor) {
+      editor.setTheme(Utils.getTheme());
+    },
 
-  applySyntax: function(editor, language) {
-    var mode = Utils.getAceMode(language);
-    editor.session.setMode('ace/mode/' + mode);
-  },
+    applySyntax: function (editor, language) {
+      var mode = Utils.getAceMode(language);
+      editor.session.setMode("ace/mode/" + mode);
+    },
 
-  applyScrollMargin: function(editor, scrollConfig) {
-    editor.renderer.setScrollMargin(
-      scrollConfig.top,
-      scrollConfig.bottom,
-      scrollConfig.left,
-      scrollConfig.right
-    );
-  }
-};
+    applyScrollMargin: function (editor, scrollConfig) {
+      editor.renderer.setScrollMargin(
+        scrollConfig.top,
+        scrollConfig.bottom,
+        scrollConfig.left,
+        scrollConfig.right,
+      );
+    },
+  };
 
-// ============================================
-//   EDITOR RESIZER
-//   ============================================
+  // ============================================
+  //   EDITOR RESIZER
+  //   ============================================
 
-// Editor resize function
-var EditorResizer = {
-  resize: function(editor, customConfig) {
-    if (!editor) return;
+  // Editor resize function
+  var EditorResizer = {
+    resize: function (editor, customConfig) {
+      if (!editor) return;
 
-    var config = customConfig || EditorConfig;  // Usa customConfig ou o padrão
-    var session = editor.getSession();
-    var lineCount = session.getLength();
+      var config = customConfig || EditorConfig; // Usa customConfig ou o padrão
+      var session = editor.getSession();
+      var lineCount = session.getLength();
 
-    var newHeight = Math.max(
-      config.resize.minHeight,
-      Math.min(config.resize.maxHeight, lineCount * config.resize.lineHeight)
-    );
+      var newHeight = Math.max(
+        config.resize.minHeight,
+        Math.min(config.resize.maxHeight, lineCount * config.resize.lineHeight),
+      );
 
-    editor.container.style.height = newHeight + 'px';
-    editor.resize();
-  }
-};
+      editor.container.style.height = newHeight + "px";
+      editor.resize();
+    },
+  };
 
-// ============================================
-//   TAG SPLITTING
-//   Processa tags hierárquicas e exibe apenas partes relevantes
-//   ============================================
-(function() {
-  var tagsContainer = document.querySelector('.tags');
+  // ============================================
+  //   TAG SPLITTING
+  //   Processa tags hierárquicas e exibe apenas partes relevantes
+  //   ============================================
+  (function () {
+    var tagsContainer = document.querySelector(".tags");
 
-  if (!tagsContainer) {
-    return;
-  }
-
-  var tagText = tagsContainer.textContent || tagsContainer.innerText;
-  tagText = tagText.trim();
-
-  if (!tagText) {
-    return;
-  }
-
-  var tags = tagText.split(/\s+/).filter(Boolean);
-
-  if (tags.length === 0) {
-    return;
-  }
-
-  var html = '';
-  tags.forEach(function(tag) {
-    var displayName = tag;
-    var parts = tag.split('::');
-
-    if (TagConfig.levelsToShow > 0 && parts.length > TagConfig.levelsToShow) {
-      displayName = parts.slice(-TagConfig.levelsToShow).join('::');
+    if (!tagsContainer) {
+      return;
     }
 
-    html += '<span class="tag">' + displayName + '</span>';
-  });
+    var tagText = tagsContainer.textContent || tagsContainer.innerText;
+    tagText = tagText.trim();
 
-  tagsContainer.innerHTML = html;
-})();
-
-// ============================================
-//   JSDIFF - Diff Generation
-//   ============================================
-
-var DiffGenerator = {
-  /**
-   * Escape HTML special characters to prevent XSS
-   * @param {string} text - Text to escape
-   * @returns {string} Escaped text
-   */
-  escapeHtml: function(text) {
-    var div = document.createElement('div');
-    div.textContent = text;
-    return div.innerHTML;
-  },
-
-  /**
-   * Generate HTML with diff highlighting using jsdiff
-   * @param {string} expected - The correct/expected code
-   * @param {string} actual - The user's input code
-   * @returns {string} HTML string with diff highlighting
-   */
-  generateDiffHtml: function(expected, actual) {
-    // Handle empty inputs
-    if (!actual || actual.trim() === '') {
-      return '<span class="diff-missed">' + this.escapeHtml(expected) + '</span>';
+    if (!tagText) {
+      return;
     }
 
-    if (!expected || expected.trim() === '') {
-      return '<span class="diff-extra">' + this.escapeHtml(actual) + '</span>';
+    var tags = tagText.split(/\s+/).filter(Boolean);
+
+    if (tags.length === 0) {
+      return;
     }
 
-    // Use jsdiff to compute character-level diff
-    var diff = Diff.diffChars(expected, actual);
-    var html = '';
+    var html = "";
+    tags.forEach(function (tag) {
+      var displayName = tag;
+      var parts = tag.split("::");
 
-    diff.forEach(function(part) {
-      // Determine CSS class based on diff type
-      var className = part.added ? 'diff-extra' :    // User typed extra characters
-                      part.removed ? 'diff-missed' : // User missed these characters
-                      'diff-correct';                // Correct match
+      if (TagConfig.levelsToShow > 0 && parts.length > TagConfig.levelsToShow) {
+        displayName = parts.slice(-TagConfig.levelsToShow).join("::");
+      }
 
-      // Escape HTML and preserve line breaks
-      var escapedValue = DiffGenerator.escapeHtml(part.value);
-
-      html += '<span class="' + className + '">' + escapedValue + '</span>';
+      html += '<span class="tag">' + displayName + "</span>";
     });
 
-    return html;
-  }
-};
-
-// ============================================
-//   ACE EDITOR FOR BACK (COMPARISON)
-//   ============================================
-
-(function() {
-  'use strict';
-
-  var correctSolutionElement = document.getElementById('correct-solution');
-  var diffResultElement = document.getElementById('diff-result');
-
-  if (!correctSolutionElement) {
-    return;
-  }
-
-  // Load user's input from sessionStorage
-  var userInput = sessionStorage.getItem('input_transfer_front');
-
-  // Clear to avoid carrying over to next card
-  sessionStorage.removeItem('input_transfer_front');
-
-  // Get correct code from the element (before Ace Editor transforms it)
-  var correctCode = correctSolutionElement.textContent || correctSolutionElement.innerText || '';
-
-  // Get language for Ace Editor
-  var language = '{{Language}}' || 'text';
+    tagsContainer.innerHTML = html;
+  })();
 
   // ============================================
-  //   GENERATE DIFF RESULT
+  //   JSDIFF - Diff Generation
+  //   ============================================
+
   // ============================================
-  if (diffResultElement) {
-    try {
-      var diffHtml = DiffGenerator.generateDiffHtml(correctCode, userInput || '');
-      diffResultElement.innerHTML = diffHtml;
-    } catch (error) {
-      diffResultElement.innerHTML = '<span class="diff-error">Failed to generate diff comparison.</span>';
+  //   ACE EDITOR FOR BACK (COMPARISON)
+  //   ============================================
+
+  (function () {
+    "use strict";
+
+    var correctSolutionElement = document.getElementById("correct-solution");
+    var statusElement = document.getElementById("comparison-status");
+    var notesElement = document.getElementById("comparison-notes");
+
+    if (!correctSolutionElement) {
+      return;
     }
-  }
 
-  // Initialize Ace Editor (Correct Solution)
-  try {
-    var editorCorrect = ace.edit('correct-solution');
-    EditorConfigurator.configure(editorCorrect, language);
-    editorCorrect.setOption('readOnly', true);
-    EditorResizer.resize(editorCorrect);
+    // Load user's input from sessionStorage
+    var userInput = null;
+    try {
+      userInput = sessionStorage.getItem("input_transfer_front");
+      sessionStorage.removeItem("input_transfer_front");
+    } catch (error) {
+      // Reading the correct answer remains available without storage.
+    }
 
-    var originalTheme = Utils.getTheme();
-    window.addEventListener('resize', function() {
-      EditorResizer.resize(editorCorrect);
-      var newTheme = Utils.getTheme();
-      if (newTheme !== originalTheme) {
-        EditorConfigurator.applyTheme(editorCorrect);
-        originalTheme = newTheme;
+    // Get correct code from the element (before Ace Editor transforms it)
+    // Anki fields may use HTML line breaks instead of literal newlines.
+    var source = correctSolutionElement.cloneNode(true);
+    source.querySelectorAll("br").forEach(function (br) {
+      br.replaceWith(document.createTextNode("\n"));
+    });
+    source.querySelectorAll("div, p").forEach(function (block) {
+      if (
+        block.previousSibling &&
+        !/\n$/.test(block.previousSibling.textContent)
+      ) {
+        block.parentNode.insertBefore(document.createTextNode("\n"), block);
+      }
+      if (block.nextSibling && !/\n$/.test(block.textContent)) {
+        block.appendChild(document.createTextNode("\n"));
       }
     });
-  } catch (error) {
-    // Fallback: keep raw code visible
-  }
-})();
+    var correctCode = source.textContent
+      .replace(/\r\n?/g, "\n")
+      .replace(/\u00a0/g, " ");
+    correctSolutionElement.textContent = correctCode;
+
+    // Get language for Ace Editor
+    var language = "{{Language}}" || "text";
+
+    // ============================================
+    //   GENERATE DIFF RESULT
+    // ============================================
+    function highlightAnswer(editor) {
+      if (!userInput || !userInput.trim()) return;
+      try {
+        var Range = ace.require("ace/range").Range;
+        var session = editor.session;
+        var doc = session.getDocument();
+        var parts = Diff.diffChars(
+          correctCode,
+          userInput.replace(/\r\n?/g, "\n"),
+        );
+        var offset = 0;
+        var annotations = [];
+        var counts = { missing: 0, changed: 0, extra: 0 };
+        var labels = {
+          missing: "Missing text",
+          changed: "Different text",
+          extra: "Extra text",
+        };
+        function appendCode(note, label, value) {
+          var caption = document.createElement("div");
+          caption.textContent = label;
+          var code = document.createElement("code");
+          code.textContent = value;
+          note.appendChild(caption);
+          note.appendChild(code);
+        }
+        for (var i = 0; i < parts.length; i++) {
+          var part = parts[i];
+          if (!part.added && !part.removed) {
+            offset += part.value.length;
+            continue;
+          }
+          var startOffset = offset;
+          var missing = "";
+          var extra = "";
+          while (i < parts.length && (parts[i].added || parts[i].removed)) {
+            if (parts[i].removed) {
+              missing += parts[i].value;
+              offset += parts[i].value.length;
+            } else {
+              extra += parts[i].value;
+            }
+            i++;
+          }
+          i--;
+          var start = doc.indexToPosition(startOffset, 0);
+          var end = doc.indexToPosition(offset, 0);
+          var kind = missing ? (extra ? "changed" : "missing") : "extra";
+          counts[kind]++;
+          var message = "Difference in your answer: " + labels[kind];
+          if (missing) message += "\nExpected: " + missing;
+          if (extra) message += "\nTyped: " + extra;
+          session.addMarker(
+            new Range(start.row, start.column, end.row, end.column),
+            "answer-marker answer-marker--" + kind,
+            "text",
+            false,
+          );
+          annotations.push({
+            row: start.row,
+            column: start.column,
+            text: message,
+            type: "warning",
+          });
+          var note = document.createElement("li");
+          note.textContent =
+            "Line " +
+            (start.row + 1) +
+            " · Column " +
+            (start.column + 1) +
+            " — " +
+            labels[kind];
+          if (missing) appendCode(note, "Expected", missing);
+          if (extra) appendCode(note, "Typed", extra);
+          notesElement.appendChild(note);
+        }
+        session.setAnnotations(annotations);
+        var summary = [];
+        if (counts.missing)
+          summary.push(
+            counts.missing +
+              (counts.missing === 1 ? " missing segment" : " missing segments"),
+          );
+        if (counts.changed)
+          summary.push(
+            counts.changed +
+              (counts.changed === 1
+                ? " different segment"
+                : " different segments"),
+          );
+        if (counts.extra)
+          summary.push(
+            counts.extra +
+              (counts.extra === 1 ? " extra segment" : " extra segments"),
+          );
+        statusElement.textContent = summary.length
+          ? summary.join(" · ")
+          : "Your answer matches the correct code.";
+        document.getElementById("comparison-details").hidden =
+          !annotations.length;
+      } catch (error) {
+        statusElement.textContent =
+          "Comparison unavailable. Showing the correct code.";
+      }
+    }
+
+    // Initialize Ace Editor (Correct Solution)
+    try {
+      var editorCorrect = ace.edit("correct-solution");
+      EditorConfigurator.configure(editorCorrect, language);
+      editorCorrect.session.setUseWorker(false);
+      editorCorrect.setValue(correctCode, -1);
+      editorCorrect.setOption("readOnly", true);
+      EditorResizer.resize(editorCorrect);
+      highlightAnswer(editorCorrect);
+
+      var originalTheme = Utils.getTheme();
+      window.addEventListener("resize", function () {
+        EditorResizer.resize(editorCorrect);
+        var newTheme = Utils.getTheme();
+        if (newTheme !== originalTheme) {
+          EditorConfigurator.applyTheme(editorCorrect);
+          originalTheme = newTheme;
+        }
+      });
+    } catch (error) {
+      correctSolutionElement.textContent = correctCode;
+      correctSolutionElement.classList.add("answer-code-fallback");
+      statusElement.textContent =
+        "Showing the correct code without editor highlights.";
+    }
+  })();
 </script>

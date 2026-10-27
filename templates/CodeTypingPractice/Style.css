@@ -3,7 +3,9 @@
    ============================================ */
 :root {
   /* Typography */
-  --font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  --font-family:
+    "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica,
+    Arial, sans-serif;
   --monospace-font-family: "JetBrains Mono", "Courier New", monospace;
   --font-size: 18px;
   --font-size-small: 14px;
@@ -25,44 +27,44 @@
   --neutral-950: #242424;
 
   /* Colors - Light Mode */
-  --text-color: var(--neutral-900);          /* #353535 - Darkest neutral */
-  --text-muted: var(--neutral-500);          /* #8e8e8e - Neutral medium */
-  --background-color: var(--neutral-50);     /* #fafafa - Lightest neutral */
-  --background-alt: var(--neutral-100);      /* #f5f5f5 - Very light */
-  --border-color: var(--neutral-200);        /* #e5e5e5 - Light gray */
-  --border-color-alt: var(--neutral-300);    /* #dedede - Medium light */
-  --primary-color: var(--neutral-600);       /* #6e6e6e - Neutral dark */
-  --hint-color: var(--neutral-700);          /* #5e5e5e - Neutral darker */
-   --code-background: var(--neutral-100);     /* #f5f5f5 - Light for code */
+  --text-color: var(--neutral-900); /* #353535 - Darkest neutral */
+  --text-muted: var(--neutral-500); /* #8e8e8e - Neutral medium */
+  --background-color: var(--neutral-50); /* #fafafa - Lightest neutral */
+  --background-alt: var(--neutral-100); /* #f5f5f5 - Very light */
+  --border-color: var(--neutral-200); /* #e5e5e5 - Light gray */
+  --border-color-alt: var(--neutral-300); /* #dedede - Medium light */
+  --primary-color: var(--neutral-600); /* #6e6e6e - Neutral dark */
+  --hint-color: var(--neutral-700); /* #5e5e5e - Neutral darker */
+  --code-background: var(--neutral-100); /* #f5f5f5 - Light for code */
 
-   /* Spacing */
+  /* Spacing */
   --card-max-width: 880px;
   --border-radius: 8px;
 
   /* =========================================
      LANGUAGE BADGE COLORS
      ========================================= */
-  --lang-default: #6e6e6e;              /* Gray - default */
-  --lang-python: #3776ab;               /* Blue - Python */
-  --lang-javascript: #f7df1e;           /* Yellow - JavaScript */
-  --lang-typescript: #3178c6;           /* Blue - TypeScript */
-  --lang-java: #b07219;                 /* Orange - Java */
-  --lang-c: #00599c;                    /* Blue - C */
-  --lang-cpp: #00599c;                  /* Blue - C++ */
-  --lang-go: #00add8;                   /* Cyan - Go */
-  --lang-rust: #dea584;                 /* Orange - Rust */
-  --lang-ruby: #cc342d;                /* Red - Ruby */
-  --lang-php: #777bb4;                 /* Purple - PHP */
-  --lang-html: #e34f26;                /* Orange - HTML */
-  --lang-css: #1572b6;                 /* Blue - CSS */
-  --lang-sql: #e48e00;                 /* Yellow - SQL */
-  --lang-json: #f5f5f5;                 /* Gray - JSON */
-  --lang-bash: #4eaa25;                /* Green - Bash */
-  --lang-shell: #89e051;               /* Green - Shell */
-  --lang-yaml: #cb171e;                /* Red - YAML */
-  --lang-xml: #0060ac;                 /* Blue - XML */
-  --lang-markdown: #083fa1;           /* Blue - Markdown */
-  --lang-docker: #2496ed;             /* Blue - Docker */
+  --lang-default: #6e6e6e; /* Gray - default */
+  --lang-python: #3776ab; /* Blue - Python */
+  --lang-javascript: #f7df1e; /* Yellow - JavaScript */
+  --lang-typescript: #3178c6; /* Blue - TypeScript */
+  --lang-java: #b07219; /* Orange - Java */
+  --lang-c: #00599c; /* Blue - C */
+  --lang-cpp: #00599c; /* Blue - C++ */
+  --lang-go: #00add8; /* Cyan - Go */
+  --lang-rust: #dea584; /* Orange - Rust */
+  --lang-ruby: #cc342d; /* Red - Ruby */
+  --lang-php: #777bb4; /* Purple - PHP */
+  --lang-html: #e34f26; /* Orange - HTML */
+  --lang-css: #1572b6; /* Blue - CSS */
+  --lang-sql: #e48e00; /* Yellow - SQL */
+  --lang-json: #f5f5f5; /* Gray - JSON */
+  --lang-bash: #4eaa25; /* Green - Bash */
+  --lang-shell: #89e051; /* Green - Shell */
+  --lang-yaml: #cb171e; /* Red - YAML */
+  --lang-xml: #0060ac; /* Blue - XML */
+  --lang-markdown: #083fa1; /* Blue - Markdown */
+  --lang-docker: #2496ed; /* Blue - Docker */
 }
 
 /* =========================================
@@ -71,15 +73,15 @@
 :root.night_mode,
 .night_mode {
   /* Colors - Dark Mode */
-  --text-color: var(--neutral-50);           /* #fafafa - Lightest */
-  --text-muted: var(--neutral-400);          /* #b4b4b4 - Neutral light */
-  --background-color: var(--neutral-950);    /* #242424 - Darkest */
-  --background-alt: var(--neutral-900);      /* #353535 - Very dark */
-  --border-color: var(--neutral-800);        /* #464646 - Dark gray */
-  --border-color-alt: var(--neutral-700);    /* #5e5e5e - Medium dark */
-  --primary-color: var(--neutral-400);       /* #b4b4b4 - Neutral light */
-  --hint-color: var(--neutral-300);          /* #dedede - Medium light */
-  --code-background: var(--neutral-900);     /* #353535 - Dark for code */
+  --text-color: var(--neutral-50); /* #fafafa - Lightest */
+  --text-muted: var(--neutral-400); /* #b4b4b4 - Neutral light */
+  --background-color: var(--neutral-950); /* #242424 - Darkest */
+  --background-alt: var(--neutral-900); /* #353535 - Very dark */
+  --border-color: var(--neutral-800); /* #464646 - Dark gray */
+  --border-color-alt: var(--neutral-700); /* #5e5e5e - Medium dark */
+  --primary-color: var(--neutral-400); /* #b4b4b4 - Neutral light */
+  --hint-color: var(--neutral-300); /* #dedede - Medium light */
+  --code-background: var(--neutral-900); /* #353535 - Dark for code */
 }
 
 /* ============================================
@@ -147,7 +149,9 @@
 /* ============================================
    HEADERS & TITLES
    ============================================ */
-h1, h2, h3 {
+h1,
+h2,
+h3 {
   margin: 0.1rem 0;
   font-weight: 600;
 }
@@ -260,7 +264,7 @@ details.conditional-section > summary:hover {
 
 /* Custom arrow - closed state */
 details.conditional-section > summary::after {
-  content: '▼';
+  content: "▼";
   position: absolute;
   right: 15px;
   top: 50%;
@@ -382,29 +386,76 @@ hr#answer {
 }
 
 /* Language-specific colors (via data-attribute) */
-.language-text[data-lang="python"] { background-color: var(--lang-python); }
-.language-text[data-lang="javascript"] { background-color: var(--lang-javascript); }
-.language-text[data-lang="js"] { background-color: var(--lang-javascript); }
-.language-text[data-lang="typescript"] { background-color: var(--lang-typescript); }
-.language-text[data-lang="ts"] { background-color: var(--lang-typescript); }
-.language-text[data-lang="java"] { background-color: var(--lang-java); }
-.language-text[data-lang="c"] { background-color: var(--lang-c); }
-.language-text[data-lang="cpp"] { background-color: var(--lang-cpp); }
-.language-text[data-lang="c++"] { background-color: var(--lang-cpp); }
-.language-text[data-lang="go"] { background-color: var(--lang-go); }
-.language-text[data-lang="rust"] { background-color: var(--lang-rust); }
-.language-text[data-lang="ruby"] { background-color: var(--lang-ruby); }
-.language-text[data-lang="php"] { background-color: var(--lang-php); }
-.language-text[data-lang="html"] { background-color: var(--lang-html); }
-.language-text[data-lang="css"] { background-color: var(--lang-css); }
-.language-text[data-lang="sql"] { background-color: var(--lang-sql); }
-.language-text[data-lang="json"] { background-color: var(--lang-json); color: #333333; }
-.language-text[data-lang="bash"] { background-color: var(--lang-bash); }
-.language-text[data-lang="shell"] { background-color: var(--lang-shell); }
-.language-text[data-lang="yaml"] { background-color: var(--lang-yaml); }
-.language-text[data-lang="xml"] { background-color: var(--lang-xml); }
-.language-text[data-lang="markdown"] { background-color: var(--lang-markdown); }
-.language-text[data-lang="docker"] { background-color: var(--lang-docker); }
+.language-text[data-lang="python"] {
+  background-color: var(--lang-python);
+}
+.language-text[data-lang="javascript"] {
+  background-color: var(--lang-javascript);
+}
+.language-text[data-lang="js"] {
+  background-color: var(--lang-javascript);
+}
+.language-text[data-lang="typescript"] {
+  background-color: var(--lang-typescript);
+}
+.language-text[data-lang="ts"] {
+  background-color: var(--lang-typescript);
+}
+.language-text[data-lang="java"] {
+  background-color: var(--lang-java);
+}
+.language-text[data-lang="c"] {
+  background-color: var(--lang-c);
+}
+.language-text[data-lang="cpp"] {
+  background-color: var(--lang-cpp);
+}
+.language-text[data-lang="c++"] {
+  background-color: var(--lang-cpp);
+}
+.language-text[data-lang="go"] {
+  background-color: var(--lang-go);
+}
+.language-text[data-lang="rust"] {
+  background-color: var(--lang-rust);
+}
+.language-text[data-lang="ruby"] {
+  background-color: var(--lang-ruby);
+}
+.language-text[data-lang="php"] {
+  background-color: var(--lang-php);
+}
+.language-text[data-lang="html"] {
+  background-color: var(--lang-html);
+}
+.language-text[data-lang="css"] {
+  background-color: var(--lang-css);
+}
+.language-text[data-lang="sql"] {
+  background-color: var(--lang-sql);
+}
+.language-text[data-lang="json"] {
+  background-color: var(--lang-json);
+  color: #333333;
+}
+.language-text[data-lang="bash"] {
+  background-color: var(--lang-bash);
+}
+.language-text[data-lang="shell"] {
+  background-color: var(--lang-shell);
+}
+.language-text[data-lang="yaml"] {
+  background-color: var(--lang-yaml);
+}
+.language-text[data-lang="xml"] {
+  background-color: var(--lang-xml);
+}
+.language-text[data-lang="markdown"] {
+  background-color: var(--lang-markdown);
+}
+.language-text[data-lang="docker"] {
+  background-color: var(--lang-docker);
+}
 
 /* ============================================
     TAGS
@@ -480,7 +531,9 @@ hr#answer {
   background-color: var(--background-alt);
   padding: 8px;
   min-height: 100px;
-  transition: transform 0.2s ease, background-color 0.2s ease;
+  transition:
+    transform 0.2s ease,
+    background-color 0.2s ease;
 }
 
 /* Night mode adjustments for grid items */
@@ -876,6 +929,61 @@ hr#answer {
   gap: 16px;
 }
 
+.solution-grid.solution-grid--annotated {
+  grid-template-columns: minmax(0, 1fr);
+}
+
+.solution-grid--annotated #correct-solution {
+  min-height: 100px;
+  flex: none;
+}
+
+#comparison-details[hidden] {
+  display: none;
+}
+
+.comparison-notes li + li {
+  margin-top: 16px;
+}
+
+.comparison-notes code {
+  white-space: pre-wrap;
+  padding: 6px 8px;
+  margin: 4px 0 8px;
+  min-height: 1.5em;
+}
+
+.solution-grid--annotated .grid-item {
+  min-width: 0;
+}
+.answer-marker {
+  position: absolute;
+  border-bottom: 2px solid #d99b26;
+  background: rgba(217, 155, 38, 0.22);
+}
+.answer-marker--changed {
+  border-color: #df6464;
+  background: rgba(223, 100, 100, 0.22);
+}
+.answer-marker--extra {
+  min-width: 3px;
+  border-left: 3px solid #df6464;
+  background: transparent;
+}
+.comparison-notes {
+  font-size: 13px;
+  overflow-wrap: anywhere;
+  padding-left: 22px;
+}
+.comparison-notes:empty,
+#comparison-status:empty {
+  display: none;
+}
+.answer-code-fallback {
+  white-space: pre-wrap;
+  font-family: var(--monospace-font-family);
+}
+
 .solution-grid .grid-item {
   display: flex;
   flex-direction: column;
@@ -1080,7 +1188,7 @@ hr#answer {
   }
 
   .comparison-grid {
-    grid-template-columns: 1fr;  /* Mobile: 1 coluna */
+    grid-template-columns: 1fr; /* Mobile: 1 coluna */
     gap: 8px;
   }
 
@@ -1122,7 +1230,7 @@ hr#answer {
   }
 
   .solution-grid {
-    grid-template-columns: 1fr;  /* 1 coluna no mobile */
+    grid-template-columns: 1fr; /* 1 coluna no mobile */
     gap: 12px;
   }
 
