@@ -942,6 +942,13 @@ hr#answer {
   display: none;
 }
 
+#comparison-details > .conditional-content {
+  box-sizing: border-box;
+  min-height: 100px;
+  max-height: 240px;
+  overflow-y: auto;
+}
+
 .comparison-notes li + li {
   margin-top: 16px;
 }

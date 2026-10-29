@@ -114,10 +114,10 @@
   </details>
 
   <!-- Source (Conditional) -->
-  {{#Source}}
   <div class="footer">
     <div class="footer-links">
       <span class="footer-links-label">Learn More:</span>
+      {{#Source}}
       <a
         href="https://www.youtube.com/results?search_query={{Source}}"
         target="_blank"
@@ -144,9 +144,20 @@
       >
         DuckDuckGo
       </a>
+      <span class="footer-link-separator">|</span>
+      {{/Source}}
+      <a
+        id="chatgpt-explain-code"
+        href="https://chatgpt.com/"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="footer-link"
+        title="Explain this code with ChatGPT"
+      >
+        ChatGPT
+      </a>
     </div>
   </div>
-  {{/Source}}
 </main>
 
 <script>
@@ -437,6 +448,26 @@
 
     // Get language for Ace Editor
     var language = "{{Language}}" || "text";
+
+    var explainLink = document.getElementById("chatgpt-explain-code");
+    if (explainLink) {
+      var description = document
+        .querySelector(".field-description")
+        .cloneNode(true);
+      var heading = description.querySelector("h2");
+      if (heading) heading.remove();
+      var prompt =
+        "Explique em português o código abaixo, considerando o enunciado. " +
+        "Descreva o objetivo, explique cada linha e os principais conceitos de sintaxe, " +
+        "e mostre a saída esperada, quando aplicável.\n\n" +
+        "Enunciado:\n" +
+        description.textContent.trim() +
+        "\n\nLinguagem: " +
+        language +
+        "\n\nCódigo:\n" +
+        correctCode;
+      explainLink.href = "https://chatgpt.com/?temporary-chat=true&q=" + encodeURIComponent(prompt);
+    }
 
     // ============================================
     //   GENERATE DIFF RESULT
