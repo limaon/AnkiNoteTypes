@@ -1,0 +1,209 @@
+<main class="coding-practice" id="cp-front">
+  <div class="cp-meta">
+    <span class="cp-language" id="cp-language">{{Language}}</span><span>{{Tags}}</span>
+  </div>
+  <h1 id="cp-title">{{Title}}</h1>
+  <section>
+    <h2>Problem</h2>
+    <div id="cp-description">{{Description}}</div>
+  </section>
+  <div class="cp-grid">
+    {{#Input Format}}
+    <section>
+      <h2>Input Format</h2>
+      {{Input Format}}
+    </section>
+    {{/Input Format}} {{#Output Format}}
+    <section>
+      <h2>Output Format</h2>
+      {{Output Format}}
+    </section>
+    {{/Output Format}}
+  </div>
+  {{#Constraints}}
+  <details>
+    <summary>Constraints</summary>
+    <div class="cp-details">{{Constraints}}</div>
+  </details>
+  {{/Constraints}} {{#Examples}}
+  <section>
+    <h2>Examples</h2>
+    <div id="cp-examples"></div>
+    <div id="cp-examples-data" hidden>{{Examples}}</div>
+  </section>
+  {{/Examples}} {{#Hint}}
+  <details>
+    <summary>Hint</summary>
+    <div class="cp-details">{{Hint}}</div>
+  </details>
+  {{/Hint}}
+  <section>
+    <h2>Your Solution</h2>
+    <div id="cp-editor" class="cp-editor" hidden></div>
+    <textarea
+      id="cp-input"
+      aria-label="Your solution"
+      spellcheck="false"
+    ></textarea>
+    <div id="cp-starter" hidden>{{Starter Code}}</div>
+    <p id="cp-save-status" class="cp-status" role="status">
+      You can also solve the problem mentally and reveal the suggested solution.
+    </p>
+  </section>
+  <button type="button" disabled aria-describedby="cp-run-status">
+    Test Solution
+  </button>
+  <p id="cp-run-status" class="cp-status">
+    Executor not configured. Automatic judging is not available yet.
+  </p>
+</main>
+<script
+  src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.43.3/ace.js"
+  charset="utf-8"
+></script>
+<script src="_theme-vscode.js" charset="utf-8"></script>
+<script>
+  (function () {
+    "use strict";
+    var root = document.getElementById("cp-front");
+    if (!root) return;
+    function fieldText(element) {
+      var copy = element.cloneNode(true);
+      copy.querySelectorAll("br").forEach(function (br) {
+        br.replaceWith(document.createTextNode("\n"));
+      });
+      copy.querySelectorAll("div, p").forEach(function (block) {
+        if (
+          block.previousSibling &&
+          !/\n$/.test(block.previousSibling.textContent)
+        )
+          block.before(document.createTextNode("\n"));
+        if (block.nextSibling && !/\n$/.test(block.textContent))
+          block.appendChild(document.createTextNode("\n"));
+      });
+      return copy.textContent.replace(/\r\n?/g, "\n").replace(/\u00a0/g, " ");
+    }
+    var language = fieldText(document.getElementById("cp-language"))
+      .trim()
+      .toLowerCase();
+    var key = JSON.stringify([
+      fieldText(document.getElementById("cp-title")),
+      fieldText(document.getElementById("cp-description")),
+      language,
+    ]);
+    var input = document.getElementById("cp-input");
+    input.value = fieldText(document.getElementById("cp-starter"));
+    var status = document.getElementById("cp-save-status");
+    function save(value) {
+      if (!root.isConnected) return;
+      try {
+        sessionStorage.setItem(
+          "coding_practice_answer",
+          JSON.stringify({ key: key, code: value }),
+        );
+        status.textContent =
+          "Your solution is saved for the answer side of this review.";
+      } catch (error) {
+        status.textContent =
+          "Answer storage unavailable. Your solution may not appear on the back.";
+      }
+    }
+    try {
+      sessionStorage.removeItem("coding_practice_answer");
+    } catch (error) {}
+    input.addEventListener("input", function () {
+      save(input.value);
+    });
+    var data = document.getElementById("cp-examples-data");
+    if (data) {
+      var examples = document.getElementById("cp-examples");
+      try {
+        var items = JSON.parse(fieldText(data));
+        if (
+          !Array.isArray(items) ||
+          !items.length ||
+          !items.every(function (item) {
+            return (
+              item &&
+              typeof item.input === "string" &&
+              typeof item.output === "string"
+            );
+          })
+        )
+          throw new Error("Invalid examples");
+        items.forEach(function (item, index) {
+          var box = document.createElement("div");
+          box.className = "cp-example cp-grid";
+          ["input", "output"].forEach(function (name) {
+            var column = document.createElement("div");
+            var heading = document.createElement("h3");
+            heading.textContent =
+              "Example " +
+              (index + 1) +
+              " · " +
+              (name === "input" ? "Input" : "Expected Output");
+            var code = document.createElement("pre");
+            code.textContent = item[name];
+            column.appendChild(heading);
+            column.appendChild(code);
+            box.appendChild(column);
+          });
+          examples.appendChild(box);
+        });
+      } catch (error) {
+        examples.textContent =
+          "Invalid Examples field. Use a JSON array with input and output strings.";
+      }
+    }
+    var modes = {
+      python: "python",
+      py: "python",
+      javascript: "javascript",
+      js: "javascript",
+      typescript: "typescript",
+      ts: "typescript",
+      c: "c_cpp",
+      cpp: "c_cpp",
+      "c++": "c_cpp",
+      java: "java",
+      "c#": "csharp",
+      csharp: "csharp",
+      go: "golang",
+      rust: "rust",
+      ruby: "ruby",
+      php: "php",
+      kotlin: "kotlin",
+      swift: "swift",
+      lua: "lua",
+      sql: "sql",
+      bash: "sh",
+    };
+    var container = document.getElementById("cp-editor");
+    var editor;
+    try {
+      container.hidden = false;
+      editor = ace.edit(container);
+      editor.setTheme("ace/theme/vscode");
+      editor.session.setUseWorker(false);
+      editor.session.setMode("ace/mode/" + (modes[language] || "text"));
+      editor.setOptions({
+        fontSize: "16px",
+        fontFamily: "CodingMono, monospace",
+        showPrintMargin: false,
+        tabSize: 4,
+        useSoftTabs: true,
+      });
+      editor.setValue(input.value, -1);
+      editor.on("change", function () {
+        input.value = editor.getValue();
+        save(input.value);
+      });
+      input.hidden = true;
+      editor.resize();
+    } catch (error) {
+      if (editor) editor.destroy();
+      container.hidden = true;
+      input.hidden = false;
+    }
+  })();
+</script>

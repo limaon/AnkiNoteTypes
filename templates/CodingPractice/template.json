@@ -1,0 +1,19 @@
+{
+  "modelName": "CodingPractice",
+  "inOrderFields": [
+    "Title",
+    "Description",
+    "Language",
+    "Input Format",
+    "Output Format",
+    "Constraints",
+    "Examples",
+    "Hint",
+    "Starter Code",
+    "Test Cases",
+    "Solution",
+    "Explanation",
+    "Source"
+  ],
+  "cardTemplates": ["Card 1"]
+}
