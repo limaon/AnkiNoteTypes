@@ -51,6 +51,13 @@
   --input-padding: 4px 10px;
   /* Typography */
   --input-letter-spacing: 0.8px;
+  /* Mobile typography and spacing */
+  --mobile-font-size-regular: 18px;
+  --mobile-field-margin: 0.2em 0.35em 0.4em;
+  --mobile-front-padding: 0 0.25em;
+  --mobile-answer-margin: 0.6em;
+  --mobile-terminal-padding: 0.6em;
+  --mobile-terminal-gap: 0.4em;
 }
 
 /* Dark mode - complete selectors for cross-platform support */
@@ -647,18 +654,35 @@ code#typeans {
 }
 
 @media (max-width: 600px) {
+  .prettify-flashcard {
+    font-size: var(--mobile-font-size-regular);
+  }
+
+  .prettify-flashcard .prettify-field--front {
+    margin: var(--mobile-field-margin);
+    padding: var(--mobile-front-padding);
+    text-align: var(--card-text-align);
+  }
+
+  .prettify-flashcard .prettify-field--back {
+    margin: var(--mobile-answer-margin);
+  }
+
   .typeans-container {
-    padding: 0.6em;
+    padding: var(--mobile-terminal-padding);
   }
 
   .terminal-line-anki {
-    align-items: stretch;
-    flex-wrap: wrap;
-    gap: 0.4em;
+    align-items: center;
+    justify-content: flex-start;
+    flex-wrap: nowrap;
+    gap: var(--mobile-terminal-gap);
+    text-align: left;
   }
 
   .terminal-prompt-anki {
-    width: 100%;
+    width: auto;
+    text-align: left;
   }
 
   #typeans {

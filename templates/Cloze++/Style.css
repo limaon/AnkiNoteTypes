@@ -3,6 +3,7 @@
   --card-max-width: 50em;
   --card-text-align: left;
   --font-size-regular: 20px;
+  --font-size-back: 18px;
   --font-size-small: 16px;
   --font-size-smallest: 12px;
   --font-family:
@@ -112,7 +113,7 @@
   max-width: var(--card-max-width);
   text-align: var(--card-text-align);
   word-wrap: break-word;
-  letter-spacing: 0.1px;
+  letter-spacing: normal;
 }
 
 .prettify-flashcard::selection {
@@ -123,8 +124,7 @@
 .prettify-field {
   margin: 0.4em 0.8em 0.8em 0.8em;
   /*margin: 0.6em 1.20em 1.60em 1.20em;*/
-  text-align: justify;
-  text-justify: inter-word;
+  text-align: var(--card-text-align);
 }
 
 .mobile .prettify-field {
@@ -154,8 +154,8 @@
 }
 
 .prettify-field--back {
-  color: var(--text-fg-faint);
-  font-size: var(--font-size-small);
+  color: var(--text-fg);
+  font-size: var(--font-size-back);
   margin: 0.6em 2.6em 1.6em 2.6em;
 }
 
