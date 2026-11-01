@@ -56,7 +56,9 @@
   <!-- Your Solution (Ace Editor) -->
   <div class="typing-section">
     <h2>Your Solution</h2>
-    <!-- Ace Editor Container - Vazio (para digitação) -->
+    <!-- Optional initial code, read before initializing the editor -->
+    <div id="starter-code" hidden>{{Starter Code}}</div>
+    <!-- Ace Editor Container -->
     <div id="ace-editor-type" class="ace-editor-container"></div>
     <!-- Hidden textarea para Anki -->
     <textarea id="typeans" name="typeans" style="display: none"></textarea>
@@ -434,12 +436,48 @@
       return;
     }
 
+    // Decode Anki field HTML using the same line-break rules as the solution.
+    var source = document.getElementById("starter-code").cloneNode(true);
+    source.querySelectorAll("br").forEach(function (br) {
+      br.replaceWith(document.createTextNode("\n"));
+    });
+    source.querySelectorAll("div, p").forEach(function (block) {
+      if (
+        block.previousSibling &&
+        !/\n$/.test(block.previousSibling.textContent)
+      ) {
+        block.parentNode.insertBefore(document.createTextNode("\n"), block);
+      }
+      if (block.nextSibling && !/\n$/.test(block.textContent)) {
+        block.appendChild(document.createTextNode("\n"));
+      }
+    });
+    var starterCode = source.textContent
+      .replace(/\r\n?/g, "\n")
+      .replace(/\u00a0/g, " ");
+    typeansField.value = starterCode;
+    try {
+      sessionStorage.removeItem("input_transfer_front");
+    } catch (storageError) {}
+
+    function saveAnswer(content) {
+      try {
+        // An untouched starter is a reading-only review, not an attempt.
+        if (content === starterCode) {
+          sessionStorage.removeItem("input_transfer_front");
+        } else {
+          sessionStorage.setItem("input_transfer_front", content);
+        }
+      } catch (storageError) {}
+    }
+
     try {
       // Get language (usar Language do template)
       var language = "{{Language}}" || "text";
 
       // Initialize editor
       var editor = ace.edit("ace-editor-type");
+      editor.setValue(starterCode, -1);
 
       // Enable autocompletion plugin
       ace.require("ace/ext/language_tools");
@@ -489,9 +527,7 @@
         function saveInput() {
           if (!editorContainer.isConnected) return;
           var content = editor.getValue();
-          try {
-            sessionStorage.setItem("input_transfer_front", content);
-          } catch (error) {}
+          saveAnswer(content);
           textarea.value = content; // Sincronizar
         }
 
@@ -645,9 +681,7 @@
         sessionStorage.removeItem("input_transfer_front");
       } catch (storageError) {}
       typeansField.addEventListener("input", function () {
-        try {
-          sessionStorage.setItem("input_transfer_front", typeansField.value);
-        } catch (storageError) {}
+        saveAnswer(typeansField.value);
       });
     }
   })();

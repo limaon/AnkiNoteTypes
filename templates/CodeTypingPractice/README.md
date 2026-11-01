@@ -26,6 +26,7 @@ An advanced Anki note type designed for practicing code typing and memorization 
 - **Description** - The problem statement or exercise description
 - **Language** - The programming language (e.g., "python", "javascript", "java", etc.)
 - **Code** - The solution code to be memorized
+- **Starter Code** - Optional initial code loaded into the Card 2_TYPE editor; leave empty to start blank
 - **Hint** - Optional field for code hints (displayed in collapsible section)
 - **Further Description** - Optional field for additional context or expected output
 - **Subdeck** - Optional field for organizing cards by subcategory
@@ -51,3 +52,11 @@ An advanced Anki note type designed for practicing code typing and memorization 
 6. Optionally specify a subdeck in the **Subdeck** field
 
 **Card 1** is ideal for quick code review, while **Card 2_TYPE** provides hands-on typing practice with immediate feedback. Perfect for learning programming syntax, algorithms, and code patterns through active recall.
+
+## Initial code (Starter Code)
+
+For an existing Anki note type, add a field named **Starter Code** after **Source**, then update the **Card 2_TYPE front template** from this repository. Updating `template.json` alone does not add the field in Anki.
+
+Fill **Starter Code** with a function signature, imports, or a partial solution. Each new front loads this initial code, including in the plain-textarea fallback. **Code** remains the complete expected answer used for comparison. Revealing the answer with the starter unchanged shows the solution without correction marks; editing it enables the existing comparison of the entire answer against **Code**.
+
+Literal newlines and Anki `<br>`/`<div>`/`<p>` line breaks are supported. When editing the field's raw HTML, escape code characters such as `<`, `>` and `&` as `&lt;`, `&gt;` and `&amp;`.

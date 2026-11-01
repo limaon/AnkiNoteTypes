@@ -6,8 +6,8 @@
     "Code",
     "Language",
     "Further Description",
-    "Source"
+    "Source",
+    "Starter Code"
   ],
-  "cardTemplates": ["Card 1", "Card 2_TYPE"]
+  "cardTemplates": ["Card 2_TYPE", "Card 1"]
 }
-
