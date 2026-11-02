@@ -4,6 +4,7 @@ An advanced Anki note type designed for practicing code typing and memorization 
 
 ## Features
 
+- **ChatGPT explanation link** - Both card backs include “ChatGPT · Explain Code”, even without Source. It requests a temporary chat with a Portuguese prompt containing Description, Language, and Code, asking for a line-by-line explanation, syntax concepts, and expected output. It sends the reference code rather than the typed answer, using a URL rather than an API; long exercises may exceed practical URL limits.
 - **Two card types**:
   - **Card 1**: Simple code display with syntax highlighting
   - **Card 2_TYPE**: Interactive typing practice with live code editor

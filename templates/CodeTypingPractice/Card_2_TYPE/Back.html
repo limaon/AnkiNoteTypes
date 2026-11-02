@@ -148,13 +148,13 @@
       {{/Source}}
       <a
         id="chatgpt-explain-code"
-        href="https://chatgpt.com/"
+        href="https://chatgpt.com/?temporary-chat=true"
         target="_blank"
         rel="noopener noreferrer"
         class="footer-link"
         title="Explain this code with ChatGPT"
       >
-        ChatGPT
+        ChatGPT · Explain Code
       </a>
     </div>
   </div>
@@ -466,7 +466,9 @@
         language +
         "\n\nCódigo:\n" +
         correctCode;
-      explainLink.href = "https://chatgpt.com/?temporary-chat=true&q=" + encodeURIComponent(prompt);
+      explainLink.href =
+        "https://chatgpt.com/?temporary-chat=true&q=" +
+        encodeURIComponent(prompt);
     }
 
     // ============================================

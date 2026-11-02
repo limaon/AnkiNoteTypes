@@ -42,10 +42,10 @@
   {{/Further Description}}
 
   <!-- Source (Conditional) -->
-  {{#Source}}
   <div class="footer">
     <div class="footer-links">
       <span class="footer-links-label">Learn More:</span>
+      {{#Source}}
       <a
         href="https://www.youtube.com/results?search_query={{Source}}"
         target="_blank"
@@ -73,15 +73,54 @@
         DuckDuckGo
       </a>
       <span class="footer-link-separator">|</span>
+      {{/Source}}
       <a
-        href="https://chatgpt.com/?temporary-chat=true&q={{Source}}"
+        id="chatgpt-explain-code"
+        href="https://chatgpt.com/?temporary-chat=true"
         target="_blank"
+        rel="noopener noreferrer"
         class="footer-link"
-        title="Search on DuckDuckGo"
+        title="Explain this code with ChatGPT"
       >
-        ChatGPT
+        ChatGPT · Explain Code
       </a>
     </div>
   </div>
-  {{/Source}}
 </main>
+<div id="explain-code-source" hidden>{{Code}}</div>
+<span id="explain-code-language" hidden>{{Language}}</span>
+<script>
+  (function () {
+    function fieldText(element) {
+      var copy = element.cloneNode(true);
+      copy.querySelectorAll("br").forEach(function (br) {
+        br.replaceWith(document.createTextNode("\n"));
+      });
+      copy.querySelectorAll("div, p").forEach(function (block) {
+        if (
+          block.previousSibling &&
+          !/\n$/.test(block.previousSibling.textContent)
+        ) {
+          block.before(document.createTextNode("\n"));
+        }
+        if (block.nextSibling && !/\n$/.test(block.textContent)) {
+          block.appendChild(document.createTextNode("\n"));
+        }
+      });
+      return copy.textContent.replace(/\r\n?/g, "\n").replace(/\u00a0/g, " ");
+    }
+    var prompt =
+      "Explique em português o código abaixo, considerando o enunciado. " +
+      "Descreva o objetivo, explique cada linha e os principais conceitos de sintaxe, " +
+      "e mostre a saída esperada, quando aplicável.\n\n" +
+      "Enunciado:\n" +
+      fieldText(document.querySelector(".field-description")).trim() +
+      "\n\nLinguagem: " +
+      fieldText(document.getElementById("explain-code-language")).trim() +
+      "\n\nCódigo:\n" +
+      fieldText(document.getElementById("explain-code-source"));
+    document.getElementById("chatgpt-explain-code").href =
+      "https://chatgpt.com/?temporary-chat=true&q=" +
+      encodeURIComponent(prompt);
+  })();
+</script>
